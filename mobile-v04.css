@@ -1,0 +1,97 @@
+/* === V0.4 FINAL MOBILE UI: Zeus hero + SVG navigation + readable typography === */
+:root{
+  --ui-font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+html,body,#app{font-family:var(--ui-font);font-size:16px}
+.shell{grid-template-rows:64px minmax(0,1fr) 70px;max-width:500px}
+.app-header{grid-template-columns:54px 1fr 54px;padding:calc(7px + env(safe-area-inset-top)) 12px 7px}
+.brand span{font:800 12px/1.05 Georgia,serif;letter-spacing:2px}
+.brand strong{font:800 27px/1 Georgia,serif;letter-spacing:2.5px}
+.icon-btn{display:grid;place-items:center;width:46px;height:46px;border-radius:14px}
+.icon-btn svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.page{padding:11px 13px 9px;gap:8px}
+
+/* Home Zeus hero */
+.arena-page{gap:8px!important}
+.arena-hero-card{position:relative;height:205px;min-height:205px;overflow:hidden;border-radius:20px;border:1px solid #397dff88;background:#061426;box-shadow:0 16px 36px #0008}
+.arena-hero-card>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 24%}
+.arena-hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,#020914f2 0%,#0209148f 42%,#02091418 72%),linear-gradient(0deg,#020914ed 0%,transparent 58%)}
+.arena-hero-copy{position:absolute;left:16px;bottom:15px;width:67%;z-index:2;text-align:left}
+.arena-hero-kicker{display:inline-flex;align-items:center;padding:5px 8px;border:1px solid #e7b85b66;border-radius:999px;background:#07182bbf;color:var(--gold2);font-size:9px;font-weight:900;letter-spacing:1.25px}
+.arena-hero-copy h1{margin:6px 0 3px;font:800 23px/1.02 Georgia,serif;color:#fff;text-shadow:0 2px 10px #000}
+.arena-hero-copy p{margin:0;color:#c7d8e8;font-size:11px;line-height:1.3;font-weight:600}
+.arena-hero-countdown{position:absolute;right:12px;top:12px;z-index:2;width:86px;padding:8px 6px;border:1px solid #e7b85b66;border-radius:15px;background:#020914d9;text-align:center;backdrop-filter:blur(7px)}
+.arena-hero-countdown strong{display:block;font:800 37px/.9 Georgia,serif;color:var(--gold2)}
+.arena-hero-countdown span{display:block;font-size:11px;font-weight:800;color:#fff;margin-top:4px}
+.arena-hero-countdown small{display:block;font-size:8px;color:#91afd0;margin-top:4px;white-space:nowrap}
+
+.arena-stats .stat{padding:8px 5px;border-radius:13px}
+.arena-stats .stat span{font-size:10px;font-weight:700}
+.arena-stats .stat b{font-size:14px;margin-top:2px;display:block}
+.arena-rank-card{padding:9px 11px;border-radius:14px}
+.arena-rank-card div span{font-size:10px;font-weight:700}.arena-rank-card div b{font-size:23px}.arena-rank-card small{font-size:9px;line-height:1.25;text-align:right}
+.home-progress-card{min-height:0;flex:1;padding:9px 10px;border:1px solid #ffffff12;border-radius:14px;background:#0614268a}
+.home-section-head{margin-bottom:5px}.home-section-head h2{font-size:16px}.home-section-head button{font-size:10px;font-weight:700}
+.mini-subjects{gap:6px}.mini-sub{grid-template-columns:22px 72px 1fr 35px;gap:6px;font-size:10px;min-height:18px}.mini-sub>b{font-size:10px}.mini-sub em{font-size:9px}.mini-sub>div{height:5px}
+.arena-bottom-row{display:grid;grid-template-columns:.9fr 1.55fr;gap:7px;min-height:52px}
+.xp-card{display:flex;flex-direction:column;justify-content:center;padding:8px 10px;border:1px solid #e7b85b33;border-radius:13px;background:#0a1d32}
+.xp-label{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#a8bdd4}.xp-label b{font-size:12px;color:#fff}.xp-track{margin-top:6px;height:6px;border-radius:99px;background:#030912;overflow:hidden}.xp-track i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),#fff0b5)}
+.hero-start-btn{display:flex;align-items:center;gap:9px;border:0;border-radius:13px;padding:8px 10px;color:#fff;background:linear-gradient(110deg,#0e6df3,#4937d5);box-shadow:0 8px 20px #0d4fb44a;text-align:left}
+.hero-start-btn>span{font-size:22px}.hero-start-btn small{display:block;font-size:9px;color:#d9e7ff;font-weight:700}.hero-start-btn b{display:block;font-size:11px;line-height:1.2;margin-top:2px}
+
+/* Zeus page readability */
+.zeus-hero{height:39%;min-height:220px}.zeus-hero img{object-position:center 27%}.zeus-hero span{font-size:11px}.zeus-hero h2{font-size:19px}.zeus-hero p{font-size:11px}
+.zeus-grid{gap:7px}.zeus-grid button{padding:11px 9px}.zeus-grid b{font-size:24px}.zeus-grid span{font-size:14px}.zeus-grid small{font-size:9px;line-height:1.25;margin-top:3px}
+.zeus-panel{padding:10px}.zeus-messages{font-size:10px;line-height:1.5}.chat-row input,.chat-row button{font-size:10px;padding:10px}
+
+/* Professional SVG bottom nav */
+.bottom-nav{padding:4px 5px max(4px,env(safe-area-inset-bottom));gap:2px}
+.bottom-nav button{position:relative;border-radius:12px;color:#7190ad;gap:3px;padding:3px 1px;transition:.15s ease}
+.bottom-nav button svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.85;stroke-linecap:round;stroke-linejoin:round}
+.bottom-nav button span{font-size:10px;font-weight:750;letter-spacing:-.1px}
+.bottom-nav button.selected{color:var(--gold2);background:linear-gradient(#e7b85b12,#e7b85b04)}
+.bottom-nav button.selected:before{content:"";position:absolute;top:0;width:24px;height:2px;border-radius:99px;background:var(--gold)}
+
+/* Final typography */
+.page-title span,.smartnotes-head span,.quiz-top b,.review-top b,.result-kicker{font-size:10px;font-weight:850}
+.page-title h1,.section-head h2{font-family:Georgia,serif;font-size:18px}
+.page-title b{font-size:30px}
+.subject-card h3{font-size:16px}.subject-card p{font-size:10px;line-height:1.3}.subject-actions button{font-size:10px;padding:8px 9px}
+.subject-picker span{font-size:16px}.subject-picker small{font-size:10px}.subject-picker b{font-size:29px}
+.muted-copy,.fine-print,.ranking-note{font-size:10px;line-height:1.4}
+.quiz-top span,.review-top span,.question-meta{font-size:10px}.quiz-top time{font-size:12px}
+.quiz-view h2{font-size:19px;line-height:1.34}.option-btn b{font-size:12px;line-height:1.35}.option-btn>span{font-size:11px}.support-bar button,.outline-btn,.review-nav button{font-size:10px}.help-box{font-size:10px;line-height:1.4}
+.mock-card h2{font-size:21px}.mock-card p,.notice{font-size:10px;line-height:1.4}.mock-rules span{font-size:10px}
+.progress-bars>div,.ranking-meta,.province-row,.weak-card #weakTopics>div{font-size:10px}.rank-box span,.rank-box small{font-size:10px}.ranking-head span{font-size:9px}
+.smartnote-tabs button{font-size:9px}.smartnote-card h2{font-size:18px}.smartnote-kicker,.smartnote-block b{font-size:10px}.smartnote-block p{font-size:11px;line-height:1.4}
+.result-stats span{font-size:10px}.earned-xp span,.earned-xp b{font-size:13px}.review-option,.solution-box{font-size:10px;line-height:1.4}
+
+@media(max-height:760px){
+  .shell{grid-template-rows:60px minmax(0,1fr) 66px}
+  .page{padding:9px 11px 7px;gap:7px}
+  .arena-hero-card{height:182px;min-height:182px}.arena-hero-copy h1{font-size:20px}.arena-hero-copy p{font-size:10px}.arena-hero-countdown strong{font-size:32px}
+  .arena-stats .stat{padding:6px 4px}.arena-stats .stat span{font-size:9px}.arena-stats .stat b{font-size:12px}
+  .home-progress-card{padding:7px 9px}.mini-subjects{gap:4px}.mini-sub{min-height:15px}
+  .arena-bottom-row{min-height:48px}.hero-start-btn b{font-size:10px}
+  .bottom-nav button svg{width:22px;height:22px}.bottom-nav button span{font-size:9px}
+  .zeus-hero{min-height:190px;height:35%}.zeus-hero h2{font-size:17px}.zeus-grid span{font-size:13px}.zeus-grid small{font-size:8px}
+}
+@media(max-height:660px){
+  .shell{grid-template-rows:56px minmax(0,1fr) 62px}
+  .app-header{padding:calc(4px + env(safe-area-inset-top)) 10px 4px}.brand span{font-size:10px}.brand strong{font-size:23px}.icon-btn{height:40px}
+  .arena-hero-card{height:158px;min-height:158px}.arena-hero-copy{bottom:10px;left:12px}.arena-hero-kicker{font-size:8px;padding:4px 7px}.arena-hero-copy h1{font-size:18px;margin:4px 0 2px}.arena-hero-copy p{font-size:9px}.arena-hero-countdown{width:76px;padding:6px}.arena-hero-countdown strong{font-size:28px}.arena-hero-countdown small{font-size:7px}
+  .arena-rank-card{padding:7px 9px}.arena-rank-card div b{font-size:20px}.arena-rank-card div span,.arena-rank-card small{font-size:8px}
+  .home-section-head h2{font-size:14px}.home-section-head button{font-size:8px}.mini-sub{font-size:9px;grid-template-columns:18px 62px 1fr 30px}.mini-sub>b{font-size:9px}.mini-sub em{font-size:8px}
+  .arena-bottom-row{min-height:43px}.xp-card{padding:6px 8px}.hero-start-btn{padding:6px 8px}.hero-start-btn>span{font-size:18px}.hero-start-btn small{font-size:8px}.hero-start-btn b{font-size:9px}
+  .bottom-nav button svg{width:21px;height:21px}.bottom-nav button span{font-size:8.5px}
+  .zeus-hero{min-height:165px;height:32%}.zeus-grid button{padding:8px}.zeus-grid b{font-size:20px}.zeus-grid span{font-size:12px}.zeus-grid small{font-size:8px}.zeus-messages,.chat-row input,.chat-row button{font-size:9px}
+}
+
+/* V0.4 cover branding */
+.cover img{object-position:center 24%;filter:saturate(1.05) contrast(1.05)}
+.cover-overlay{position:absolute;inset:0;background:linear-gradient(180deg,#02091438 0%,#02091415 38%,#020914ee 78%,#020914 100%)}
+.cover-branding{position:absolute;z-index:2;left:20px;right:20px;bottom:100px;text-align:center;text-shadow:0 3px 18px #000}
+.cover-branding span{display:block;font:800 18px/1 Georgia,serif;color:var(--gold2);letter-spacing:4px}
+.cover-branding strong{display:block;margin-top:5px;font:800 42px/.95 Georgia,serif;color:#72b7ff;letter-spacing:5px}
+.cover-branding em{display:block;margin-top:12px;font-style:normal;font-size:11px;font-weight:900;color:#fff;letter-spacing:2.5px}
+.cover-skip{z-index:3;font-size:12px;padding:12px 24px}
