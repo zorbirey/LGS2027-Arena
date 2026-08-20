@@ -1,0 +1,51 @@
+/* LGS Arena V1.0 — HQ Zeus, face-safe hero crop, stronger screenshot watermark */
+.cover>img{
+  object-fit:cover!important;
+  object-position:center center!important;
+  image-rendering:auto!important;
+  filter:saturate(1.12) contrast(1.05) brightness(.97)!important;
+}
+.arena-hero-card img{
+  object-fit:cover!important;
+  object-position:center top!important;
+  transform:none!important;
+  image-rendering:auto!important;
+  filter:saturate(1.10) contrast(1.05) brightness(.76)!important;
+}
+.zeus-hero img{
+  object-fit:cover!important;
+  object-position:center top!important;
+  transform:none!important;
+  image-rendering:auto!important;
+  filter:saturate(1.10) contrast(1.05) brightness(.82)!important;
+}
+.global-zeus-watermark{
+  position:fixed!important;
+  left:50%!important;
+  top:54%!important;
+  width:min(88vw,480px)!important;
+  height:auto!important;
+  max-height:66vh!important;
+  transform:translate(-50%,-50%)!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  opacity:.20!important;
+  filter:saturate(1.03) contrast(1.08) brightness(.78) drop-shadow(0 0 32px rgba(45,127,255,.22))!important;
+  mix-blend-mode:normal!important;
+  z-index:4!important;
+  pointer-events:none!important;
+  user-select:none!important;
+  -webkit-user-drag:none!important;
+}
+.page-host{position:relative!important;z-index:3!important}
+.app-header,.bottom-nav{position:relative!important;z-index:7!important}
+.toast,.modal,.ad-overlay{z-index:20!important}
+.zeus-avatar-btn{position:relative!important;z-index:8!important}
+/* Keep foreground copy crisp while Zeus remains visible behind it. */
+.page>*:not(.global-zeus-watermark){position:relative;z-index:5}
+.arena-hero-card,.zeus-hero{overflow:hidden!important}
+.arena-hero-card .arena-hero-overlay{background:linear-gradient(180deg,rgba(2,9,20,.02) 0%,rgba(2,9,20,.18) 42%,rgba(2,9,20,.88) 100%)!important}
+@media(max-height:700px){
+  .global-zeus-watermark{width:min(84vw,430px)!important;opacity:.18!important;top:53%!important}
+  .arena-hero-card img,.zeus-hero img{object-position:center top!important}
+}
