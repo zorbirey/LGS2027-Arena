@@ -1,54 +1,192 @@
 <!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#07111f" />
-  <meta name="description" content="LGS 2027 Arena - Inspired from Zeus" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#050b18">
+  <meta name="application-name" content="LGS 2027 Arena">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="LGS Arena">
+  <meta name="format-detection" content="telephone=no">
   <title>LGS 2027 Arena</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="assets/zeus-cover.svg">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="app" class="app-shell">
-    <section id="splash" class="splash" aria-label="LGS 2027 Arena kapak">
-      <img src="assets/lgs-cover.webp" onerror="this.onerror=null;this.src='assets/zeus-cover.svg'" alt="LGS 2027 Arena Inspired from Zeus kapak görseli" />
-      <div class="splash-shade"></div>
-      <button id="enterBtn" class="enter-btn">ARENAYA GİR</button>
-    </section>
+<div id="app">
+  <section id="cover" class="cover active" aria-label="LGS 2027 Arena Inspired From Zeus kapak ekranı">
+    <img src="assets/zeus-cover.svg" alt="LGS 2027 Arena Inspired From Zeus">
+    <button id="skipCover" class="cover-skip">Devam et</button>
+  </section>
 
-    <main id="mainApp" class="main-app hidden">
-      <header class="topbar">
-        <button class="icon-btn" id="menuBtn" aria-label="Menü">☰</button>
-        <div class="brand-mini">
-          <span class="brand-kicker">LGS <span id="brandYear">2027</span></span>
-          <strong>ARENA</strong>
+  <section id="shell" class="shell hidden">
+    <header class="app-header">
+      <button id="menuBtn" class="icon-btn" aria-label="Menü">☰</button>
+      <div class="brand"><span>LGS 2027</span><strong>ARENA</strong></div>
+      <button id="bellBtn" class="icon-btn" aria-label="Bildirimler">◉</button>
+    </header>
+
+    <main id="pageHost" class="page-host">
+      <section class="page active" data-page="arena">
+        <div class="countdown-card">
+          <div class="countdown-label">13 Haziran 2027'ye</div>
+          <div class="countdown-main"><strong id="daysLeft">297</strong><span>gün kaldı</span></div>
+          <div id="clockLeft" class="countdown-sub">00 saat · 00 dakika · 00 saniye</div>
         </div>
-        <button class="icon-btn premium-btn" id="premiumBtn" aria-label="Premium">♛</button>
-      </header>
 
-      <section id="screen-arena" class="screen active"></section>
-      <section id="screen-zeus" class="screen"></section>
-      <section id="screen-lessons" class="screen"></section>
-      <section id="screen-quiz" class="screen"></section>
-      <section id="screen-results" class="screen"></section>
+        <div class="stat-grid three">
+          <div class="stat"><span>Günlük Hedef</span><b id="dailyProgress">0 / 25</b></div>
+          <div class="stat"><span>Seri</span><b id="streakValue">1 gün</b></div>
+          <div class="stat"><span>Seviye</span><b id="levelValue">1</b></div>
+        </div>
 
-      <nav class="bottom-nav" aria-label="Ana navigasyon">
-        <button data-screen="arena" class="nav-item active"><span>⌂</span><small>Arena</small></button>
-        <button data-screen="zeus" class="nav-item"><span>⚡</span><small>Zeus</small></button>
-        <button data-screen="lessons" class="nav-item"><span>▤</span><small>Dersler</small></button>
-        <button data-screen="quiz" class="nav-item"><span>✦</span><small>Soru Çöz</small></button>
-        <button data-screen="results" class="nav-item"><span>▥</span><small>Sonuçlar</small></button>
-      </nav>
+        <div class="xp-line"><span>XP</span><div><i id="xpBar"></i></div><b id="xpValue">0</b></div>
+
+        <button class="arena-rank-card" data-nav="progress" aria-label="Türkiye ve il sıralamasını aç">
+          <div><span>🇹🇷 Türkiye</span><b id="arenaTurkeyRank">—</b></div>
+          <i></i>
+          <div><span id="arenaProvinceLabel">İstanbul</span><b id="arenaProvinceRank">—</b></div>
+          <small><strong id="arenaSolvedCount">0</strong> benzersiz soru</small>
+        </button>
+
+        <div class="section-head"><h2>Ders İlerlemen</h2><button data-nav="progress">Detay</button></div>
+        <div id="arenaSubjects" class="mini-subjects"></div>
+
+        <div class="daily-card">
+          <div><span>Bugünkü Hedef</span><b id="dailyMission">Matematikten 10 soru çöz</b></div>
+          <button id="quickStart">⚡ Çalışmaya Başla</button>
+        </div>
+      </section>
+
+      <section class="page" data-page="zeus">
+        <div class="zeus-hero">
+          <img src="assets/zeus-cover.svg" alt="Zeus">
+          <div><span>ZEUS</span><h2>“Disiplin, bilgiyi zafere taçlandırır.”</h2><p id="zeusSummary">Bugünkü planını hazırlıyorum.</p></div>
+        </div>
+        <div class="zeus-grid">
+          <button data-zeus-action="plan"><b>▣</b><span>Bugünkü Plan</span><small>Kişisel çalışma rotası</small></button>
+          <button data-zeus-action="ask"><b>⚡</b><span>Zeus'a Sor</span><small>Demo rehberlik</small></button>
+          <button data-zeus-action="weak"><b>◎</b><span>Zayıf Konular</span><small>Gelişim alanların</small></button>
+          <button data-zeus-action="test"><b>ϟ</b><span>Beni Sına</span><small>10 soruluk hızlı test</small></button>
+        </div>
+        <div id="zeusPanel" class="zeus-panel">
+          <div id="zeusMessages" class="zeus-messages"><p><b>Zeus:</b> Hoş geldin. Önce birkaç soru çöz; performansına göre sana daha iyi öneriler sunacağım.</p></div>
+          <div class="chat-row"><input id="zeusInput" maxlength="120" placeholder="Zeus'a bir şey sor..."><button id="zeusSend">Gönder</button></div>
+        </div>
+      </section>
+
+      <section class="page" data-page="subjects">
+        <div class="page-title"><div><span>DERSLER</span><h1>30'ar soruluk demo havuzları</h1></div><b>150</b></div>
+        <div id="subjectCards" class="subject-cards"></div>
+      </section>
+
+      <section class="page" data-page="smartnotes">
+        <div class="smartnotes-head">
+          <button id="smartNotesBack" class="back-btn" aria-label="Derslere dön">‹</button>
+          <div><span>AKILLI NOTLAR</span><h1 id="smartNotesSubjectTitle">Fen Bilimleri</h1></div>
+          <b id="smartNotesCounter">1 / 6</b>
+        </div>
+        <div id="smartNoteSubjectTabs" class="smartnote-tabs"></div>
+        <article class="smartnote-card">
+          <div class="smartnote-kicker"><span id="smartNoteTopic">Konu</span><em id="smartNoteType">Kritik Bilgi</em></div>
+          <h2 id="smartNoteTitle">Akıllı not yükleniyor</h2>
+          <div class="smartnote-block concept"><b>Kavram</b><p id="smartNoteConcept"></p></div>
+          <div class="smartnote-block attention"><b>Dikkat</b><p id="smartNoteAttention"></p></div>
+          <div class="smartnote-block example"><b>Örnek</b><p id="smartNoteExample"></p></div>
+        </article>
+        <div class="smartnote-nav">
+          <button id="prevSmartNote" class="outline-btn">‹ Önceki</button>
+          <button id="smartNotePractice" class="primary-btn">10 Soru Çöz</button>
+          <button id="nextSmartNote" class="outline-btn">Sonraki ›</button>
+        </div>
+      </section>
+
+      <section class="page" data-page="solve">
+        <div id="solveLauncher" class="launcher">
+          <div class="page-title"><div><span>SORU ÇÖZME</span><h1>Dersini seç</h1></div><b>10</b></div>
+          <p class="muted-copy">Aynı soru, havuz bitmeden yeniden gösterilmez. Çalışma modunda ipucu ve çözüm desteği kullanılabilir.</p>
+          <div id="solveSubjects" class="subject-picker"></div>
+        </div>
+        <div id="quizView" class="quiz-view hidden">
+          <div class="quiz-top"><button id="quitQuiz" class="back-btn">‹</button><div><b id="quizModeLabel">ÇALIŞMA</b><span id="questionCounter">1 / 10</span></div><time id="questionTimer">01:30</time></div>
+          <div class="quiz-progress"><i id="quizProgress"></i></div>
+          <div class="question-meta"><span id="questionSubject">Fen</span><span id="questionDifficulty">Orta</span></div>
+          <h2 id="questionText">Soru yükleniyor</h2>
+          <div id="optionList" class="option-list"></div>
+          <div id="supportBar" class="support-bar">
+            <button id="hintBtn">💡 İpucu</button>
+            <button id="solutionBtn">◉ Çözümü Göster</button>
+            <button id="askZeusBtn">⚡ Zeus'a Sor</button>
+          </div>
+          <div id="helpBox" class="help-box hidden"></div>
+          <button id="nextBtn" class="primary-btn">Sonraki</button>
+        </div>
+      </section>
+
+      <section class="page" data-page="mock">
+        <div class="mock-card">
+          <div class="mock-ring"><span>20</span><small>SORU</small></div>
+          <div><span>DEMO DENEME</span><h2>LGS Arena Karma Mini Deneme</h2><p>5 ders · her dersten 4 soru · sonuç sonunda açıklanır</p></div>
+        </div>
+        <div class="mock-rules">
+          <div><b>30 dk</b><span>Süre</span></div><div><b>4</b><span>Seçenek</span></div><div><b>0</b><span>Anlık geri bildirim</span></div>
+        </div>
+        <div class="notice"><b>HMGS mantığı:</b> Ücretsiz planda deneme sonunda reklam simülasyonu, reklamsız planda doğrudan sonuç ekranı.</div>
+        <button id="startMock" class="primary-btn big">Mini Denemeyi Başlat</button>
+      </section>
+
+      <section class="page" data-page="progress">
+        <div class="page-title"><div><span>İLERLEME</span><h1>Performansın</h1></div><b id="overallPct">0%</b></div>
+        <div id="progressBars" class="progress-bars"></div>
+        <section class="ranking-card" aria-label="Arena sıralaması">
+          <div class="section-head ranking-head"><h2>Arena Sıralaması</h2><span>çözülen benzersiz sorulara göre</span></div>
+          <div class="rank-grid">
+            <div class="rank-box"><span>🇹🇷 Türkiye</span><b id="turkeyRank">—</b><small id="turkeyRankTotal">/ 250.000</small></div>
+            <div class="rank-box"><span id="provinceRankLabel">İstanbul</span><b id="provinceRank">—</b><small id="provinceRankTotal">/ 42.000</small></div>
+          </div>
+          <div class="ranking-meta"><span><b id="rankSolvedCount">0</b> benzersiz soru çözüldü</span><span>Doğruluk <b id="rankAccuracy">0%</b></span></div>
+          <label class="province-row"><span>İl sıralaması</span><select id="provinceSelect" aria-label="İl seç"></select></label>
+          <p class="ranking-note">Demo sürümünde sıralama örnek kullanıcı dağılımıyla simüle edilir. Gerçek sürümde yalnızca benzersiz çözülen sorular sayılır; soru geçmişini sıfırlamak sıralamayı yükseltmez.</p>
+        </section>
+        <div class="weak-card"><div class="section-head"><h2>Zayıf Konular</h2><span>son çözümler</span></div><div id="weakTopics"></div></div>
+        <div class="plan-card"><div><span>Demo Planı</span><b id="planText">Ücretsiz</b></div><button id="togglePlan">Reklamsız akışı önizle</button></div>
+        <p class="fine-print">Bu anahtar yalnızca reklam akışını test etmek içindir. Gerçek paket adı ve fiyatlandırma HMGS Arena ile aynı ürün kuralları kullanılarak bağlanacaktır.</p>
+      </section>
+
+      <section id="resultPage" class="page result-page" data-page="result">
+        <div class="result-bolt">⚡</div><span class="result-kicker">ARENA TAMAMLANDI</span><h1>Sonucun</h1>
+        <div class="result-score"><b id="resultCorrect">0</b><span>/ <i id="resultTotal">10</i></span></div>
+        <div class="result-stats"><div><span>Doğru</span><b id="rCorrect">0</b></div><div><span>Yanlış</span><b id="rWrong">0</b></div><div><span>Boş</span><b id="rBlank">0</b></div><div><span>Destekli</span><b id="rAssisted">0</b></div></div>
+        <div class="earned-xp"><span>Kazanılan XP</span><b id="rXp">+0</b></div>
+        <div class="result-actions"><button id="reviewWrong" class="outline-btn">Yanlışları Tek Tek İncele</button><button id="resultHome" class="primary-btn">Arena'ya Dön</button></div>
+      </section>
+
+      <section id="reviewPage" class="page review-page" data-page="review">
+        <div class="review-top"><button id="closeReview" class="back-btn">‹</button><div><b>YANLIŞ ANALİZİ</b><span id="reviewCounter">1 / 1</span></div></div>
+        <div class="review-card"><span id="reviewTopic"></span><h2 id="reviewQuestion"></h2><div id="reviewOptions"></div><div class="solution-box"><b>Çözüm Yolu</b><p id="reviewSolution"></p></div></div>
+        <div class="review-nav"><button id="prevReview">Önceki</button><button id="nextReview">Sonraki</button></div>
+      </section>
     </main>
-  </div>
 
-  <dialog id="modal" class="modal">
-    <div id="modalContent"></div>
-    <button id="closeModal" class="secondary-btn">Kapat</button>
-  </dialog>
+    <nav id="bottomNav" class="bottom-nav">
+      <button class="selected" data-nav="arena"><b>⌂</b><span>Arena</span></button>
+      <button data-nav="zeus"><b>ϟ</b><span>Zeus</span></button>
+      <button data-nav="subjects"><b>▤</b><span>Dersler</span></button>
+      <button data-nav="solve"><b>◎</b><span>Soru Çöz</span></button>
+      <button data-nav="mock"><b>◫</b><span>Deneme</span></button>
+      <button data-nav="progress"><b>▥</b><span>İlerleme</span></button>
+    </nav>
+  </section>
 
-  <script src="fallback.js"></script>
-  <script src="data/questions.js"></script>
-  <script src="app.js"></script>
+  <div id="toast" class="toast hidden"></div>
+  <div id="modal" class="modal hidden"><div class="modal-card"><h3 id="modalTitle"></h3><p id="modalText"></p><div><button id="modalCancel" class="outline-btn">Vazgeç</button><button id="modalOk" class="primary-btn">Tamam</button></div></div></div>
+  <div id="adOverlay" class="ad-overlay hidden"><div class="ad-demo"><span>REKLAM · DEMO</span><b id="adCount">3</b><p>Gerçek sürümde bu alan HMGS Arena ile aynı reklam mantığına bağlanacak.</p></div></div>
+</div>
+<script src="data/questions.js"></script>
+<script src="app.js"></script>
+<script src="pwa.js"></script>
 </body>
 </html>
