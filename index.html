@@ -18,52 +18,40 @@
 <body>
 <div id="app">
   <section id="cover" class="cover active" aria-label="LGS 2027 Arena Inspired From Zeus kapak ekranı">
-    <img src="assets/zeus-cover.svg" alt="LGS 2027 Arena Inspired From Zeus">
-    <button id="skipCover" class="cover-skip">Devam et</button>
+    <img src="assets/zeus.webp" alt="Zeus - LGS 2027 Arena">
+    <div class="cover-overlay"></div>
+    <div class="cover-branding"><span>LGS 2027</span><strong>ARENA</strong><em>INSPIRED FROM ZEUS</em></div>
+    <button id="skipCover" class="cover-skip">ARENAYA GİR</button>
   </section>
 
   <section id="shell" class="shell hidden">
     <header class="app-header">
-      <button id="menuBtn" class="icon-btn" aria-label="Menü">☰</button>
+      <button id="menuBtn" class="icon-btn" aria-label="Menü"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <div class="brand"><span>LGS 2027</span><strong>ARENA</strong></div>
-      <button id="bellBtn" class="icon-btn" aria-label="Bildirimler">◉</button>
+      <button id="bellBtn" class="icon-btn" aria-label="Bildirimler"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></button>
     </header>
 
     <main id="pageHost" class="page-host">
-      <section class="page active" data-page="arena">
-        <div class="countdown-card">
-          <div class="countdown-label">13 Haziran 2027'ye</div>
-          <div class="countdown-main"><strong id="daysLeft">297</strong><span>gün kaldı</span></div>
-          <div id="clockLeft" class="countdown-sub">00 saat · 00 dakika · 00 saniye</div>
+      <section class="page active arena-page" data-page="arena">
+        <div class="arena-hero-card">
+          <img src="assets/zeus.webp" alt="Zeus - LGS 2027 Arena">
+          <div class="arena-hero-overlay"></div>
+          <div class="arena-hero-copy"><span class="arena-hero-kicker">ZEUS İLE LGS 2027</span><h1>Bilgi · Disiplin · Zafer</h1><p>13 Haziran 2027'ye hazırlan. Her gün biraz daha güçlen.</p></div>
+          <div class="arena-hero-countdown"><strong id="daysLeft">297</strong><span>gün</span><small id="clockLeft">00:00:00</small></div>
         </div>
-
-        <div class="stat-grid three">
+        <div class="stat-grid three arena-stats">
           <div class="stat"><span>Günlük Hedef</span><b id="dailyProgress">0 / 25</b></div>
           <div class="stat"><span>Seri</span><b id="streakValue">1 gün</b></div>
           <div class="stat"><span>Seviye</span><b id="levelValue">1</b></div>
         </div>
-
-        <div class="xp-line"><span>XP</span><div><i id="xpBar"></i></div><b id="xpValue">0</b></div>
-
-        <button class="arena-rank-card" data-nav="progress" aria-label="Türkiye ve il sıralamasını aç">
-          <div><span>🇹🇷 Türkiye</span><b id="arenaTurkeyRank">—</b></div>
-          <i></i>
-          <div><span id="arenaProvinceLabel">İstanbul</span><b id="arenaProvinceRank">—</b></div>
-          <small><strong id="arenaSolvedCount">0</strong> benzersiz soru</small>
-        </button>
-
-        <div class="section-head"><h2>Ders İlerlemen</h2><button data-nav="progress">Detay</button></div>
-        <div id="arenaSubjects" class="mini-subjects"></div>
-
-        <div class="daily-card">
-          <div><span>Bugünkü Hedef</span><b id="dailyMission">Matematikten 10 soru çöz</b></div>
-          <button id="quickStart">⚡ Çalışmaya Başla</button>
-        </div>
+        <button class="arena-rank-card" data-nav="progress" aria-label="Türkiye ve il sıralamasını aç"><div><span>🇹🇷 Türkiye</span><b id="arenaTurkeyRank">—</b></div><i></i><div><span id="arenaProvinceLabel">İstanbul</span><b id="arenaProvinceRank">—</b></div><small><strong id="arenaSolvedCount">0</strong><br>benzersiz soru</small></button>
+        <div class="home-progress-card"><div class="section-head home-section-head"><h2>Ders İlerlemen</h2><button data-nav="progress">Detayları Gör</button></div><div id="arenaSubjects" class="mini-subjects"></div></div>
+        <div class="arena-bottom-row"><div class="xp-card"><div class="xp-label"><span>XP</span><b id="xpValue">0</b></div><div class="xp-track"><i id="xpBar"></i></div></div><button id="quickStart" class="hero-start-btn"><span>⚡</span><div><small>Bugünkü Hedef</small><b id="dailyMission">Matematikten 10 soru çöz</b></div></button></div>
       </section>
 
       <section class="page" data-page="zeus">
         <div class="zeus-hero">
-          <img src="assets/zeus-cover.svg" alt="Zeus">
+          <img src="assets/zeus.webp" alt="Zeus">
           <div><span>ZEUS</span><h2>“Disiplin, bilgiyi zafere taçlandırır.”</h2><p id="zeusSummary">Bugünkü planını hazırlıyorum.</p></div>
         </div>
         <div class="zeus-grid">
@@ -143,10 +131,7 @@
         <div id="progressBars" class="progress-bars"></div>
         <section class="ranking-card" aria-label="Arena sıralaması">
           <div class="section-head ranking-head"><h2>Arena Sıralaması</h2><span>çözülen benzersiz sorulara göre</span></div>
-          <div class="rank-grid">
-            <div class="rank-box"><span>🇹🇷 Türkiye</span><b id="turkeyRank">—</b><small id="turkeyRankTotal">/ 250.000</small></div>
-            <div class="rank-box"><span id="provinceRankLabel">İstanbul</span><b id="provinceRank">—</b><small id="provinceRankTotal">/ 42.000</small></div>
-          </div>
+          <div class="rank-grid"><div class="rank-box"><span>🇹🇷 Türkiye</span><b id="turkeyRank">—</b><small id="turkeyRankTotal">/ 250.000</small></div><div class="rank-box"><span id="provinceRankLabel">İstanbul</span><b id="provinceRank">—</b><small id="provinceRankTotal">/ 42.000</small></div></div>
           <div class="ranking-meta"><span><b id="rankSolvedCount">0</b> benzersiz soru çözüldü</span><span>Doğruluk <b id="rankAccuracy">0%</b></span></div>
           <label class="province-row"><span>İl sıralaması</span><select id="provinceSelect" aria-label="İl seç"></select></label>
           <p class="ranking-note">Demo sürümünde sıralama örnek kullanıcı dağılımıyla simüle edilir. Gerçek sürümde yalnızca benzersiz çözülen sorular sayılır; soru geçmişini sıfırlamak sıralamayı yükseltmez.</p>
@@ -171,13 +156,13 @@
       </section>
     </main>
 
-    <nav id="bottomNav" class="bottom-nav">
-      <button class="selected" data-nav="arena"><b>⌂</b><span>Arena</span></button>
-      <button data-nav="zeus"><b>ϟ</b><span>Zeus</span></button>
-      <button data-nav="subjects"><b>▤</b><span>Dersler</span></button>
-      <button data-nav="solve"><b>◎</b><span>Soru Çöz</span></button>
-      <button data-nav="mock"><b>◫</b><span>Deneme</span></button>
-      <button data-nav="progress"><b>▥</b><span>İlerleme</span></button>
+    <nav id="bottomNav" class="bottom-nav" aria-label="Ana menü">
+      <button class="selected" data-nav="arena" aria-label="Arena"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 10v10h13V10M9 20v-6h6v6"/></svg><span>Arena</span></button>
+      <button data-nav="zeus" aria-label="Zeus"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m13.5 2-8 11h6l-1 9 8-12h-6z"/></svg><span>Zeus</span></button>
+      <button data-nav="subjects" aria-label="Dersler"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v17H7.5A3.5 3.5 0 0 0 4 22zM20 5.5A3.5 3.5 0 0 0 16.5 2H13v17h3.5A3.5 3.5 0 0 1 20 22z"/></svg><span>Dersler</span></button>
+      <button data-nav="solve" aria-label="Soru Çöz"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2V0M12 24v-2M2 12H0M24 12h-2"/></svg><span>Soru Çöz</span></button>
+      <button data-nav="mock" aria-label="Deneme"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3V1h6v2M8 8h8M8 12h8M8 16h5"/></svg><span>Deneme</span></button>
+      <button data-nav="progress" aria-label="İlerleme"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>İlerleme</span></button>
     </nav>
   </section>
 
