@@ -1,15 +1,15 @@
 (() => {
   'use strict';
 
-  // V0.4 mobile UI overrides load after the base stylesheet.
   const uiStyle = document.createElement('link');
   uiStyle.rel = 'stylesheet';
-  uiStyle.href = './mobile-v04.css';
+  uiStyle.href = './mobile-v04.css?v=05';
   document.head.appendChild(uiStyle);
 
   let deferredPrompt = null;
   const isIos = () => /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
   const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
   function appToast(message) {
     const el = document.getElementById('toast');
     if (!el) return;
@@ -18,6 +18,7 @@
     clearTimeout(window.__pwaToastTimer);
     window.__pwaToastTimer = setTimeout(() => el.classList.add('hidden'), 3600);
   }
+
   async function installApp() {
     if (isStandalone()) { appToast('LGS Arena zaten uygulama olarak çalışıyor.'); return; }
     if (deferredPrompt) {
@@ -28,10 +29,12 @@
       return;
     }
     if (isIos()) { appToast("iPhone/iPad: Safari'de Paylaş → Ana Ekrana Ekle seçeneğini kullan."); return; }
-    appToast('Tarayıcı menüsünden “Uygulamayı yükle” veya “Ana ekrana ekle” seçeneğini kullan.');
+    appToast('Chrome menüsünden “Uygulamayı yükle” seçeneğini kullan.');
   }
+
   window.addEventListener('beforeinstallprompt', event => { event.preventDefault(); deferredPrompt = event; });
   window.addEventListener('appinstalled', () => { deferredPrompt = null; appToast('LGS Arena telefona kuruldu.'); });
+
   window.addEventListener('load', () => {
     const menu = document.getElementById('menuBtn');
     if (menu) {
@@ -39,13 +42,29 @@
       menu.setAttribute('aria-label', 'LGS Arena uygulamasını yükle');
       menu.addEventListener('click', event => { event.stopImmediatePropagation(); installApp(); }, true);
     }
-    if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-      navigator.serviceWorker.register('./service-worker.js').then(reg => reg.update().catch(() => {})).catch(() => appToast('Çevrimdışı kullanım servisi bu ortamda etkinleştirilemedi.'));
+
+    const zeusAvatar = document.getElementById('bellBtn');
+    if (zeusAvatar) {
+      zeusAvatar.title = 'Zeus';
+      zeusAvatar.setAttribute('aria-label', 'Zeus');
+      zeusAvatar.addEventListener('click', event => {
+        event.stopImmediatePropagation();
+        const z = document.querySelector('#bottomNav [data-nav="zeus"]');
+        if (z) z.click();
+      }, true);
     }
+
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+      navigator.serviceWorker.register('./service-worker.js')
+        .then(reg => reg.update().catch(() => {}))
+        .catch(() => appToast('Çevrimdışı kullanım servisi bu ortamda etkinleştirilemedi.'));
+    }
+
     const hash = location.hash.replace('#', '');
     if (['arena','zeus','subjects','solve','mock','progress'].includes(hash)) {
       setTimeout(() => { const target = document.querySelector(`[data-nav="${hash}"]`); if (target) target.click(); }, 3500);
     }
   });
+
   window.LgsArenaPwa = { installApp };
 })();
