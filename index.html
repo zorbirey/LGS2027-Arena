@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#07111f" />
+  <meta name="description" content="LGS 2027 Arena - Inspired from Zeus" />
+  <title>LGS 2027 Arena</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <section id="splash" class="splash" aria-label="LGS 2027 Arena kapak">
+      <img src="assets/lgs-cover.webp" alt="LGS 2027 Arena Inspired from Zeus kapak görseli" />
+      <div class="splash-shade"></div>
+      <button id="enterBtn" class="enter-btn">ARENAYA GİR</button>
+    </section>
+
+    <main id="mainApp" class="main-app hidden">
+      <header class="topbar">
+        <button class="icon-btn" id="menuBtn" aria-label="Menü">☰</button>
+        <div class="brand-mini">
+          <span class="brand-kicker">LGS <span id="brandYear">2027</span></span>
+          <strong>ARENA</strong>
+        </div>
+        <button class="icon-btn premium-btn" id="premiumBtn" aria-label="Premium">♛</button>
+      </header>
+
+      <section id="screen-arena" class="screen active"></section>
+      <section id="screen-zeus" class="screen"></section>
+      <section id="screen-lessons" class="screen"></section>
+      <section id="screen-quiz" class="screen"></section>
+      <section id="screen-results" class="screen"></section>
+
+      <nav class="bottom-nav" aria-label="Ana navigasyon">
+        <button data-screen="arena" class="nav-item active"><span>⌂</span><small>Arena</small></button>
+        <button data-screen="zeus" class="nav-item"><span>⚡</span><small>Zeus</small></button>
+        <button data-screen="lessons" class="nav-item"><span>▤</span><small>Dersler</small></button>
+        <button data-screen="quiz" class="nav-item"><span>✦</span><small>Soru Çöz</small></button>
+        <button data-screen="results" class="nav-item"><span>▥</span><small>Sonuçlar</small></button>
+      </nav>
+    </main>
+  </div>
+
+  <dialog id="modal" class="modal">
+    <div id="modalContent"></div>
+    <button id="closeModal" class="secondary-btn">Kapat</button>
+  </dialog>
+
+  <script src="data/questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
