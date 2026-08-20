@@ -3,6 +3,7 @@ name: Deploy LGS Arena PWA to GitHub Pages
 on:
   push:
     branches:
+      - main
       - feature/pwa-live-demo
   workflow_dispatch:
 
