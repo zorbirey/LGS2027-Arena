@@ -1,0 +1,131 @@
+/* LGS 2027 Arena V0.6 — Android 16, persistent Zeus watermark, readable mobile typography */
+
+/* Global Zeus watermark: real IMG element injected by pwa.js so it is visible in screenshots */
+.global-zeus-watermark{
+  position:absolute;
+  right:-42px;
+  bottom:58px;
+  width:min(84vw,410px);
+  height:auto;
+  max-height:72%;
+  object-fit:contain;
+  object-position:center bottom;
+  opacity:.115;
+  filter:grayscale(.12) saturate(.82) brightness(1.18) contrast(1.05);
+  mix-blend-mode:screen;
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-drag:none;
+  z-index:4;
+  transform:translateZ(0);
+}
+
+/* Always-visible real Zeus portrait in the header */
+.zeus-avatar-btn{
+  overflow:hidden;
+  border:1px solid rgba(231,184,91,.62)!important;
+  background:#061426!important;
+  padding:2px!important;
+}
+.zeus-avatar-btn img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:center 21%;
+  border-radius:11px;
+}
+
+/* Countdown must never leave its hero box */
+.arena-hero-card{isolation:isolate;overflow:hidden!important}
+.arena-hero-countdown{
+  box-sizing:border-box!important;
+  top:9px!important;
+  right:9px!important;
+  width:clamp(72px,21vw,84px)!important;
+  max-width:calc(100% - 18px)!important;
+  padding:8px 5px!important;
+  overflow:hidden!important;
+  border-radius:14px!important;
+}
+.arena-hero-countdown strong{
+  font-size:34px!important;
+  line-height:.92!important;
+  white-space:nowrap;
+}
+.arena-hero-countdown span{font-size:11px!important;line-height:1.1!important}
+.arena-hero-countdown small{
+  display:block;
+  width:100%;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:clip;
+  font-size:8px!important;
+  letter-spacing:-.15px;
+}
+.arena-hero-copy{width:calc(100% - 108px)!important;max-width:68%!important}
+
+/* Bigger, readable typography without reintroducing page scrolling */
+html,body,#app{font-size:17px!important;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+.brand span{font-size:13px!important}.brand strong{font-size:29px!important}
+.page{gap:7px!important}
+.bottom-nav button span{font-size:11px!important;font-weight:800!important}
+.bottom-nav button svg{width:25px!important;height:25px!important}
+
+.arena-stats .stat span{font-size:11px!important}.arena-stats .stat b{font-size:15px!important}
+.arena-rank-card div span{font-size:11px!important}.arena-rank-card div b{font-size:24px!important}.arena-rank-card small{font-size:10px!important}
+.home-section-head h2{font-size:17px!important}.home-section-head button{font-size:11px!important}
+.mini-sub{font-size:11px!important;grid-template-columns:22px 74px 1fr 36px!important}
+.mini-sub>b{font-size:11px!important}.mini-sub em{font-size:10px!important}
+.xp-label{font-size:11px!important}.xp-label b{font-size:13px!important}
+.hero-start-btn small{font-size:10px!important}.hero-start-btn b{font-size:12px!important}
+
+.page-title span,.smartnotes-head span,.quiz-top b,.review-top b,.result-kicker{font-size:11px!important}
+.page-title h1,.section-head h2{font-size:19px!important}
+.page-title b{font-size:31px!important}
+.muted-copy,.fine-print,.ranking-note{font-size:11px!important;line-height:1.42!important}
+
+.subject-card h3{font-size:17px!important}.subject-card p{font-size:11px!important;line-height:1.32!important}
+.subject-actions button{font-size:11px!important;padding:8px 9px!important}
+.subject-picker span{font-size:17px!important}.subject-picker small{font-size:11px!important}.subject-picker b{font-size:30px!important}
+
+.zeus-hero span{font-size:12px!important}.zeus-hero h2{font-size:20px!important}.zeus-hero p{font-size:12px!important}
+.zeus-grid span{font-size:15px!important}.zeus-grid small{font-size:10px!important;line-height:1.28!important}.zeus-grid b{font-size:25px!important}
+.zeus-messages{font-size:11px!important;line-height:1.5!important}.chat-row input,.chat-row button{font-size:11px!important}
+
+.quiz-top span,.review-top span,.question-meta{font-size:11px!important}.quiz-top time{font-size:13px!important}
+.quiz-view h2{font-size:21px!important;line-height:1.34!important}
+.option-btn b{font-size:13px!important;line-height:1.34!important}.option-btn>span{font-size:12px!important}
+.support-bar button,.outline-btn,.review-nav button{font-size:11px!important}.help-box{font-size:11px!important;line-height:1.42!important}
+
+.mock-card h2{font-size:22px!important}.mock-card p,.notice{font-size:11px!important;line-height:1.42!important}.mock-rules span{font-size:11px!important}
+.progress-bars>div,.ranking-meta,.province-row,.weak-card #weakTopics>div{font-size:11px!important}.rank-box span,.rank-box small{font-size:11px!important}.ranking-head span{font-size:10px!important}
+.smartnote-tabs button{font-size:10px!important}.smartnote-card h2{font-size:19px!important}.smartnote-kicker,.smartnote-block b{font-size:11px!important}.smartnote-block p{font-size:12px!important;line-height:1.42!important}
+.result-stats span{font-size:11px!important}.earned-xp span,.earned-xp b{font-size:14px!important}.review-option,.solution-box{font-size:11px!important;line-height:1.42!important}
+
+/* Keep readable sizes on short Android 16 screens; compact spacing instead of shrinking text excessively */
+@media(max-height:760px){
+  .page{padding:8px 10px 6px!important;gap:6px!important}
+  .arena-hero-card{height:174px!important;min-height:174px!important}
+  .arena-hero-copy h1{font-size:20px!important}.arena-hero-copy p{font-size:10px!important}
+  .arena-hero-countdown{width:76px!important}.arena-hero-countdown strong{font-size:31px!important}.arena-hero-countdown small{font-size:7.5px!important}
+  .bottom-nav button span{font-size:10px!important}.bottom-nav button svg{width:23px!important;height:23px!important}
+  .subject-card h3{font-size:16px!important}.subject-card p{font-size:10px!important}
+  .quiz-view h2{font-size:19px!important}.option-btn b{font-size:12px!important}
+}
+
+@media(max-height:660px){
+  .arena-hero-card{height:150px!important;min-height:150px!important}
+  .arena-hero-countdown{width:72px!important;top:7px!important;right:7px!important}.arena-hero-countdown strong{font-size:28px!important}.arena-hero-countdown span{font-size:10px!important}.arena-hero-countdown small{font-size:7px!important}
+  .arena-hero-copy{left:11px!important;bottom:9px!important;width:calc(100% - 94px)!important}.arena-hero-copy h1{font-size:18px!important}.arena-hero-copy p{font-size:9.5px!important}
+  .mini-sub{font-size:10px!important;grid-template-columns:18px 64px 1fr 31px!important}.mini-sub>b{font-size:10px!important}.mini-sub em{font-size:9px!important}
+  .global-zeus-watermark{width:min(88vw,380px);right:-50px;bottom:52px;opacity:.10}
+  .bottom-nav button span{font-size:9.5px!important}
+  .zeus-grid span{font-size:13px!important}.zeus-grid small{font-size:9px!important}.zeus-messages{font-size:10px!important}
+}
+
+@media(max-width:360px){
+  .arena-hero-countdown{width:70px!important;right:7px!important}.arena-hero-copy{max-width:64%!important}
+  .bottom-nav button span{font-size:9px!important}.bottom-nav button svg{width:22px!important;height:22px!important}
+  .global-zeus-watermark{width:94vw;right:-56px;opacity:.105}
+}

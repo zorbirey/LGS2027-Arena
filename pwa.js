@@ -3,12 +3,18 @@
 
   const uiStyle = document.createElement('link');
   uiStyle.rel = 'stylesheet';
-  uiStyle.href = './mobile-v04.css?v=05';
+  uiStyle.href = './mobile-v04.css?v=06';
   document.head.appendChild(uiStyle);
+
   const androidStyle = document.createElement('link');
   androidStyle.rel = 'stylesheet';
-  androidStyle.href = './android16-v05.css?v=05';
+  androidStyle.href = './android16-v05.css?v=06';
   document.head.appendChild(androidStyle);
+
+  const watermarkStyle = document.createElement('link');
+  watermarkStyle.rel = 'stylesheet';
+  watermarkStyle.href = './android16-v06.css?v=06';
+  document.head.appendChild(watermarkStyle);
 
   let deferredPrompt = null;
   const isIos = () => /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
@@ -36,10 +42,39 @@
     appToast('Chrome menüsünden “Uygulamayı yükle” seçeneğini kullan.');
   }
 
+  function installPersistentZeus() {
+    const shell = document.getElementById('shell');
+    if (shell && !document.getElementById('globalZeusWatermark')) {
+      const watermark = document.createElement('img');
+      watermark.id = 'globalZeusWatermark';
+      watermark.className = 'global-zeus-watermark';
+      watermark.src = './assets/zeus.webp?v=06';
+      watermark.alt = '';
+      watermark.setAttribute('aria-hidden', 'true');
+      watermark.decoding = 'async';
+      shell.appendChild(watermark);
+    }
+
+    const zeusAvatar = document.getElementById('bellBtn');
+    if (zeusAvatar) {
+      zeusAvatar.classList.add('zeus-avatar-btn');
+      zeusAvatar.innerHTML = '<img src="./assets/zeus.webp?v=06" alt="Zeus">';
+      zeusAvatar.title = 'Zeus';
+      zeusAvatar.setAttribute('aria-label', 'Zeus sekmesini aç');
+      zeusAvatar.addEventListener('click', event => {
+        event.stopImmediatePropagation();
+        const z = document.querySelector('#bottomNav [data-nav="zeus"]');
+        if (z) z.click();
+      }, true);
+    }
+  }
+
   window.addEventListener('beforeinstallprompt', event => { event.preventDefault(); deferredPrompt = event; });
   window.addEventListener('appinstalled', () => { deferredPrompt = null; appToast('LGS Arena telefona kuruldu.'); });
 
   window.addEventListener('load', () => {
+    installPersistentZeus();
+
     const menu = document.getElementById('menuBtn');
     if (menu) {
       menu.title = 'Uygulamayı yükle';
@@ -47,20 +82,12 @@
       menu.addEventListener('click', event => { event.stopImmediatePropagation(); installApp(); }, true);
     }
 
-    const zeusAvatar = document.getElementById('bellBtn');
-    if (zeusAvatar) {
-      zeusAvatar.title = 'Zeus';
-      zeusAvatar.setAttribute('aria-label', 'Zeus');
-      zeusAvatar.addEventListener('click', event => {
-        event.stopImmediatePropagation();
-        const z = document.querySelector('#bottomNav [data-nav="zeus"]');
-        if (z) z.click();
-      }, true);
-    }
-
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-      navigator.serviceWorker.register('./service-worker.js')
-        .then(reg => reg.update().catch(() => {}))
+      navigator.serviceWorker.register('./service-worker.js?v=06')
+        .then(reg => {
+          reg.update().catch(() => {});
+          if (reg.waiting) reg.waiting.postMessage('SKIP_WAITING');
+        })
         .catch(() => appToast('Çevrimdışı kullanım servisi bu ortamda etkinleştirilemedi.'));
     }
 
