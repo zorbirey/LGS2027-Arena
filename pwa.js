@@ -15,7 +15,7 @@
     document.head.appendChild(link);
   });
 
-  const ZEUS = './assets/zeus-real-v09.webp';
+  const ZEUS = './assets/zeus-real-v09.webp?v=09';
   let deferredPrompt = null;
   const isIos = () => /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
   const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
@@ -45,8 +45,8 @@
   function installVerifiedZeus() {
     document.querySelectorAll('img').forEach(img => {
       const src = img.getAttribute('src') || '';
-      if (src.includes('zeus.webp') || src.includes('zeus-full.webp') || src.includes('zeus-watermark.webp')) {
-        img.src = ZEUS;
+      if (src.includes('zeus.webp') || src.includes('zeus-full.webp') || src.includes('zeus-watermark.webp') || src.includes('zeus-real-v09.webp')) {
+        if (img.src !== new URL(ZEUS, document.baseURI).href) img.src = ZEUS;
       }
     });
 
@@ -63,7 +63,8 @@
     if (watermark) watermark.src = ZEUS;
 
     const zeusAvatar = document.getElementById('bellBtn');
-    if (zeusAvatar) {
+    if (zeusAvatar && !zeusAvatar.dataset.zeusBound) {
+      zeusAvatar.dataset.zeusBound = '1';
       zeusAvatar.classList.add('zeus-avatar-btn');
       zeusAvatar.innerHTML = `<img src="${ZEUS}" alt="Zeus">`;
       zeusAvatar.title = 'Zeus';
@@ -91,6 +92,11 @@
       }
     }, true);
   }
+
+  // pwa.js body'nin sonunda yüklendiği için Zeus'u window.load beklemeden değiştir.
+  // Böylece eski/yanlış asset bir anlığına bile kapakta görünmez.
+  installVerifiedZeus();
+  fixMockBadge();
 
   window.addEventListener('beforeinstallprompt', event => { event.preventDefault(); deferredPrompt = event; });
   window.addEventListener('appinstalled', () => { deferredPrompt = null; appToast('LGS Arena telefona kuruldu.'); });
