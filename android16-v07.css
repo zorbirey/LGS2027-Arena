@@ -1,0 +1,22 @@
+/* LGS 2027 Arena V0.7 — manual entry cover + larger Zeus + 30 question mock */
+.cover{
+  background:radial-gradient(circle at 50% 34%,rgba(34,111,255,.26),transparent 35%),linear-gradient(180deg,#020712 0%,#061528 58%,#020812 100%);
+  overflow:hidden;
+}
+.cover>img{
+  position:absolute!important;left:50%!important;top:47%!important;width:min(92vw,470px)!important;height:min(68dvh,620px)!important;
+  max-width:none!important;max-height:none!important;transform:translate(-50%,-52%)!important;object-fit:contain!important;object-position:center!important;
+  border-radius:28px;z-index:1;filter:saturate(1.08) contrast(1.08) drop-shadow(0 20px 42px rgba(0,0,0,.7))!important;
+}
+.cover-overlay{z-index:2!important;pointer-events:none;background:linear-gradient(180deg,rgba(2,7,18,.08) 0%,rgba(2,7,18,.04) 48%,rgba(2,8,18,.88) 78%,#020812 100%)!important}
+.cover-branding{z-index:3!important;bottom:104px!important}
+.cover-branding span{font-size:19px!important}.cover-branding strong{font-size:46px!important}.cover-branding em{font-size:12px!important}
+.cover-skip{z-index:4!important;bottom:max(24px,calc(env(safe-area-inset-bottom) + 16px))!important;width:min(82vw,360px)!important;min-height:58px!important;border-radius:16px!important;font-size:16px!important;font-weight:900!important;letter-spacing:1.4px!important;box-shadow:0 12px 30px rgba(38,112,255,.35)!important}
+
+.mock-card{grid-template-columns:148px minmax(0,1fr)!important;gap:16px!important;align-items:center!important}
+.mock-ring{width:132px!important;height:132px!important;min-width:132px!important;border-width:5px!important;box-shadow:0 0 0 7px rgba(231,184,91,.08),0 0 28px rgba(231,184,91,.18)!important}
+.mock-ring span{font-size:58px!important;line-height:.88!important;font-weight:900!important}
+.mock-ring small{margin-top:7px!important;font-size:13px!important;font-weight:900!important;letter-spacing:1.2px!important}
+.mock-card>div:last-child>span{font-size:11px!important;font-weight:900!important}.mock-card h2{font-size:23px!important;line-height:1.08!important}.mock-card p{font-size:12px!important;line-height:1.35!important}
+@media(max-width:380px){.mock-card{grid-template-columns:126px minmax(0,1fr)!important;gap:10px!important}.mock-ring{width:116px!important;height:116px!important;min-width:116px!important}.mock-ring span{font-size:52px!important}.mock-ring small{font-size:12px!important}.mock-card h2{font-size:20px!important}}
+@media(max-height:700px){.cover>img{height:min(63dvh,520px)!important;top:45%!important}.cover-branding{bottom:94px!important}.cover-branding span{font-size:16px!important}.cover-branding strong{font-size:38px!important}.cover-branding em{font-size:10px!important}.cover-skip{min-height:54px!important;font-size:15px!important}.mock-ring{width:112px!important;height:112px!important;min-width:112px!important}.mock-ring span{font-size:50px!important}.mock-ring small{font-size:11px!important}.mock-card{grid-template-columns:122px minmax(0,1fr)!important;padding:12px!important}}
