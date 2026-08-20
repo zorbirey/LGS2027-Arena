@@ -22,7 +22,8 @@
     './assets/zeus-v10/part-3a.txt',
     './assets/zeus-v10/part-3b.txt',
     './assets/zeus-v10/part-4.txt',
-    './assets/zeus-v10/part-5.txt',
+    './assets/zeus-v10/part-5a.txt',
+    './assets/zeus-v10/part-5b.txt',
     './assets/zeus-v10/part-6.txt'
   ];
   const ZEUS_FALLBACK = './assets/zeus-real-v09.webp?v=09';
