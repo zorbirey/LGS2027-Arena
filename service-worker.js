@@ -1,6 +1,6 @@
-const CACHE_NAME = 'lgs-2027-arena-pwa-v0.5-android16';
+const CACHE_NAME = 'lgs-2027-arena-pwa-v0.6-zeus-watermark';
 const APP_SHELL = [
-  './','./index.html','./styles.css','./mobile-v04.css','./android16-v05.css','./app.js','./pwa.js','./manifest.webmanifest',
+  './','./index.html','./styles.css','./mobile-v04.css','./android16-v05.css','./android16-v06.css','./app.js','./pwa.js','./manifest.webmanifest',
   './data/matematik.js','./data/fen.js','./data/turkce.js','./data/inkilap.js','./data/din.js','./data/notes.js',
   './assets/zeus.webp','./assets/icon-192.jpg','./assets/icon-512.webp'
 ];
