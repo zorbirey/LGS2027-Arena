@@ -1,8 +1,8 @@
-const CACHE_NAME = 'lgs-2027-arena-pwa-v0.8-real-zeus';
+const CACHE_NAME = 'lgs-2027-arena-pwa-v0.9-verified-zeus';
 const APP_SHELL = [
-  './','./index.html','./styles.css','./mobile-v04.css','./android16-v05.css','./android16-v06.css','./android16-v07.css','./app.js','./pwa.js','./manifest.webmanifest',
+  './','./index.html','./styles.css','./mobile-v04.css','./android16-v05.css','./android16-v06.css','./android16-v07.css','./v09-vibrant.css','./app.js','./pwa.js','./manifest.webmanifest',
   './data/matematik.js','./data/fen.js','./data/turkce.js','./data/inkilap.js','./data/din.js','./data/notes.js',
-  './assets/zeus.webp','./assets/zeus-full.webp','./assets/zeus-watermark.webp','./assets/icon-192.jpg','./assets/icon-512.webp'
+  './assets/zeus-real-v09.webp','./assets/icon-192.jpg','./assets/icon-512.webp'
 ];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));

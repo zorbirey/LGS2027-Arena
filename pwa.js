@@ -1,36 +1,21 @@
 (() => {
   'use strict';
 
-  const uiStyle = document.createElement('link');
-  uiStyle.rel = 'stylesheet';
-  uiStyle.href = './mobile-v04.css?v=08';
-  document.head.appendChild(uiStyle);
+  const cssFiles = [
+    './mobile-v04.css?v=09',
+    './android16-v05.css?v=09',
+    './android16-v06.css?v=09',
+    './android16-v07.css?v=09',
+    './v09-vibrant.css?v=09'
+  ];
+  cssFiles.forEach(href => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = href;
+    document.head.appendChild(link);
+  });
 
-  const androidStyle = document.createElement('link');
-  androidStyle.rel = 'stylesheet';
-  androidStyle.href = './android16-v05.css?v=08';
-  document.head.appendChild(androidStyle);
-
-  const watermarkStyle = document.createElement('link');
-  watermarkStyle.rel = 'stylesheet';
-  watermarkStyle.href = './android16-v06.css?v=08';
-  document.head.appendChild(watermarkStyle);
-
-  const coverStyle = document.createElement('link');
-  coverStyle.rel = 'stylesheet';
-  coverStyle.href = './android16-v07.css?v=08';
-  document.head.appendChild(coverStyle);
-
-  const coverButton = document.getElementById('skipCover');
-  if (coverButton) {
-    coverButton.addEventListener('click', event => {
-      if (!event.isTrusted) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-      }
-    }, true);
-  }
-
+  const ZEUS = './assets/zeus-real-v09.webp?v=09';
   let deferredPrompt = null;
   const isIos = () => /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
   const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
@@ -57,44 +42,68 @@
     appToast('Chrome menüsünden “Uygulamayı yükle” seçeneğini kullan.');
   }
 
-  function installPersistentZeus() {
+  function installVerifiedZeus() {
+    document.querySelectorAll('img').forEach(img => {
+      const src = img.getAttribute('src') || '';
+      if (src.includes('zeus.webp') || src.includes('zeus-full.webp') || src.includes('zeus-watermark.webp') || src.includes('zeus-real-v09.webp')) {
+        if (img.src !== new URL(ZEUS, document.baseURI).href) img.src = ZEUS;
+      }
+    });
+
     const shell = document.getElementById('shell');
-    if (shell && !document.getElementById('globalZeusWatermark')) {
-      const watermark = document.createElement('img');
+    let watermark = document.getElementById('globalZeusWatermark');
+    if (shell && !watermark) {
+      watermark = document.createElement('img');
       watermark.id = 'globalZeusWatermark';
       watermark.className = 'global-zeus-watermark';
-      watermark.src = './assets/zeus-watermark.webp?v=08';
       watermark.alt = '';
       watermark.setAttribute('aria-hidden', 'true');
-      watermark.decoding = 'async';
       shell.appendChild(watermark);
     }
+    if (watermark) watermark.src = ZEUS;
 
     const zeusAvatar = document.getElementById('bellBtn');
-    if (zeusAvatar) {
+    if (zeusAvatar && !zeusAvatar.dataset.zeusBound) {
+      zeusAvatar.dataset.zeusBound = '1';
       zeusAvatar.classList.add('zeus-avatar-btn');
-      zeusAvatar.innerHTML = '<img src="./assets/zeus-full.webp?v=08" alt="Zeus">';
+      zeusAvatar.innerHTML = `<img src="${ZEUS}" alt="Zeus">`;
       zeusAvatar.title = 'Zeus';
       zeusAvatar.setAttribute('aria-label', 'Zeus sekmesini aç');
       zeusAvatar.addEventListener('click', event => {
         event.stopImmediatePropagation();
-        const z = document.querySelector('#bottomNav [data-nav="zeus"]');
-        if (z) z.click();
+        document.querySelector('#bottomNav [data-nav="zeus"]')?.click();
       }, true);
     }
   }
 
-  function enlargeMockBadge() {
-    const ringNumber = document.querySelector('.mock-ring span');
-    if (ringNumber) ringNumber.textContent = '30';
+  function fixMockBadge() {
+    const ring = document.querySelector('.mock-ring span');
+    const copy = document.querySelector('.mock-card p');
+    if (ring) ring.textContent = '30';
+    if (copy) copy.textContent = '5 ders · 30 soru · sonuç sonunda açıklanır';
   }
+
+  const coverButton = document.getElementById('skipCover');
+  if (coverButton) {
+    coverButton.addEventListener('click', event => {
+      if (!event.isTrusted) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+    }, true);
+  }
+
+  // pwa.js body'nin sonunda yüklendiği için Zeus'u window.load beklemeden değiştir.
+  // Böylece eski/yanlış asset bir anlığına bile kapakta görünmez.
+  installVerifiedZeus();
+  fixMockBadge();
 
   window.addEventListener('beforeinstallprompt', event => { event.preventDefault(); deferredPrompt = event; });
   window.addEventListener('appinstalled', () => { deferredPrompt = null; appToast('LGS Arena telefona kuruldu.'); });
 
   window.addEventListener('load', () => {
-    installPersistentZeus();
-    enlargeMockBadge();
+    installVerifiedZeus();
+    fixMockBadge();
 
     const menu = document.getElementById('menuBtn');
     if (menu) {
@@ -104,7 +113,7 @@
     }
 
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-      navigator.serviceWorker.register('./service-worker.js?v=08')
+      navigator.serviceWorker.register('./service-worker.js?v=09')
         .then(reg => {
           reg.update().catch(() => {});
           if (reg.waiting) reg.waiting.postMessage('SKIP_WAITING');

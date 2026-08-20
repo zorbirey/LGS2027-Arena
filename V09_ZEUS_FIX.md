@@ -1,0 +1,1 @@
+V0.9 doğrulaması: assets/zeus-real-v09.webp, ikon dosyalarından bağımsız gerçek Zeus görseli olarak kullanılacaktır. pwa.js tüm eski Zeus referanslarını çalışma anında bu dosyaya yönlendirir. v09-vibrant.css uygulamayı daha canlı hale getirir.
