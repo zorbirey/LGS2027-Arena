@@ -1,0 +1,1 @@
+document.addEventListener('error',event=>{const el=event.target;if(el&&el.tagName==='IMG'&&el.src.includes('lgs-cover.webp')){el.onerror=null;el.src='assets/zeus-cover.svg';}},true);
