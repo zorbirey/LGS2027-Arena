@@ -3,18 +3,23 @@
 
   const uiStyle = document.createElement('link');
   uiStyle.rel = 'stylesheet';
-  uiStyle.href = './mobile-v04.css?v=06';
+  uiStyle.href = './mobile-v04.css?v=07';
   document.head.appendChild(uiStyle);
 
   const androidStyle = document.createElement('link');
   androidStyle.rel = 'stylesheet';
-  androidStyle.href = './android16-v05.css?v=06';
+  androidStyle.href = './android16-v05.css?v=07';
   document.head.appendChild(androidStyle);
 
   const watermarkStyle = document.createElement('link');
   watermarkStyle.rel = 'stylesheet';
-  watermarkStyle.href = './android16-v06.css?v=06';
+  watermarkStyle.href = './android16-v06.css?v=07';
   document.head.appendChild(watermarkStyle);
+
+  const coverMockStyle = document.createElement('link');
+  coverMockStyle.rel = 'stylesheet';
+  coverMockStyle.href = './android16-v07.css?v=07';
+  document.head.appendChild(coverMockStyle);
 
   let deferredPrompt = null;
   const isIos = () => /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
@@ -48,7 +53,7 @@
       const watermark = document.createElement('img');
       watermark.id = 'globalZeusWatermark';
       watermark.className = 'global-zeus-watermark';
-      watermark.src = './assets/zeus.webp?v=06';
+      watermark.src = './assets/zeus.webp?v=07';
       watermark.alt = '';
       watermark.setAttribute('aria-hidden', 'true');
       watermark.decoding = 'async';
@@ -58,7 +63,7 @@
     const zeusAvatar = document.getElementById('bellBtn');
     if (zeusAvatar) {
       zeusAvatar.classList.add('zeus-avatar-btn');
-      zeusAvatar.innerHTML = '<img src="./assets/zeus.webp?v=06" alt="Zeus">';
+      zeusAvatar.innerHTML = '<img src="./assets/zeus.webp?v=07" alt="Zeus">';
       zeusAvatar.title = 'Zeus';
       zeusAvatar.setAttribute('aria-label', 'Zeus sekmesini aç');
       zeusAvatar.addEventListener('click', event => {
@@ -69,11 +74,19 @@
     }
   }
 
+  function updateMockCardToThirty() {
+    const ringNumber = document.querySelector('.mock-ring span');
+    if (ringNumber) ringNumber.textContent = '30';
+    const mockDescription = document.querySelector('.mock-card p');
+    if (mockDescription) mockDescription.textContent = '5 ders · her dersten 6 soru · sonuç sonunda açıklanır';
+  }
+
   window.addEventListener('beforeinstallprompt', event => { event.preventDefault(); deferredPrompt = event; });
   window.addEventListener('appinstalled', () => { deferredPrompt = null; appToast('LGS Arena telefona kuruldu.'); });
 
   window.addEventListener('load', () => {
     installPersistentZeus();
+    updateMockCardToThirty();
 
     const menu = document.getElementById('menuBtn');
     if (menu) {
@@ -83,7 +96,7 @@
     }
 
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-      navigator.serviceWorker.register('./service-worker.js?v=06')
+      navigator.serviceWorker.register('./service-worker.js?v=07')
         .then(reg => {
           reg.update().catch(() => {});
           if (reg.waiting) reg.waiting.postMessage('SKIP_WAITING');
@@ -93,7 +106,11 @@
 
     const hash = location.hash.replace('#', '');
     if (['arena','zeus','subjects','solve','mock','progress'].includes(hash)) {
-      setTimeout(() => { const target = document.querySelector(`[data-nav="${hash}"]`); if (target) target.click(); }, 3500);
+      setTimeout(() => {
+        if (!document.getElementById('cover')?.classList.contains('hidden')) return;
+        const target = document.querySelector(`[data-nav="${hash}"]`);
+        if (target) target.click();
+      }, 500);
     }
   });
 
