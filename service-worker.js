@@ -2,7 +2,7 @@ const CACHE_NAME = 'lgs-2027-arena-pwa-v1.0-zeus-hq';
 const APP_SHELL = [
   './','./index.html','./styles.css','./mobile-v04.css','./android16-v05.css','./android16-v06.css','./android16-v07.css','./v09-vibrant.css','./v10-zeus-fix.css','./app.js','./pwa.js','./manifest.webmanifest',
   './data/matematik.js','./data/fen.js','./data/turkce.js','./data/inkilap.js','./data/din.js','./data/notes.js',
-  './assets/zeus-v10/part-1.txt','./assets/zeus-v10/part-2.txt','./assets/zeus-v10/part-3a.txt','./assets/zeus-v10/part-3b.txt','./assets/zeus-v10/part-4.txt','./assets/zeus-v10/part-5.txt','./assets/zeus-v10/part-6.txt',
+  './assets/zeus-v10/part-1.txt','./assets/zeus-v10/part-2.txt','./assets/zeus-v10/part-3a.txt','./assets/zeus-v10/part-3b.txt','./assets/zeus-v10/part-4.txt','./assets/zeus-v10/part-5a.txt','./assets/zeus-v10/part-5b.txt','./assets/zeus-v10/part-6.txt',
   './assets/zeus-real-v09.webp','./assets/icon-192.jpg','./assets/icon-512.webp'
 ];
 self.addEventListener('install', event => {
