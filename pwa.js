@@ -5,6 +5,10 @@
   uiStyle.rel = 'stylesheet';
   uiStyle.href = './mobile-v04.css?v=05';
   document.head.appendChild(uiStyle);
+  const androidStyle = document.createElement('link');
+  androidStyle.rel = 'stylesheet';
+  androidStyle.href = './android16-v05.css?v=05';
+  document.head.appendChild(androidStyle);
 
   let deferredPrompt = null;
   const isIos = () => /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
