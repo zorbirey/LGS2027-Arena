@@ -1,5 +1,12 @@
 (() => {
   'use strict';
+
+  // V0.4 mobile UI overrides load after the base stylesheet.
+  const uiStyle = document.createElement('link');
+  uiStyle.rel = 'stylesheet';
+  uiStyle.href = './mobile-v04.css';
+  document.head.appendChild(uiStyle);
+
   let deferredPrompt = null;
   const isIos = () => /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
   const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;

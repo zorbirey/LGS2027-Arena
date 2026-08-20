@@ -1,7 +1,8 @@
-const CACHE_NAME = 'lgs-2027-arena-pwa-v0.2';
+const CACHE_NAME = 'lgs-2027-arena-pwa-v0.4';
 const APP_SHELL = [
-  './','./index.html','./styles.css','./app.js','./pwa.js','./manifest.webmanifest',
-  './data/matematik.js','./data/fen.js','./data/turkce.js','./data/inkilap.js','./data/din.js','./data/notes.js','./assets/zeus-cover.svg'
+  './','./index.html','./styles.css','./mobile-v04.css','./app.js','./pwa.js','./manifest.webmanifest',
+  './data/matematik.js','./data/fen.js','./data/turkce.js','./data/inkilap.js','./data/din.js','./data/notes.js',
+  './assets/zeus.webp','./assets/zeus-cover.svg'
 ];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
