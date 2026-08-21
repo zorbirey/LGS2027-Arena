@@ -1,11 +1,11 @@
-const CACHE_NAME = 'lgs-2027-arena-pwa-v2.0-profile-interaction-recovery';
+const CACHE_NAME = 'lgs-2027-arena-pwa-v2.1-clean-launcher';
 const APP_SHELL = [
-  './','./index.html','./index.html?v=20','./styles.css','./mobile-v04.css','./android16-v05.css','./android16-v06.css','./android16-v07.css','./v09-vibrant.css','./v10-zeus-fix.css','./parent-tracking.css','./lgs-scoring.css','./adaptive-v17.css','./weekly-exam-v18.css','./profile-gate-v20.css?v=20',
-  './app.js?v=181','./pwa.js?v=20','./profile-gate-v20.js?v=20','./pwa-health-v20.js?v=20','./parent-tracking.js','./lgs-scoring.js','./adaptive-engine.js','./english-integration-v18.js?v=181','./weekly-exam-v18.js','./manifest.webmanifest',
-  './data/matematik.js','./data/fen.js','./data/turkce.js','./data/inkilap.js','./data/din.js','./data/notes.js','./data/bank-v011.js','./data/adaptive-bank-v17.js','./data/english-v18.js?v=181','./data/english-notes-v18.js?v=181',
+  './','./launch-v21.html','./launch-v21.html?v=21','./index.html','./styles.css','./mobile-v04.css','./android16-v05.css','./android16-v06.css','./android16-v07.css','./v09-vibrant.css','./v10-zeus-fix.css','./parent-tracking.css','./lgs-scoring.css','./adaptive-v17.css','./weekly-exam-v18.css','./profile-gate-v20.css?v=21',
+  './app.js?v=21','./pwa.js?v=21','./profile-gate-v20.js?v=21','./pwa-health-v20.js?v=21','./parent-tracking.js?v=21','./lgs-scoring.js?v=21','./adaptive-engine.js?v=21','./english-integration-v18.js?v=21','./weekly-exam-v18.js?v=21','./manifest.webmanifest?v=21',
+  './data/matematik.js','./data/fen.js','./data/turkce.js','./data/inkilap.js','./data/din.js','./data/notes.js','./data/bank-v011.js','./data/adaptive-bank-v17.js','./data/english-v18.js?v=21','./data/english-notes-v18.js?v=21',
   './assets/zeus-real-v09.webp','./assets/icon-192.jpg','./assets/icon-512.webp',
-  './assets/zeus-v10/part-1.txt?v=20','./assets/zeus-v10/part-2.txt?v=20','./assets/zeus-v10/part-3a.txt?v=20','./assets/zeus-v10/part-3b.txt?v=20',
-  './assets/zeus-v10/part-4.txt?v=20','./assets/zeus-v10/part-5a.txt?v=20','./assets/zeus-v10/part-5b.txt?v=20','./assets/zeus-v10/part-6.txt?v=20'
+  './assets/zeus-v10/part-1.txt?v=21','./assets/zeus-v10/part-2.txt?v=21','./assets/zeus-v10/part-3a.txt?v=21','./assets/zeus-v10/part-3b.txt?v=21',
+  './assets/zeus-v10/part-4.txt?v=21','./assets/zeus-v10/part-5a.txt?v=21','./assets/zeus-v10/part-5b.txt?v=21','./assets/zeus-v10/part-6.txt?v=21'
 ];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
@@ -19,9 +19,9 @@ self.addEventListener('fetch', event => {
   if (request.mode === 'navigate') {
     event.respondWith(fetch(request,{cache:'no-store'}).then(response => {
       const copy = response.clone();
-      caches.open(CACHE_NAME).then(cache => cache.put('./index.html', copy));
+      caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
       return response;
-    }).catch(() => caches.match('./index.html')));
+    }).catch(async () => (await caches.match(request)) || caches.match('./launch-v21.html') || caches.match('./index.html')));
     return;
   }
   const url = new URL(request.url);
