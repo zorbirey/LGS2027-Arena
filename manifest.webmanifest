@@ -2,9 +2,9 @@
   "id": "./",
   "name": "LGS 2027 Arena",
   "short_name": "LGS Arena",
-  "description": "LGS 2027 için Zeus temalı soru çözme, akıllı notlar, deneme, ilerleme ve sıralama uygulaması.",
+  "description": "LGS 2027 için Zeus temalı soru çözme, akıllı notlar, deneme, ilerleme, sıralama ve veli takip uygulaması.",
   "lang": "tr",
-  "start_url": "./index.html?v=12",
+  "start_url": "./index.html?v=13",
   "scope": "./",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
@@ -17,7 +17,7 @@
     {"src":"assets/icon-512.webp","sizes":"512x512","type":"image/webp","purpose":"any maskable"}
   ],
   "shortcuts": [
-    {"name":"Soru Çöz","short_name":"Soru Çöz","description":"Hızlı soru çözme ekranını aç","url":"./index.html?v=12#solve","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]},
-    {"name":"Zeus","short_name":"Zeus","description":"Zeus çalışma rehberini aç","url":"./index.html?v=12#zeus","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]}
+    {"name":"Soru Çöz","short_name":"Soru Çöz","description":"Hızlı soru çözme ekranını aç","url":"./index.html?v=13#solve","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]},
+    {"name":"Zeus","short_name":"Zeus","description":"Zeus çalışma rehberini aç","url":"./index.html?v=13#zeus","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]}
   ]
 }
