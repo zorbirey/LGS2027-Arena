@@ -11,7 +11,7 @@ on:
       - main
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build-apk:
@@ -47,9 +47,21 @@ jobs:
       - name: Rename APK
         run: cp android/app/build/outputs/apk/release/app-release.apk LGS2027-Arena-v0.11.apk
 
-      - name: Upload APK
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: LGS2027-Arena-v0.11-APK
           path: LGS2027-Arena-v0.11.apk
           retention-days: 30
+
+      - name: Publish APK release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v0.11-apk
+          name: LGS 2027 Arena v0.11 APK
+          body: |
+            Android için kurulabilir LGS 2027 Arena APK.
+            Bu sürüm 200 soruluk ilk genişletilmiş soru havuzunu içerir.
+          files: LGS2027-Arena-v0.11.apk
+          make_latest: true
