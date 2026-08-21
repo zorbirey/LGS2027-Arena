@@ -10,25 +10,29 @@ html,body{margin:0;width:100%;height:100%;background:#020710;color:#fff;font-fam
 </style>
 </head>
 <body>
-<div id="boot"><div><b>LGS 2027 ARENA</b><span>V2.5 GİRİŞ ONARIMI</span><p>ARENAYA GİR düğmesi çevrimdışı çekirdeğe bağlanıyor. Önbelleğiniz ve ilerlemeniz silinmez.</p><button id="open">ARENAYI AÇ</button></div></div>
+<div id="boot"><div><b>LGS 2027 ARENA</b><span>V2.6 GİRİŞ ÇEKİRDEĞİ</span><p>Service worker yenileniyor. Öğrenci ilerlemesi ve yerel veriler silinmez.</p><button id="open">ARENAYI AÇ</button></div></div>
 <script>
 (function(){
 'use strict';
 var done=false,button=document.getElementById('open');
-function go(){if(done)return;done=true;location.replace('./index.html?v=25&entry='+Date.now())}
+function go(){if(done)return;done=true;location.replace('./index.html?v=26&entry='+Date.now())}
 button.onclick=go;
+function waitState(worker){return new Promise(function(resolve){if(!worker||worker.state==='activated'){resolve();return}var t=setTimeout(resolve,3500);worker.addEventListener('statechange',function(){if(worker.state==='activated'){clearTimeout(t);resolve()}},{once:false})})}
 (async function(){
   try{
     if('serviceWorker' in navigator){
-      var reg=await navigator.serviceWorker.register('./service-worker.js?v=25',{scope:'./'});
+      var regs=await navigator.serviceWorker.getRegistrations();
+      await Promise.allSettled(regs.map(function(r){return r.unregister()}));
+      var reg=await navigator.serviceWorker.register('./service-worker.js?v=26',{scope:'./'});
       try{await reg.update()}catch(e){}
+      var worker=reg.installing||reg.waiting||reg.active;
       if(reg.waiting)reg.waiting.postMessage('SKIP_WAITING');
-      await Promise.race([navigator.serviceWorker.ready,new Promise(function(resolve){setTimeout(resolve,2500)})]);
+      await Promise.race([waitState(worker),new Promise(function(resolve){setTimeout(resolve,4200)})]);
     }
   }catch(e){}
   go();
 })();
-setTimeout(go,5000);
+setTimeout(go,6000);
 })();
 </script>
 </body>
