@@ -38,6 +38,26 @@
     let html=await res.text();
     html=html.replaceAll('?v=181','?v='+VERSION).replaceAll('?v=182','?v='+VERSION).replaceAll('?v=20','?v='+VERSION);
     html=html.replace('manifest.webmanifest?v=181','manifest.webmanifest?v='+VERSION);
+    const critical=`<script>
+(function(){
+  var KEY='lgsArenaStudentProfileV20';
+  var b=document.getElementById('skipCover');
+  if(!b)return;
+  b.addEventListener('click',function(e){
+    if(!e.isTrusted){e.preventDefault();e.stopImmediatePropagation();return;}
+    e.preventDefault();e.stopImmediatePropagation();
+    if(window.LgsArenaStudentProfile&&window.LgsArenaStudentProfile.open){window.LgsArenaStudentProfile.open();return;}
+    var p={};try{p=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(x){}
+    var name=(p.name||'').trim();
+    if(!name){name=(window.prompt('Öğrenci adını gir')||'').trim();if(name.length<2)return;try{localStorage.setItem(KEY,JSON.stringify({name:name,createdAt:new Date().toISOString(),storage:'device-demo'}))}catch(x){}}
+    var cover=document.getElementById('cover'),shell=document.getElementById('shell');
+    if(cover){cover.classList.remove('active');cover.classList.add('hidden')}
+    if(shell)shell.classList.remove('hidden');
+  },true);
+})();
+<\/script>`;
+    html=html.replace('<script src="app.js?v='+VERSION+'"></script>',critical+'<script src="app.js?v='+VERSION+'"></script>');
+    html=html.replace('</body>',`<script>if('serviceWorker' in navigator&&location.protocol!=='file:'){navigator.serviceWorker.register('./service-worker.js?v=21').then(function(r){r.update().catch(function(){})}).catch(function(){})}<\/script></body>`);
     document.open();
     document.write(html);
     document.close();
