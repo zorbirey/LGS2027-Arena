@@ -2,16 +2,17 @@
   'use strict';
 
   const cssFiles = [
-    './mobile-v04.css?v=18',
-    './android16-v05.css?v=18',
-    './android16-v06.css?v=18',
-    './android16-v07.css?v=18',
-    './v09-vibrant.css?v=18',
-    './v10-zeus-fix.css?v=18',
-    './parent-tracking.css?v=18',
-    './lgs-scoring.css?v=18',
-    './adaptive-v17.css?v=18',
-    './weekly-exam-v18.css?v=18'
+    './mobile-v04.css?v=20',
+    './android16-v05.css?v=20',
+    './android16-v06.css?v=20',
+    './android16-v07.css?v=20',
+    './v09-vibrant.css?v=20',
+    './v10-zeus-fix.css?v=20',
+    './parent-tracking.css?v=20',
+    './lgs-scoring.css?v=20',
+    './adaptive-v17.css?v=20',
+    './weekly-exam-v18.css?v=20',
+    './profile-gate-v20.css?v=20'
   ];
   cssFiles.forEach(href => {
     const link = document.createElement('link');
@@ -24,11 +25,7 @@
     return new Promise((resolve, reject) => {
       const clean = src.split('?')[0];
       const existing = [...document.scripts].find(s => s.src && s.src.includes(clean));
-      if (existing) {
-        if (existing.dataset.loaded === '1') resolve();
-        else existing.addEventListener('load', resolve, { once:true });
-        return;
-      }
+      if (existing) { resolve(); return; }
       const script = document.createElement('script');
       script.src = src;
       script.defer = true;
@@ -38,20 +35,22 @@
     });
   }
 
-  const parentReady = loadScript('./parent-tracking.js?v=18');
-  const scoringReady = loadScript('./lgs-scoring.js?v=18');
+  const profileReady = loadScript('./profile-gate-v20.js?v=20');
+  loadScript('./pwa-health-v20.js?v=20').catch(()=>{});
+  const parentReady = loadScript('./parent-tracking.js?v=20');
+  const scoringReady = loadScript('./lgs-scoring.js?v=20');
 
   const ZEUS_PART_URLS = [
-    './assets/zeus-v10/part-1.txt?v=18',
-    './assets/zeus-v10/part-2.txt?v=18',
-    './assets/zeus-v10/part-3a.txt?v=18',
-    './assets/zeus-v10/part-3b.txt?v=18',
-    './assets/zeus-v10/part-4.txt?v=18',
-    './assets/zeus-v10/part-5a.txt?v=18',
-    './assets/zeus-v10/part-5b.txt?v=18',
-    './assets/zeus-v10/part-6.txt?v=18'
+    './assets/zeus-v10/part-1.txt?v=20',
+    './assets/zeus-v10/part-2.txt?v=20',
+    './assets/zeus-v10/part-3a.txt?v=20',
+    './assets/zeus-v10/part-3b.txt?v=20',
+    './assets/zeus-v10/part-4.txt?v=20',
+    './assets/zeus-v10/part-5a.txt?v=20',
+    './assets/zeus-v10/part-5b.txt?v=20',
+    './assets/zeus-v10/part-6.txt?v=20'
   ];
-  const ZEUS_FALLBACK = './assets/zeus-real-v09.webp?v=18';
+  const ZEUS_FALLBACK = './assets/zeus-real-v09.webp?v=20';
   let zeusDataUrl = null;
   let zeusPromise = null;
   let deferredPrompt = null;
@@ -80,9 +79,9 @@
 
   async function loadExpandedBank() {
     try {
-      await loadBankFile('./data/bank-v011.js?v=18', 'MAT-031');
+      await loadBankFile('./data/bank-v011.js?v=20', 'MAT-031');
       const title = document.querySelector('[data-page="subjects"] .page-title h1');
-      if (title) title.textContent = 'Genişletilmiş + adaptif soru havuzları';
+      if (title) title.textContent = '6 derslik genişletilmiş soru havuzları';
       const total = document.querySelector('[data-page="subjects"] .page-title > b');
       if (total) total.textContent = String((window.QUESTION_BANK || []).length);
     } catch (error) {
@@ -91,17 +90,17 @@
   }
 
   async function loadAdaptiveModules() {
-    if (window.LgsArenaWeeklyExam && window.LgsArenaEnglish) return;
+    if (window.LgsArenaWeeklyExam) return;
     if (adaptivePromise) return adaptivePromise;
     adaptivePromise = (async () => {
+      await Promise.allSettled([profileReady, parentReady, scoringReady]);
       await loadExpandedBank();
-      await Promise.allSettled([parentReady, scoringReady]);
-      await loadBankFile('./data/english-v18.js?v=18', 'ENG-001');
-      await loadScript('./data/english-notes-v18.js?v=18');
-      await loadBankFile('./data/adaptive-bank-v17.js?v=18', 'ADP-MAT-001');
-      await loadScript('./adaptive-engine.js?v=18');
-      await loadScript('./english-integration-v18.js?v=18');
-      await loadScript('./weekly-exam-v18.js?v=18');
+      await loadBankFile('./data/english-v18.js?v=20', 'ENG-001');
+      await loadScript('./data/english-notes-v18.js?v=20');
+      await loadBankFile('./data/adaptive-bank-v17.js?v=20', 'ADP-MAT-001');
+      await loadScript('./adaptive-engine.js?v=20');
+      await loadScript('./english-integration-v18.js?v=20');
+      await loadScript('./weekly-exam-v18.js?v=20');
       const title = document.querySelector('[data-page="subjects"] .page-title h1');
       if (title) title.textContent = '6 derslik LGS soru havuzları';
       const total = document.querySelector('[data-page="subjects"] .page-title > b');
@@ -109,7 +108,7 @@
       window.LgsArenaEnglish?.render?.();
       window.LgsArenaWeeklyExam?.renderMockCard?.();
       window.LgsArenaWeeklyExam?.renderParentSummary?.();
-    })().catch(error => console.warn('V1.8 modülleri yüklenemedi', error));
+    })().catch(error => console.warn('V2.0 modülleri yüklenemedi', error));
     return adaptivePromise;
   }
 
@@ -210,10 +209,7 @@
 
   loadExpandedBank();
   loadAdaptiveModules();
-  installVerifiedZeus().catch(error => {
-    console.error(error);
-    fallbackZeus();
-  });
+  installVerifiedZeus().catch(error => { console.error(error); fallbackZeus(); });
   fixMockBadge();
 
   window.addEventListener('beforeinstallprompt', event => { event.preventDefault(); deferredPrompt = event; });
@@ -226,10 +222,7 @@
       window.LgsArenaEnglish?.render?.();
       window.LgsArenaWeeklyExam?.renderMockCard?.();
     });
-    installVerifiedZeus().catch(error => {
-      console.error(error);
-      fallbackZeus();
-    });
+    installVerifiedZeus().catch(error => { console.error(error); fallbackZeus(); });
     fixMockBadge();
 
     const menu = document.getElementById('menuBtn');
@@ -240,7 +233,7 @@
     }
 
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-      navigator.serviceWorker.register('./service-worker.js?v=18')
+      navigator.serviceWorker.register('./service-worker.js?v=20')
         .then(reg => {
           reg.update().catch(() => {});
           if (reg.waiting) reg.waiting.postMessage('SKIP_WAITING');
