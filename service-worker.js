@@ -1,10 +1,10 @@
-const CACHE_NAME = 'lgs-2027-arena-pwa-v1.3-parent-zeus-watermark';
+const CACHE_NAME = 'lgs-2027-arena-pwa-v1.4-lgs-estimated-score';
 const APP_SHELL = [
-  './','./index.html','./styles.css','./mobile-v04.css','./android16-v05.css','./android16-v06.css','./android16-v07.css','./v09-vibrant.css','./v10-zeus-fix.css','./parent-tracking.css','./app.js','./pwa.js','./parent-tracking.js','./manifest.webmanifest',
+  './','./index.html','./styles.css','./mobile-v04.css','./android16-v05.css','./android16-v06.css','./android16-v07.css','./v09-vibrant.css','./v10-zeus-fix.css','./parent-tracking.css','./lgs-scoring.css','./app.js','./pwa.js','./parent-tracking.js','./lgs-scoring.js','./manifest.webmanifest',
   './data/matematik.js','./data/fen.js','./data/turkce.js','./data/inkilap.js','./data/din.js','./data/notes.js','./data/bank-v011.js',
   './assets/zeus-real-v09.webp','./assets/icon-192.jpg','./assets/icon-512.webp',
-  './assets/zeus-v10/part-1.txt?v=14','./assets/zeus-v10/part-2.txt?v=14','./assets/zeus-v10/part-3a.txt?v=14','./assets/zeus-v10/part-3b.txt?v=14',
-  './assets/zeus-v10/part-4.txt?v=14','./assets/zeus-v10/part-5a.txt?v=14','./assets/zeus-v10/part-5b.txt?v=14','./assets/zeus-v10/part-6.txt?v=14'
+  './assets/zeus-v10/part-1.txt?v=16','./assets/zeus-v10/part-2.txt?v=16','./assets/zeus-v10/part-3a.txt?v=16','./assets/zeus-v10/part-3b.txt?v=16',
+  './assets/zeus-v10/part-4.txt?v=16','./assets/zeus-v10/part-5a.txt?v=16','./assets/zeus-v10/part-5b.txt?v=16','./assets/zeus-v10/part-6.txt?v=16'
 ];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
