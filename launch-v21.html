@@ -17,7 +17,7 @@ html,body{margin:0;width:100%;height:100%;background:#020710;color:#fff;font-fam
 var button=document.getElementById('open'),status=document.getElementById('status'),ready=false;
 function go(){if(!ready)return;location.replace('./index.html?v=28&ready='+Date.now())}
 button.onclick=go;
-function activateButton(){ready=true;status.textContent='Temel paket hazır. Arena artık giriş dosyasını ve ana çekirdeği telefondan açabilir.';button.disabled=false;button.textContent='ARENAYI AÇ';setTimeout(go,500)}
+function activateButton(){if(ready)return;ready=true;status.textContent='Temel paket ve giriş çekirdeği hazır. Arena çevrimdışı da açılabilir.';button.disabled=false;button.textContent='ARENAYI AÇ';setTimeout(go,500)}
 (async function(){
   if(!('serviceWorker' in navigator)){status.textContent='Bu tarayıcı PWA servisini desteklemiyor. Normal web sürümünü açabilirsin.';ready=true;button.disabled=false;button.textContent='WEB SÜRÜMÜNÜ AÇ';return}
   try{
@@ -34,9 +34,10 @@ function activateButton(){ready=true;status.textContent='Temel paket hazır. Are
         var cache=await caches.open('lgs-2027-arena-pwa-v2.8-critical');
         var required=['./index.html','./entry-clean-v27.js','./core-v23.js','./data/matematik.js','./data/fen.js','./data/turkce.js','./data/inkilap.js','./data/din.js','./data/english-v18.js'];
         var hits=await Promise.all(required.map(function(u){return cache.match(u,{ignoreSearch:true})}));
-        if(hits.every(Boolean)){clearInterval(timer);activateButton();return}
-        status.textContent='Temel paket indiriliyor: '+hits.filter(Boolean).length+' / '+required.length+' kritik dosya hazır.';
-        if(Date.now()-started>45000){clearInterval(timer);status.textContent='Bağlantı kritik paketi tamamlayamadı. İnternet biraz düzeldiğinde bu sayfayı yenile.'}
+        var active=!!reg.active;
+        if(hits.every(Boolean)&&active){clearInterval(timer);activateButton();return}
+        status.textContent='Temel paket indiriliyor: '+hits.filter(Boolean).length+' / '+required.length+' kritik dosya hazır'+(active?' · servis aktif':' · servis etkinleştiriliyor');
+        if(Date.now()-started>60000){clearInterval(timer);status.textContent='Bağlantı kritik paketi tamamlayamadı. İnternet biraz düzeldiğinde bu sayfayı yenile.'}
       }catch(e){}
     },900);
   }catch(e){status.textContent='Temel paket kurulamadı. Bağlantı geldiğinde bu sayfayı yenile.'}
