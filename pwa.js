@@ -1,17 +1,18 @@
 (() => {
   'use strict';
 
+  const VERSION = '19';
   const cssFiles = [
-    './mobile-v04.css?v=18',
-    './android16-v05.css?v=18',
-    './android16-v06.css?v=18',
-    './android16-v07.css?v=18',
-    './v09-vibrant.css?v=18',
-    './v10-zeus-fix.css?v=18',
-    './parent-tracking.css?v=18',
-    './lgs-scoring.css?v=18',
-    './adaptive-v17.css?v=18',
-    './weekly-exam-v18.css?v=18'
+    `./mobile-v04.css?v=${VERSION}`,
+    `./android16-v05.css?v=${VERSION}`,
+    `./android16-v06.css?v=${VERSION}`,
+    `./android16-v07.css?v=${VERSION}`,
+    `./v09-vibrant.css?v=${VERSION}`,
+    `./v10-zeus-fix.css?v=${VERSION}`,
+    `./parent-tracking.css?v=${VERSION}`,
+    `./lgs-scoring.css?v=${VERSION}`,
+    `./adaptive-v17.css?v=${VERSION}`,
+    `./weekly-exam-v18.css?v=${VERSION}`
   ];
   cssFiles.forEach(href => {
     const link = document.createElement('link');
@@ -25,37 +26,37 @@
       const clean = src.split('?')[0];
       const existing = [...document.scripts].find(s => s.src && s.src.includes(clean));
       if (existing) {
-        if (existing.dataset.loaded === '1') resolve();
-        else existing.addEventListener('load', resolve, { once:true });
+        resolve();
         return;
       }
       const script = document.createElement('script');
       script.src = src;
-      script.defer = true;
+      script.async = false;
       script.onload = () => { script.dataset.loaded = '1'; resolve(); };
       script.onerror = reject;
       document.head.appendChild(script);
     });
   }
 
-  const parentReady = loadScript('./parent-tracking.js?v=18');
-  const scoringReady = loadScript('./lgs-scoring.js?v=18');
+  const parentReady = loadScript(`./parent-tracking.js?v=${VERSION}`);
+  const scoringReady = loadScript(`./lgs-scoring.js?v=${VERSION}`);
 
   const ZEUS_PART_URLS = [
-    './assets/zeus-v10/part-1.txt?v=18',
-    './assets/zeus-v10/part-2.txt?v=18',
-    './assets/zeus-v10/part-3a.txt?v=18',
-    './assets/zeus-v10/part-3b.txt?v=18',
-    './assets/zeus-v10/part-4.txt?v=18',
-    './assets/zeus-v10/part-5a.txt?v=18',
-    './assets/zeus-v10/part-5b.txt?v=18',
-    './assets/zeus-v10/part-6.txt?v=18'
+    `./assets/zeus-v10/part-1.txt?v=${VERSION}`,
+    `./assets/zeus-v10/part-2.txt?v=${VERSION}`,
+    `./assets/zeus-v10/part-3a.txt?v=${VERSION}`,
+    `./assets/zeus-v10/part-3b.txt?v=${VERSION}`,
+    `./assets/zeus-v10/part-4.txt?v=${VERSION}`,
+    `./assets/zeus-v10/part-5a.txt?v=${VERSION}`,
+    `./assets/zeus-v10/part-5b.txt?v=${VERSION}`,
+    `./assets/zeus-v10/part-6.txt?v=${VERSION}`
   ];
-  const ZEUS_FALLBACK = './assets/zeus-real-v09.webp?v=18';
+  const ZEUS_FALLBACK = `./assets/zeus-real-v09.webp?v=${VERSION}`;
   let zeusDataUrl = null;
   let zeusPromise = null;
   let deferredPrompt = null;
   let adaptivePromise = null;
+  let englishPromise = null;
 
   const isIos = () => /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
   const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
@@ -70,7 +71,8 @@
   }
 
   async function loadBankFile(url, marker) {
-    if ((window.QUESTION_BANK || []).some(q => q.id === marker)) return;
+    window.QUESTION_BANK = window.QUESTION_BANK || [];
+    if (window.QUESTION_BANK.some(q => q.id === marker)) return;
     const response = await fetch(url, { cache: 'no-store' });
     if (!response.ok) throw new Error(`Soru havuzu yüklenemedi: ${url}`);
     let code = await response.text();
@@ -80,7 +82,7 @@
 
   async function loadExpandedBank() {
     try {
-      await loadBankFile('./data/bank-v011.js?v=18', 'MAT-031');
+      await loadBankFile(`./data/bank-v011.js?v=${VERSION}`, 'MAT-031');
       const title = document.querySelector('[data-page="subjects"] .page-title h1');
       if (title) title.textContent = 'Genişletilmiş + adaptif soru havuzları';
       const total = document.querySelector('[data-page="subjects"] .page-title > b');
@@ -90,26 +92,42 @@
     }
   }
 
-  async function loadAdaptiveModules() {
-    if (window.LgsArenaWeeklyExam && window.LgsArenaEnglish) return;
-    if (adaptivePromise) return adaptivePromise;
-    adaptivePromise = (async () => {
-      await loadExpandedBank();
-      await Promise.allSettled([parentReady, scoringReady]);
-      await loadBankFile('./data/english-v18.js?v=18', 'ENG-001');
-      await loadScript('./data/english-notes-v18.js?v=18');
-      await loadBankFile('./data/adaptive-bank-v17.js?v=18', 'ADP-MAT-001');
-      await loadScript('./adaptive-engine.js?v=18');
-      await loadScript('./english-integration-v18.js?v=18');
-      await loadScript('./weekly-exam-v18.js?v=18');
+  async function loadEnglishCore() {
+    if (window.LgsArenaEnglish && (window.QUESTION_BANK || []).some(q => q.id === 'ENG-001')) {
+      window.LgsArenaEnglish.render?.();
+      return;
+    }
+    if (englishPromise) return englishPromise;
+    englishPromise = (async () => {
+      await loadBankFile(`./data/english-v18.js?v=${VERSION}`, 'ENG-001');
+      await loadScript(`./data/english-notes-v18.js?v=${VERSION}`);
+      await loadScript(`./english-integration-v18.js?v=${VERSION}`);
+      window.LgsArenaEnglish?.render?.();
       const title = document.querySelector('[data-page="subjects"] .page-title h1');
       if (title) title.textContent = '6 derslik LGS soru havuzları';
       const total = document.querySelector('[data-page="subjects"] .page-title > b');
       if (total) total.textContent = String((window.QUESTION_BANK || []).length);
+    })().catch(error => {
+      console.error('İngilizce modülü yüklenemedi', error);
+      appToast('İngilizce dersi yüklenemedi. Sayfayı bir kez yenile.');
+    }).finally(() => { englishPromise = null; });
+    return englishPromise;
+  }
+
+  async function loadAdaptiveModules() {
+    if (window.LgsArenaWeeklyExam && window.LgsArenaAdaptive) return;
+    if (adaptivePromise) return adaptivePromise;
+    adaptivePromise = (async () => {
+      await loadExpandedBank();
+      await loadEnglishCore();
+      await Promise.allSettled([parentReady, scoringReady]);
+      await loadBankFile(`./data/adaptive-bank-v17.js?v=${VERSION}`, 'ADP-MAT-001');
+      await loadScript(`./adaptive-engine.js?v=${VERSION}`);
+      await loadScript(`./weekly-exam-v18.js?v=${VERSION}`);
       window.LgsArenaEnglish?.render?.();
       window.LgsArenaWeeklyExam?.renderMockCard?.();
       window.LgsArenaWeeklyExam?.renderParentSummary?.();
-    })().catch(error => console.warn('V1.8 modülleri yüklenemedi', error));
+    })().catch(error => console.warn('Adaptif çalışma motoru yüklenemedi', error));
     return adaptivePromise;
   }
 
@@ -209,6 +227,7 @@
   }
 
   loadExpandedBank();
+  loadEnglishCore();
   loadAdaptiveModules();
   installVerifiedZeus().catch(error => {
     console.error(error);
@@ -220,7 +239,7 @@
   window.addEventListener('appinstalled', () => { deferredPrompt = null; appToast('LGS Arena telefona kuruldu.'); });
 
   window.addEventListener('load', () => {
-    loadExpandedBank();
+    loadEnglishCore().then(() => window.LgsArenaEnglish?.render?.());
     loadAdaptiveModules().then(() => {
       fixMockBadge();
       window.LgsArenaEnglish?.render?.();
@@ -240,7 +259,7 @@
     }
 
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-      navigator.serviceWorker.register('./service-worker.js?v=18')
+      navigator.serviceWorker.register(`./service-worker.js?v=${VERSION}`)
         .then(reg => {
           reg.update().catch(() => {});
           if (reg.waiting) reg.waiting.postMessage('SKIP_WAITING');
@@ -249,5 +268,5 @@
     }
   });
 
-  window.LgsArenaPwa = { installApp, reloadZeus: installVerifiedZeus, reloadAdaptive: loadAdaptiveModules };
+  window.LgsArenaPwa = { installApp, reloadZeus: installVerifiedZeus, reloadAdaptive: loadAdaptiveModules, reloadEnglish: loadEnglishCore };
 })();
