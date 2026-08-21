@@ -4,7 +4,7 @@
   "short_name": "LGS Arena",
   "description": "LGS 2027 için öğrenci profili, 6 ders, adaptif soru çözme, 90 soruluk haftalık LGS provası, tahmini puan, ilerleme ve veli koçluk paneli.",
   "lang": "tr",
-  "start_url": "./launch-v21.html?v=23",
+  "start_url": "./index.html?v=24",
   "scope": "./",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
@@ -17,9 +17,9 @@
     {"src":"assets/icon-512.webp","sizes":"512x512","type":"image/webp","purpose":"any maskable"}
   ],
   "shortcuts": [
-    {"name":"Soru Çöz","short_name":"Soru Çöz","description":"Altı dersten hızlı soru çözme ekranını aç","url":"./launch-v21.html?v=23#solve","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]},
-    {"name":"Haftalık Deneme","short_name":"Deneme","description":"90 soruluk iki oturumlu haftalık LGS provasını aç","url":"./launch-v21.html?v=23#mock","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]},
-    {"name":"Zeus","short_name":"Zeus","description":"Zeus çalışma rehberini aç","url":"./launch-v21.html?v=23#zeus","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]},
-    {"name":"Veli Paneli","short_name":"Veli","description":"Öğrencinin günlük karnesi, deneme sonucu ve Zeus veli koçluğunu aç","url":"./launch-v21.html?v=23#parent","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]}
+    {"name":"Soru Çöz","short_name":"Soru Çöz","description":"Altı dersten hızlı soru çözme ekranını aç","url":"./index.html?v=24#solve","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]},
+    {"name":"Haftalık Deneme","short_name":"Deneme","description":"90 soruluk iki oturumlu haftalık LGS provasını aç","url":"./index.html?v=24#mock","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]},
+    {"name":"Zeus","short_name":"Zeus","description":"Zeus çalışma rehberini aç","url":"./index.html?v=24#zeus","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]},
+    {"name":"Veli Paneli","short_name":"Veli","description":"Öğrencinin günlük karnesi, deneme sonucu ve Zeus veli koçluğunu aç","url":"./index.html?v=24#parent","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]}
   ]
 }

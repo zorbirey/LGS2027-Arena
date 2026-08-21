@@ -6,32 +6,17 @@
 <meta name="theme-color" content="#050b18">
 <title>LGS 2027 Arena</title>
 <style>
-html,body{margin:0;width:100%;height:100%;background:#020710;color:#fff;font-family:Arial,Helvetica,sans-serif}#boot{position:fixed;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 50% 32%,#143f73 0,#061528 38%,#020710 76%)}#boot>div{text-align:center;padding:28px;max-width:340px}#boot b{display:block;font:800 27px Georgia,serif;color:#78b9ff;letter-spacing:2px}#boot span{display:block;margin-top:8px;color:#f5d88e;font-weight:800;letter-spacing:1px}#boot p{font-size:12px;line-height:1.5;color:#adc1d5}#open{display:none;margin:16px auto 0;padding:13px 20px;border:0;border-radius:12px;background:#2677ff;color:#fff;font-weight:900}
+html,body{margin:0;width:100%;height:100%;background:#020710;color:#fff;font-family:Arial,Helvetica,sans-serif}#boot{position:fixed;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 50% 32%,#143f73 0,#061528 38%,#020710 76%)}#boot>div{text-align:center;padding:28px;max-width:340px}#boot b{display:block;font:800 27px Georgia,serif;color:#78b9ff;letter-spacing:2px}#boot span{display:block;margin-top:8px;color:#f5d88e;font-weight:800;letter-spacing:1px}#boot p{font-size:12px;line-height:1.5;color:#adc1d5}#open{margin:16px auto 0;padding:13px 20px;border:0;border-radius:12px;background:#2677ff;color:#fff;font-weight:900}
 </style>
 </head>
 <body>
-<div id="boot"><div><b>LGS 2027 ARENA</b><span>V2.3 KARARLI ÇEKİRDEK</span><p>Eski uygulama önbelleği kaldırılıyor ve yeni etkileşim çekirdeği bağlanıyor.</p><button id="open">ARENAYI AÇ</button></div></div>
+<div id="boot"><div><b>LGS 2027 ARENA</b><span>V2.4 OFFLINE-FIRST</span><p>Eski kurulum bağlantısı kullanılıyor. Önbellek silinmeden doğrudan Arena açılıyor.</p><button id="open">ARENAYI AÇ</button></div></div>
 <script>
 (function(){
-'use strict';
-var done=false,btn=document.getElementById('open');
-function target(){return './index.html?v=23&fresh='+Date.now()}
-function go(){if(done)return;done=true;location.replace(target())}
-btn.onclick=go;setTimeout(function(){btn.style.display='block'},1800);setTimeout(go,5000);
-(async function(){
- try{if('serviceWorker'in navigator){var regs=await navigator.serviceWorker.getRegistrations();await Promise.allSettled(regs.map(function(r){return r.unregister()}))}}catch(e){}
- try{if('caches'in window){var keys=await caches.keys();await Promise.allSettled(keys.filter(function(k){return /lgs-2027-arena-pwa/i.test(k)}).map(function(k){return caches.delete(k)}))}}catch(e){}
- try{
-   await fetch('./core-v23.js?v=23&warm='+Date.now(),{cache:'reload'});
-   if('serviceWorker'in navigator){
-     var reg=await navigator.serviceWorker.register('./service-worker.js?v=23',{scope:'./'});
-     try{await reg.update()}catch(e){}
-     if(reg.waiting)reg.waiting.postMessage('SKIP_WAITING');
-     await Promise.race([navigator.serviceWorker.ready,new Promise(function(resolve){setTimeout(resolve,2200)})]);
-   }
- }catch(e){}
- go();
-})();
+  'use strict';
+  function go(){location.replace('./index.html?v=24')}
+  document.getElementById('open').onclick=go;
+  setTimeout(go,250);
 })();
 </script>
 </body>
