@@ -1,0 +1,67 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - question-bank-apk-v011
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Prepare web assets
+        shell: bash
+        run: |
+          rm -rf android/app/src/main/assets
+          mkdir -p android/app/src/main/assets/data android/app/src/main/assets/assets
+          cp index.html styles.css mobile-v04.css android16-v05.css android16-v06.css android16-v07.css v09-vibrant.css app.js pwa.js android/app/src/main/assets/
+          cp data/*.js android/app/src/main/assets/data/
+          cp assets/* android/app/src/main/assets/assets/
+          sed -i '/<script src="app.js"><\/script>/i\<script src="data/bank-v011.js"></script>' android/app/src/main/assets/index.html
+
+      - name: Build installable APK
+        run: gradle -p android assembleRelease --stacktrace
+
+      - name: Rename APK
+        run: cp android/app/build/outputs/apk/release/app-release.apk LGS2027-Arena-v0.11.apk
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: LGS2027-Arena-v0.11-APK
+          path: LGS2027-Arena-v0.11.apk
+          retention-days: 30
+
+      - name: Publish APK release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v0.11-apk
+          name: LGS 2027 Arena v0.11 APK
+          body: |
+            Android için kurulabilir LGS 2027 Arena APK.
+            Bu sürüm 200 soruluk ilk genişletilmiş soru havuzunu içerir.
+          files: LGS2027-Arena-v0.11.apk
+          make_latest: true

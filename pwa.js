@@ -26,7 +26,24 @@
     el.textContent = message;
     el.classList.remove('hidden');
     clearTimeout(window.__pwaToastTimer);
-    window.__pwaToastTimer = setTimeout(() => el.classList.add('hidden'), 3600);
+    window.__pwaToastTimer = window.setTimeout(() => el.classList.add('hidden'), 3600);
+  }
+
+  async function loadExpandedBank() {
+    if ((window.QUESTION_BANK || []).some(q => q.id === 'MAT-031')) return;
+    try {
+      const response = await fetch('./data/bank-v011.js?v=11', { cache: 'no-store' });
+      if (!response.ok) throw new Error('bank fetch failed');
+      let code = await response.text();
+      code = code.replace('window.QUESTION_BANK=(window.QUESTION_BANK||[]).concat([', 'window.QUESTION_BANK.push(...[');
+      (0, eval)(code);
+      const title = document.querySelector('[data-page="subjects"] .page-title h1');
+      if (title) title.textContent = "40'ar soruluk genişletilmiş havuzlar";
+      const total = document.querySelector('[data-page="subjects"] .page-title > b');
+      if (total) total.textContent = String((window.QUESTION_BANK || []).length);
+    } catch (error) {
+      console.warn('V0.11 soru havuzu yüklenemedi', error);
+    }
   }
 
   async function installApp() {
@@ -93,6 +110,7 @@
     }, true);
   }
 
+  loadExpandedBank();
   installVerifiedZeus();
   fixMockBadge();
 
@@ -100,6 +118,7 @@
   window.addEventListener('appinstalled', () => { deferredPrompt = null; appToast('LGS Arena telefona kuruldu.'); });
 
   window.addEventListener('load', () => {
+    loadExpandedBank();
     installVerifiedZeus();
     fixMockBadge();
 
@@ -111,7 +130,7 @@
     }
 
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-      navigator.serviceWorker.register('./service-worker.js?v=10')
+      navigator.serviceWorker.register('./service-worker.js?v=11')
         .then(reg => {
           reg.update().catch(() => {});
           if (reg.waiting) reg.waiting.postMessage('SKIP_WAITING');
