@@ -17,6 +17,10 @@
     const el=document.createElement('div');el.id='studentProfileOverlay';el.className='student-profile-overlay hidden';
     document.body.appendChild(el);
   }
+  function openParentWhenReady(attempt=0){
+    if(window.LgsArenaParentPortal?.open){window.LgsArenaParentPortal.open();return}
+    if(attempt<20)setTimeout(()=>openParentWhenReady(attempt+1),150);
+  }
   function render(){
     ensure();const p=profile(),has=!!p.name;const el=$('studentProfileOverlay');
     el.innerHTML=`<section class="student-profile-card" role="dialog" aria-modal="true" aria-label="Öğrenci girişi">
@@ -33,7 +37,7 @@
       if(!current.name){const input=$('studentProfileName');const name=input?.value.trim()||'';if(name.length<2){input?.focus();return}current=saveProfile(name)}
       enterArena(current.name);
     };
-    $('studentProfileParent').onclick=()=>{el.classList.add('hidden');const open=()=>window.LgsArenaParentPortal?.open?.();if(window.LgsArenaParentPortal)open();else setTimeout(open,350)};
+    $('studentProfileParent').onclick=()=>{el.classList.add('hidden');openParentWhenReady()};
     $('studentProfileChange')?.addEventListener('click',()=>{localStorage.removeItem(PROFILE_KEY);render();$('studentProfileName')?.focus()});
   }
   function enterArena(name){
