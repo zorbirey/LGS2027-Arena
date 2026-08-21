@@ -11,9 +11,19 @@
   <meta name="apple-mobile-web-app-title" content="LGS Arena">
   <meta name="format-detection" content="telephone=no">
   <title>LGS 2027 Arena</title>
-  <link rel="manifest" href="manifest.webmanifest?v=181">
+  <link rel="manifest" href="manifest.webmanifest?v=27">
   <link rel="icon" type="image/svg+xml" href="assets/zeus-cover.svg">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=27">
+  <link rel="stylesheet" href="mobile-v04.css?v=27">
+  <link rel="stylesheet" href="android16-v05.css?v=27">
+  <link rel="stylesheet" href="android16-v06.css?v=27">
+  <link rel="stylesheet" href="android16-v07.css?v=27">
+  <link rel="stylesheet" href="v09-vibrant.css?v=27">
+  <link rel="stylesheet" href="v10-zeus-fix.css?v=27">
+  <link rel="stylesheet" href="parent-tracking.css?v=27">
+  <link rel="stylesheet" href="lgs-scoring.css?v=27">
+  <link rel="stylesheet" href="weekly-exam-v18.css?v=27">
+  <link rel="stylesheet" href="clean-v27.css?v=27">
 </head>
 <body>
 <div id="app">
@@ -21,14 +31,14 @@
     <img src="assets/zeus.webp" alt="Zeus - LGS 2027 Arena">
     <div class="cover-overlay"></div>
     <div class="cover-branding"><span>LGS 2027</span><strong>ARENA</strong><em>INSPIRED FROM ZEUS</em></div>
-    <button id="skipCover" class="cover-skip">ARENAYA GİR</button>
+    <button id="skipCover" class="cover-skip" type="button">ARENAYA GİR</button>
   </section>
 
   <section id="shell" class="shell hidden">
     <header class="app-header">
       <button id="menuBtn" class="icon-btn" aria-label="Menü"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <div class="brand"><span>LGS 2027</span><strong>ARENA</strong></div>
-      <button id="bellBtn" class="icon-btn" aria-label="Bildirimler"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></button>
+      <button id="bellBtn" class="icon-btn" aria-label="Zeus"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></button>
     </header>
 
     <main id="pageHost" class="page-host">
@@ -67,7 +77,7 @@
       </section>
 
       <section class="page" data-page="subjects">
-        <div class="page-title"><div><span>DERSLER</span><h1>6 derslik LGS soru havuzları</h1></div><b>170+</b></div>
+        <div class="page-title"><div><span>DERSLER</span><h1>6 derslik LGS soru havuzları</h1></div><b>230+</b></div>
         <div id="subjectCards" class="subject-cards"></div>
       </section>
 
@@ -117,13 +127,13 @@
       <section class="page" data-page="mock">
         <div class="mock-card">
           <div class="mock-ring"><span>90</span><small>SORU</small></div>
-          <div><span>HAFTALIK DENEME</span><h2>LGS Arena Tam Sınav Simülasyonu</h2><p>6 ders · 90 soru · sözel ve sayısal iki oturum</p></div>
+          <div><span>HAFTALIK DENEME</span><h2>LGS Arena Tam Sınav Simülasyonu</h2><p>50 sözel · 40 sayısal · iki oturum</p></div>
         </div>
         <div class="mock-rules">
-          <div><b>75 dk</b><span>Sözel</span></div><div><b>80 dk</b><span>Sayısal</span></div><div><b>45 dk</b><span>Resmî ara</span></div>
+          <div><b>75 dk</b><span>Sözel</span></div><div><b>45 dk</b><span>Resmî ara</span></div><div><b>80 dk</b><span>Sayısal</span></div>
         </div>
         <div class="notice"><b>Haftalık sınav:</b> Sonuç; sonraki haftanın çalışma planını, zorluk seviyesini ve Zeus koçluk rotasını belirler.</div>
-        <button id="startMock" class="primary-btn big">90 Soruluk Denemeyi Başlat</button>
+        <button id="startMock" class="primary-btn big">90 Soruluk Haftalık Denemeyi Başlat</button>
       </section>
 
       <section class="page" data-page="progress">
@@ -134,11 +144,11 @@
           <div class="rank-grid"><div class="rank-box"><span>🇹🇷 Türkiye</span><b id="turkeyRank">—</b><small id="turkeyRankTotal">/ 250.000</small></div><div class="rank-box"><span id="provinceRankLabel">İstanbul</span><b id="provinceRank">—</b><small id="provinceRankTotal">/ 42.000</small></div></div>
           <div class="ranking-meta"><span><b id="rankSolvedCount">0</b> benzersiz soru çözüldü</span><span>Doğruluk <b id="rankAccuracy">0%</b></span></div>
           <label class="province-row"><span>İl sıralaması</span><select id="provinceSelect" aria-label="İl seç"></select></label>
-          <p class="ranking-note">Demo sürümünde sıralama örnek kullanıcı dağılımıyla simüle edilir. Gerçek sürümde yalnızca benzersiz çözülen sorular sayılır; soru geçmişini sıfırlamak sıralamayı yükseltmez.</p>
+          <p class="ranking-note">Demo sürümünde sıralama örnek kullanıcı dağılımıyla simüle edilir. Gerçek sürümde yalnızca benzersiz çözülen sorular sayılır.</p>
         </section>
         <div class="weak-card"><div class="section-head"><h2>Zayıf Konular</h2><span>son çözümler</span></div><div id="weakTopics"></div></div>
         <div class="plan-card"><div><span>Demo Planı</span><b id="planText">Ücretsiz</b></div><button id="togglePlan">Reklamsız akışı önizle</button></div>
-        <p class="fine-print">Bu anahtar yalnızca reklam akışını test etmek içindir. Gerçek paket adı ve fiyatlandırma HMGS Arena ile aynı ürün kuralları kullanılarak bağlanacaktır.</p>
+        <p class="fine-print">Bu anahtar yalnızca reklam akışını test etmek içindir. Gerçek paket ve reklam kuralları HMGS Arena ürün mantığıyla bağlanacaktır.</p>
       </section>
 
       <section id="resultPage" class="page result-page" data-page="result">
@@ -170,16 +180,27 @@
   <div id="modal" class="modal hidden"><div class="modal-card"><h3 id="modalTitle"></h3><p id="modalText"></p><div><button id="modalCancel" class="outline-btn">Vazgeç</button><button id="modalOk" class="primary-btn">Tamam</button></div></div></div>
   <div id="adOverlay" class="ad-overlay hidden"><div class="ad-demo"><span>REKLAM · DEMO</span><b id="adCount">3</b><p>Gerçek sürümde bu alan HMGS Arena ile aynı reklam mantığına bağlanacak.</p></div></div>
 </div>
-<script src="data/matematik.js"></script>
-<script src="data/fen.js"></script>
-<script src="data/turkce.js"></script>
-<script src="data/inkilap.js"></script>
-<script src="data/din.js"></script>
-<script src="data/notes.js"></script>
-<script src="data/english-v18.js?v=181" data-loaded="1"></script>
-<script src="data/english-notes-v18.js?v=181" data-loaded="1"></script>
-<script src="app.js?v=181"></script>
-<script src="english-integration-v18.js?v=181" data-loaded="1"></script>
-<script src="pwa.js?v=181"></script>
+
+<!-- Veri dosyaları önce ve sabit sırayla yüklenir. -->
+<script src="data/matematik.js?v=27"></script>
+<script src="data/fen.js?v=27"></script>
+<script src="data/turkce.js?v=27"></script>
+<script src="data/inkilap.js?v=27"></script>
+<script src="data/din.js?v=27"></script>
+<script src="data/notes.js?v=27"></script>
+<script src="data/english-v18.js?v=27"></script>
+<script src="data/english-notes-v18.js?v=27"></script>
+<script src="data/bank-v011.js?v=27"></script>
+<script src="data/adaptive-bank-v17.js?v=27"></script>
+
+<!-- Tek giriş katmanı + tek uygulama çekirdeği. -->
+<script src="entry-clean-v27.js?v=27"></script>
+<script src="core-v23.js?v=27"></script>
+
+<!-- Özellik modülleri çekirdekten sonra yüklenir; çekirdeğin çalışmasını engellemez. -->
+<script src="parent-tracking.js?v=27"></script>
+<script src="lgs-scoring.js?v=27"></script>
+<script src="weekly-exam-v18.js?v=27"></script>
+<script src="pwa-clean-v27.js?v=27"></script>
 </body>
 </html>
