@@ -2,15 +2,16 @@
   'use strict';
 
   const cssFiles = [
-    './mobile-v04.css?v=17',
-    './android16-v05.css?v=17',
-    './android16-v06.css?v=17',
-    './android16-v07.css?v=17',
-    './v09-vibrant.css?v=17',
-    './v10-zeus-fix.css?v=17',
-    './parent-tracking.css?v=17',
-    './lgs-scoring.css?v=17',
-    './adaptive-v17.css?v=17'
+    './mobile-v04.css?v=18',
+    './android16-v05.css?v=18',
+    './android16-v06.css?v=18',
+    './android16-v07.css?v=18',
+    './v09-vibrant.css?v=18',
+    './v10-zeus-fix.css?v=18',
+    './parent-tracking.css?v=18',
+    './lgs-scoring.css?v=18',
+    './adaptive-v17.css?v=18',
+    './weekly-exam-v18.css?v=18'
   ];
   cssFiles.forEach(href => {
     const link = document.createElement('link');
@@ -21,8 +22,13 @@
 
   function loadScript(src) {
     return new Promise((resolve, reject) => {
-      const existing = [...document.scripts].find(s => s.src && s.src.includes(src.split('?')[0]));
-      if (existing) { if (existing.dataset.loaded === '1') resolve(); else existing.addEventListener('load', resolve, { once:true }); return; }
+      const clean = src.split('?')[0];
+      const existing = [...document.scripts].find(s => s.src && s.src.includes(clean));
+      if (existing) {
+        if (existing.dataset.loaded === '1') resolve();
+        else existing.addEventListener('load', resolve, { once:true });
+        return;
+      }
       const script = document.createElement('script');
       script.src = src;
       script.defer = true;
@@ -32,20 +38,20 @@
     });
   }
 
-  const parentReady = loadScript('./parent-tracking.js?v=17');
-  const scoringReady = loadScript('./lgs-scoring.js?v=17');
+  const parentReady = loadScript('./parent-tracking.js?v=18');
+  const scoringReady = loadScript('./lgs-scoring.js?v=18');
 
   const ZEUS_PART_URLS = [
-    './assets/zeus-v10/part-1.txt?v=17',
-    './assets/zeus-v10/part-2.txt?v=17',
-    './assets/zeus-v10/part-3a.txt?v=17',
-    './assets/zeus-v10/part-3b.txt?v=17',
-    './assets/zeus-v10/part-4.txt?v=17',
-    './assets/zeus-v10/part-5a.txt?v=17',
-    './assets/zeus-v10/part-5b.txt?v=17',
-    './assets/zeus-v10/part-6.txt?v=17'
+    './assets/zeus-v10/part-1.txt?v=18',
+    './assets/zeus-v10/part-2.txt?v=18',
+    './assets/zeus-v10/part-3a.txt?v=18',
+    './assets/zeus-v10/part-3b.txt?v=18',
+    './assets/zeus-v10/part-4.txt?v=18',
+    './assets/zeus-v10/part-5a.txt?v=18',
+    './assets/zeus-v10/part-5b.txt?v=18',
+    './assets/zeus-v10/part-6.txt?v=18'
   ];
-  const ZEUS_FALLBACK = './assets/zeus-real-v09.webp?v=17';
+  const ZEUS_FALLBACK = './assets/zeus-real-v09.webp?v=18';
   let zeusDataUrl = null;
   let zeusPromise = null;
   let deferredPrompt = null;
@@ -66,13 +72,13 @@
   async function loadExpandedBank() {
     if ((window.QUESTION_BANK || []).some(q => q.id === 'MAT-031')) return;
     try {
-      const response = await fetch('./data/bank-v011.js?v=17', { cache: 'no-store' });
+      const response = await fetch('./data/bank-v011.js?v=18', { cache: 'no-store' });
       if (!response.ok) throw new Error('bank fetch failed');
       let code = await response.text();
       code = code.replace('window.QUESTION_BANK=(window.QUESTION_BANK||[]).concat([', 'window.QUESTION_BANK.push(...[');
       (0, eval)(code);
       const title = document.querySelector('[data-page="subjects"] .page-title h1');
-      if (title) title.textContent = "Genişletilmiş + adaptif soru havuzları";
+      if (title) title.textContent = 'Genişletilmiş + adaptif soru havuzları';
       const total = document.querySelector('[data-page="subjects"] .page-title > b');
       if (total) total.textContent = String((window.QUESTION_BANK || []).length);
     } catch (error) {
@@ -81,16 +87,25 @@
   }
 
   async function loadAdaptiveModules() {
-    if (window.LgsArenaAdaptive) return;
+    if (window.LgsArenaWeeklyExam && window.LgsArenaEnglish) return;
     if (adaptivePromise) return adaptivePromise;
     adaptivePromise = (async () => {
       await loadExpandedBank();
       await Promise.allSettled([parentReady, scoringReady]);
-      await loadScript('./data/adaptive-bank-v17.js?v=17');
-      await loadScript('./adaptive-engine.js?v=17');
+      await loadScript('./data/english-v18.js?v=18');
+      await loadScript('./data/english-notes-v18.js?v=18');
+      await loadScript('./data/adaptive-bank-v17.js?v=18');
+      await loadScript('./adaptive-engine.js?v=18');
+      await loadScript('./english-integration-v18.js?v=18');
+      await loadScript('./weekly-exam-v18.js?v=18');
+      const title = document.querySelector('[data-page="subjects"] .page-title h1');
+      if (title) title.textContent = '6 derslik LGS soru havuzları';
       const total = document.querySelector('[data-page="subjects"] .page-title > b');
       if (total) total.textContent = String((window.QUESTION_BANK || []).length);
-    })().catch(error => console.warn('Adaptif çalışma motoru yüklenemedi', error));
+      window.LgsArenaEnglish?.render?.();
+      window.LgsArenaWeeklyExam?.renderMockCard?.();
+      window.LgsArenaWeeklyExam?.renderParentSummary?.();
+    })().catch(error => console.warn('V1.8 modülleri yüklenemedi', error));
     return adaptivePromise;
   }
 
@@ -175,8 +190,8 @@
   function fixMockBadge() {
     const ring = document.querySelector('.mock-ring span');
     const copy = document.querySelector('.mock-card p');
-    if (ring) ring.textContent = '20';
-    if (copy) copy.textContent = '5 ders · 20 soru · tam LGS puanına ölçeklenir';
+    if (ring) ring.textContent = '90';
+    if (copy) copy.textContent = '50 sözel · 40 sayısal · iki oturumlu haftalık LGS provası';
   }
 
   const coverButton = document.getElementById('skipCover');
@@ -202,7 +217,11 @@
 
   window.addEventListener('load', () => {
     loadExpandedBank();
-    loadAdaptiveModules();
+    loadAdaptiveModules().then(() => {
+      fixMockBadge();
+      window.LgsArenaEnglish?.render?.();
+      window.LgsArenaWeeklyExam?.renderMockCard?.();
+    });
     installVerifiedZeus().catch(error => {
       console.error(error);
       fallbackZeus();
@@ -217,7 +236,7 @@
     }
 
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-      navigator.serviceWorker.register('./service-worker.js?v=17')
+      navigator.serviceWorker.register('./service-worker.js?v=18')
         .then(reg => {
           reg.update().catch(() => {});
           if (reg.waiting) reg.waiting.postMessage('SKIP_WAITING');
