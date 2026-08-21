@@ -5,6 +5,7 @@
   const SHORT='İngilizce';
   const COLOR='#49b982';
   const ICON='A';
+  let scheduled=false;
 
   function state(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch{return {}}}
   function questions(){return (window.QUESTION_BANK||[]).filter(q=>q.subject===NAME)}
@@ -46,16 +47,20 @@
   function addSmartNoteTab(){
     const box=document.getElementById('smartNoteSubjectTabs');if(!box||box.querySelector('[data-english-note-tab]'))return;
     const b=document.createElement('button');b.dataset.englishNoteTab='1';b.style.setProperty('--c',COLOR);b.textContent=SHORT;
+    if(document.getElementById('smartNotesSubjectTitle')?.textContent===NAME)b.classList.add('selected');
     b.onclick=()=>proxyClick('[data-note-subject]','noteSubject');box.appendChild(b);
   }
 
   function refreshTitles(){
-    const title=document.querySelector('[data-page="subjects"] .page-title h1');if(title)title.textContent='6 derslik LGS soru havuzları';
-    const total=document.querySelector('[data-page="subjects"] .page-title > b');if(total)total.textContent=String((window.QUESTION_BANK||[]).length);
+    const title=document.querySelector('[data-page="subjects"] .page-title h1');
+    if(title&&title.textContent!=='6 derslik LGS soru havuzları')title.textContent='6 derslik LGS soru havuzları';
+    const total=document.querySelector('[data-page="subjects"] .page-title > b'),value=String((window.QUESTION_BANK||[]).length);
+    if(total&&total.textContent!==value)total.textContent=value;
   }
 
   function render(){addArenaRow();addSubjectCard();addSolveLauncher();addProgress();addSmartNoteTab();refreshTitles()}
-  function init(){render();new MutationObserver(()=>requestAnimationFrame(render)).observe(document.body,{childList:true,subtree:true});window.addEventListener('storage',render)}
+  function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;render()})}
+  function init(){render();new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true});window.addEventListener('storage',schedule)}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
   window.LgsArenaEnglish={render};
 })();
