@@ -2,9 +2,9 @@
   "id": "./",
   "name": "LGS 2027 Arena",
   "short_name": "LGS Arena",
-  "description": "LGS 2027 için Zeus temalı soru çözme, akıllı notlar, deneme, tahmini LGS puanı, ilerleme, sıralama ve veli paneli uygulaması.",
+  "description": "LGS 2027 için Zeus temalı adaptif soru çözme, haftalık deneme, tahmini LGS puanı, ilerleme ve veli koçluk paneli.",
   "lang": "tr",
-  "start_url": "./index.html?v=16",
+  "start_url": "./index.html?v=17",
   "scope": "./",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
@@ -17,8 +17,9 @@
     {"src":"assets/icon-512.webp","sizes":"512x512","type":"image/webp","purpose":"any maskable"}
   ],
   "shortcuts": [
-    {"name":"Soru Çöz","short_name":"Soru Çöz","description":"Hızlı soru çözme ekranını aç","url":"./index.html?v=16#solve","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]},
-    {"name":"Zeus","short_name":"Zeus","description":"Zeus çalışma rehberini aç","url":"./index.html?v=16#zeus","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]},
-    {"name":"Veli Paneli","short_name":"Veli","description":"Öğrencinin günlük karnesini aç","url":"./index.html?v=16#parent","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]}
+    {"name":"Soru Çöz","short_name":"Soru Çöz","description":"Hızlı soru çözme ekranını aç","url":"./index.html?v=17#solve","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]},
+    {"name":"Haftalık Deneme","short_name":"Deneme","description":"Zeus adaptif haftalık denemesini aç","url":"./index.html?v=17#mock","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]},
+    {"name":"Zeus","short_name":"Zeus","description":"Zeus çalışma rehberini aç","url":"./index.html?v=17#zeus","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]},
+    {"name":"Veli Paneli","short_name":"Veli","description":"Öğrencinin günlük karnesi ve Zeus veli koçluğunu aç","url":"./index.html?v=17#parent","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]}
   ]
 }
