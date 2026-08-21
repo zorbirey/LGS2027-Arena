@@ -3,6 +3,7 @@
   const KEY='lgsArenaPwaV02';
   const ADAPT_KEY='lgsArenaAdaptiveV17';
   const NAME='Yabancı Dil';
+  const DISPLAY='İngilizce';
   const SHORT='İngilizce';
   const COLOR='#49b982';
   const ICON='EN';
@@ -31,7 +32,7 @@
     const box=document.getElementById('subjectCards');if(!box||box.querySelector('[data-english-card]'))return;
     const total=questions().length,seen=seenCount(),left=Math.max(0,total-seen),pct=total?seen/total*100:0;
     const article=document.createElement('article');article.className='subject-card';article.dataset.englishCard='1';article.style.setProperty('--c',COLOR);
-    article.innerHTML=`<div class="subject-icon">${ICON}</div><div><h3>${NAME}</h3><p>${seen}/${total} görüldü · ${left} yeni</p><div class="tiny-progress"><i style="width:${pct}%"></i></div></div><div class="subject-actions"><button data-english-notes>Akıllı Notlar</button><button data-english-start>10 Soru</button></div>`;
+    article.innerHTML=`<div class="subject-icon">${ICON}</div><div><h3>${DISPLAY}</h3><p>Yabancı Dil · ${seen}/${total} görüldü · ${left} yeni</p><div class="tiny-progress"><i style="width:${pct}%"></i></div></div><div class="subject-actions"><button data-english-notes>Akıllı Notlar</button><button data-english-start>10 Soru</button></div>`;
     box.appendChild(article);
     article.querySelector('[data-english-start]').onclick=()=>proxyClick('[data-start]','start');
     article.querySelector('[data-english-notes]').onclick=()=>proxyClick('[data-notes]','notes');
