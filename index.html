@@ -11,7 +11,7 @@
   <meta name="apple-mobile-web-app-title" content="LGS Arena">
   <meta name="format-detection" content="telephone=no">
   <title>LGS 2027 Arena</title>
-  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="manifest" href="manifest.webmanifest?v=181">
   <link rel="icon" type="image/svg+xml" href="assets/zeus-cover.svg">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -67,7 +67,7 @@
       </section>
 
       <section class="page" data-page="subjects">
-        <div class="page-title"><div><span>DERSLER</span><h1>30'ar soruluk demo havuzları</h1></div><b>150</b></div>
+        <div class="page-title"><div><span>DERSLER</span><h1>6 derslik LGS soru havuzları</h1></div><b>170+</b></div>
         <div id="subjectCards" class="subject-cards"></div>
       </section>
 
@@ -116,14 +116,14 @@
 
       <section class="page" data-page="mock">
         <div class="mock-card">
-          <div class="mock-ring"><span>20</span><small>SORU</small></div>
-          <div><span>DEMO DENEME</span><h2>LGS Arena Karma Mini Deneme</h2><p>5 ders · her dersten 4 soru · sonuç sonunda açıklanır</p></div>
+          <div class="mock-ring"><span>90</span><small>SORU</small></div>
+          <div><span>HAFTALIK DENEME</span><h2>LGS Arena Tam Sınav Simülasyonu</h2><p>6 ders · 90 soru · sözel ve sayısal iki oturum</p></div>
         </div>
         <div class="mock-rules">
-          <div><b>30 dk</b><span>Süre</span></div><div><b>4</b><span>Seçenek</span></div><div><b>0</b><span>Anlık geri bildirim</span></div>
+          <div><b>75 dk</b><span>Sözel</span></div><div><b>80 dk</b><span>Sayısal</span></div><div><b>45 dk</b><span>Resmî ara</span></div>
         </div>
-        <div class="notice"><b>HMGS mantığı:</b> Ücretsiz planda deneme sonunda reklam simülasyonu, reklamsız planda doğrudan sonuç ekranı.</div>
-        <button id="startMock" class="primary-btn big">Mini Denemeyi Başlat</button>
+        <div class="notice"><b>Haftalık sınav:</b> Sonuç; sonraki haftanın çalışma planını, zorluk seviyesini ve Zeus koçluk rotasını belirler.</div>
+        <button id="startMock" class="primary-btn big">90 Soruluk Denemeyi Başlat</button>
       </section>
 
       <section class="page" data-page="progress">
@@ -176,7 +176,10 @@
 <script src="data/inkilap.js"></script>
 <script src="data/din.js"></script>
 <script src="data/notes.js"></script>
-<script src="app.js"></script>
-<script src="pwa.js"></script>
+<script src="data/english-v18.js?v=181" data-loaded="1"></script>
+<script src="data/english-notes-v18.js?v=181" data-loaded="1"></script>
+<script src="app.js?v=181"></script>
+<script src="english-integration-v18.js?v=181" data-loaded="1"></script>
+<script src="pwa.js?v=181"></script>
 </body>
 </html>
