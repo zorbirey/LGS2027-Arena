@@ -6,31 +6,42 @@
 <meta name="theme-color" content="#050b18">
 <title>LGS 2027 Arena</title>
 <style>
-html,body{margin:0;width:100%;height:100%;background:#020710;color:#fff;font-family:Arial,Helvetica,sans-serif}#boot{position:fixed;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 50% 32%,#143f73 0,#061528 38%,#020710 76%)}#boot>div{text-align:center;padding:28px;max-width:340px}#boot b{display:block;font:800 27px Georgia,serif;color:#78b9ff;letter-spacing:2px}#boot span{display:block;margin-top:8px;color:#f5d88e;font-weight:800;letter-spacing:1px}#boot p{font-size:12px;line-height:1.5;color:#adc1d5}#open{margin:16px auto 0;padding:13px 20px;border:0;border-radius:12px;background:#2677ff;color:#fff;font-weight:900}
+html,body{margin:0;width:100%;height:100%;background:#020710;color:#fff;font-family:Arial,Helvetica,sans-serif}#boot{position:fixed;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 50% 32%,#143f73 0,#061528 38%,#020710 76%)}#boot>div{text-align:center;padding:28px;max-width:350px}#boot b{display:block;font:800 27px Georgia,serif;color:#78b9ff;letter-spacing:2px}#boot span{display:block;margin-top:8px;color:#f5d88e;font-weight:800;letter-spacing:1px}#boot p{font-size:12px;line-height:1.5;color:#adc1d5}#status{min-height:38px}#open{margin:16px auto 0;padding:13px 20px;border:0;border-radius:12px;background:#2677ff;color:#fff;font-weight:900}#open[disabled]{opacity:.45}
 </style>
 </head>
 <body>
-<div id="boot"><div><b>LGS 2027 ARENA</b><span>V2.7 TEMİZ MİMARİ</span><p>Eski giriş/PWA katmanları kaldırılıyor. Öğrenci ilerlemesi ve yerel çalışma verileri korunur.</p><button id="open">ARENAYI AÇ</button></div></div>
+<div id="boot"><div><b>LGS 2027 ARENA</b><span>V2.8 SAĞLAM KURULUM</span><p id="status">Temel uygulama paketi hazırlanıyor. Bu ekran Arena çekirdeği gerçekten telefona gelmeden geçiş yapmaz.</p><button id="open" disabled>PAKET HAZIRLANIYOR</button></div></div>
 <script>
 (function(){
 'use strict';
-var done=false,button=document.getElementById('open');
-function go(){if(done)return;done=true;location.replace('./index.html?v=27&clean='+Date.now())}
+var button=document.getElementById('open'),status=document.getElementById('status'),ready=false;
+function go(){if(!ready)return;location.replace('./index.html?v=28&ready='+Date.now())}
 button.onclick=go;
+function activateButton(){if(ready)return;ready=true;status.textContent='Temel paket ve giriş çekirdeği hazır. Arena çevrimdışı da açılabilir.';button.disabled=false;button.textContent='ARENAYI AÇ';setTimeout(go,500)}
 (async function(){
+  if(!('serviceWorker' in navigator)){status.textContent='Bu tarayıcı PWA servisini desteklemiyor. Normal web sürümünü açabilirsin.';ready=true;button.disabled=false;button.textContent='WEB SÜRÜMÜNÜ AÇ';return}
   try{
-    if('serviceWorker' in navigator){
-      var regs=await navigator.serviceWorker.getRegistrations();
-      await Promise.allSettled(regs.map(function(r){return r.unregister()}));
-      var reg=await navigator.serviceWorker.register('./service-worker.js?v=27',{scope:'./'});
-      try{await reg.update()}catch(e){}
-      if(reg.waiting)reg.waiting.postMessage('SKIP_WAITING');
-      await Promise.race([navigator.serviceWorker.ready,new Promise(function(resolve){setTimeout(resolve,2800)})]);
-    }
-  }catch(e){}
-  go();
+    var regs=await navigator.serviceWorker.getRegistrations();
+    await Promise.allSettled(regs.map(function(r){return r.unregister()}));
+    var keys=await caches.keys();
+    await Promise.all(keys.filter(function(k){return /lgs-2027-arena-pwa/i.test(k)}).map(function(k){return caches.delete(k)}));
+    status.textContent='Temel dosyalar indiriliyor. Bağlantı zayıfsa bu işlem biraz sürebilir.';
+    var reg=await navigator.serviceWorker.register('./service-worker.js?v=28',{scope:'./'});
+    try{await reg.update()}catch(e){}
+    var started=Date.now();
+    var timer=setInterval(async function(){
+      try{
+        var cache=await caches.open('lgs-2027-arena-pwa-v2.8-critical');
+        var required=['./index.html','./entry-clean-v27.js','./core-v23.js','./data/matematik.js','./data/fen.js','./data/turkce.js','./data/inkilap.js','./data/din.js','./data/english-v18.js'];
+        var hits=await Promise.all(required.map(function(u){return cache.match(u,{ignoreSearch:true})}));
+        var active=!!reg.active;
+        if(hits.every(Boolean)&&active){clearInterval(timer);activateButton();return}
+        status.textContent='Temel paket indiriliyor: '+hits.filter(Boolean).length+' / '+required.length+' kritik dosya hazır'+(active?' · servis aktif':' · servis etkinleştiriliyor');
+        if(Date.now()-started>60000){clearInterval(timer);status.textContent='Bağlantı kritik paketi tamamlayamadı. İnternet biraz düzeldiğinde bu sayfayı yenile.'}
+      }catch(e){}
+    },900);
+  }catch(e){status.textContent='Temel paket kurulamadı. Bağlantı geldiğinde bu sayfayı yenile.'}
 })();
-setTimeout(go,4500);
 })();
 </script>
 </body>
