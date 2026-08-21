@@ -2,11 +2,11 @@
   'use strict';
 
   const cssFiles = [
-    './mobile-v04.css?v=09',
-    './android16-v05.css?v=09',
-    './android16-v06.css?v=09',
-    './android16-v07.css?v=09',
-    './v09-vibrant.css?v=09'
+    './mobile-v04.css?v=10',
+    './android16-v05.css?v=10',
+    './android16-v06.css?v=10',
+    './android16-v07.css?v=10',
+    './v09-vibrant.css?v=10'
   ];
   cssFiles.forEach(href => {
     const link = document.createElement('link');
@@ -15,7 +15,7 @@
     document.head.appendChild(link);
   });
 
-  const ZEUS = './assets/zeus-real-v09.webp?v=09';
+  const ZEUS = './assets/zeus-real-v09.webp?v=10';
   let deferredPrompt = null;
   const isIos = () => /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
   const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
@@ -93,8 +93,6 @@
     }, true);
   }
 
-  // pwa.js body'nin sonunda yüklendiği için Zeus'u window.load beklemeden değiştir.
-  // Böylece eski/yanlış asset bir anlığına bile kapakta görünmez.
   installVerifiedZeus();
   fixMockBadge();
 
@@ -113,7 +111,7 @@
     }
 
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-      navigator.serviceWorker.register('./service-worker.js?v=09')
+      navigator.serviceWorker.register('./service-worker.js?v=10')
         .then(reg => {
           reg.update().catch(() => {});
           if (reg.waiting) reg.waiting.postMessage('SKIP_WAITING');
