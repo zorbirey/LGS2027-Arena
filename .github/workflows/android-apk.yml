@@ -6,6 +6,9 @@ on:
     branches:
       - main
       - question-bank-apk-v011
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: read
