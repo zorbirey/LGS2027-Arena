@@ -1,16 +1,20 @@
 (() => {
   'use strict';
   const KEY='lgsArenaPwaV02';
+  const ADAPT_KEY='lgsArenaAdaptiveV17';
   const NAME='Yabancı Dil';
   const SHORT='İngilizce';
   const COLOR='#49b982';
-  const ICON='A';
+  const ICON='EN';
   let scheduled=false;
 
-  function state(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch{return {}}}
+  function read(key){try{return JSON.parse(localStorage.getItem(key)||'{}')}catch{return {}}}
+  function state(){return read(KEY)}
+  function adaptive(){return read(ADAPT_KEY)}
   function questions(){return (window.QUESTION_BANK||[]).filter(q=>q.subject===NAME)}
   function seenCount(){const seen=new Set(state().seenIds||[]);return questions().filter(q=>seen.has(q.id)).length}
   function accuracy(){const h=(state().history||[]).filter(x=>x.subject===NAME&&!x.assisted&&x.selected!==null);return h.length?Math.round(h.filter(x=>x.correct).length/h.length*100):0}
+  function rankLabel(level=2){return level>=3.5?'Efsane':level>=2.75?'Zor':level>=1.75?'Orta':'Kolay'}
 
   function proxyClick(selector,datasetKey){
     const source=document.querySelector(selector);if(!source)return false;
@@ -51,6 +55,13 @@
     b.onclick=()=>proxyClick('[data-note-subject]','noteSubject');box.appendChild(b);
   }
 
+  function addParentCoachRow(){
+    const box=document.querySelector('#parentAdaptiveCoach .parent-adaptive-subjects');if(!box||box.querySelector('[data-parent-english]'))return;
+    const p=adaptive().profile?.[NAME]||{route:'Kazanım',level:2,lastNet:null};
+    const net=p.lastNet==null?'—':Number(p.lastNet).toLocaleString('tr-TR',{minimumFractionDigits:1,maximumFractionDigits:1});
+    box.insertAdjacentHTML('beforeend',`<div class="parent-adaptive-row" data-parent-english><span>${SHORT}</span><b>${net} net</b><em class="${p.route==='Yeni Nesil'?'newgen':''}">${p.route||'Kazanım'} · ${rankLabel(p.level||2)}</em></div>`);
+  }
+
   function refreshTitles(){
     const title=document.querySelector('[data-page="subjects"] .page-title h1');
     if(title&&title.textContent!=='6 derslik LGS soru havuzları')title.textContent='6 derslik LGS soru havuzları';
@@ -58,7 +69,7 @@
     if(total&&total.textContent!==value)total.textContent=value;
   }
 
-  function render(){addArenaRow();addSubjectCard();addSolveLauncher();addProgress();addSmartNoteTab();refreshTitles()}
+  function render(){addArenaRow();addSubjectCard();addSolveLauncher();addProgress();addSmartNoteTab();addParentCoachRow();refreshTitles()}
   function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;render()})}
   function init(){render();new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true});window.addEventListener('storage',schedule)}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
