@@ -2,13 +2,13 @@
   'use strict';
 
   const cssFiles = [
-    './mobile-v04.css?v=13',
-    './android16-v05.css?v=13',
-    './android16-v06.css?v=13',
-    './android16-v07.css?v=13',
-    './v09-vibrant.css?v=13',
-    './v10-zeus-fix.css?v=13',
-    './parent-tracking.css?v=13'
+    './mobile-v04.css?v=14',
+    './android16-v05.css?v=14',
+    './android16-v06.css?v=14',
+    './android16-v07.css?v=14',
+    './v09-vibrant.css?v=14',
+    './v10-zeus-fix.css?v=14',
+    './parent-tracking.css?v=14'
   ];
   cssFiles.forEach(href => {
     const link = document.createElement('link');
@@ -18,21 +18,21 @@
   });
 
   const parentScript = document.createElement('script');
-  parentScript.src = './parent-tracking.js?v=13';
+  parentScript.src = './parent-tracking.js?v=14';
   parentScript.defer = true;
   document.head.appendChild(parentScript);
 
   const ZEUS_PART_URLS = [
-    './assets/zeus-v10/part-1.txt?v=13',
-    './assets/zeus-v10/part-2.txt?v=13',
-    './assets/zeus-v10/part-3a.txt?v=13',
-    './assets/zeus-v10/part-3b.txt?v=13',
-    './assets/zeus-v10/part-4.txt?v=13',
-    './assets/zeus-v10/part-5a.txt?v=13',
-    './assets/zeus-v10/part-5b.txt?v=13',
-    './assets/zeus-v10/part-6.txt?v=13'
+    './assets/zeus-v10/part-1.txt?v=14',
+    './assets/zeus-v10/part-2.txt?v=14',
+    './assets/zeus-v10/part-3a.txt?v=14',
+    './assets/zeus-v10/part-3b.txt?v=14',
+    './assets/zeus-v10/part-4.txt?v=14',
+    './assets/zeus-v10/part-5a.txt?v=14',
+    './assets/zeus-v10/part-5b.txt?v=14',
+    './assets/zeus-v10/part-6.txt?v=14'
   ];
-  const ZEUS_FALLBACK = './assets/zeus-real-v09.webp?v=13';
+  const ZEUS_FALLBACK = './assets/zeus-real-v09.webp?v=14';
   let zeusDataUrl = null;
   let zeusPromise = null;
   let deferredPrompt = null;
@@ -52,7 +52,7 @@
   async function loadExpandedBank() {
     if ((window.QUESTION_BANK || []).some(q => q.id === 'MAT-031')) return;
     try {
-      const response = await fetch('./data/bank-v011.js?v=13', { cache: 'no-store' });
+      const response = await fetch('./data/bank-v011.js?v=14', { cache: 'no-store' });
       if (!response.ok) throw new Error('bank fetch failed');
       let code = await response.text();
       code = code.replace('window.QUESTION_BANK=(window.QUESTION_BANK||[]).concat([', 'window.QUESTION_BANK.push(...[');
@@ -187,7 +187,7 @@
     }
 
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-      navigator.serviceWorker.register('./service-worker.js?v=13')
+      navigator.serviceWorker.register('./service-worker.js?v=14')
         .then(reg => {
           reg.update().catch(() => {});
           if (reg.waiting) reg.waiting.postMessage('SKIP_WAITING');

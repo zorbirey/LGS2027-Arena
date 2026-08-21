@@ -2,225 +2,170 @@
   'use strict';
 
   const STATE_KEY = 'lgsArenaPwaV02';
-  const PARENT_KEY = 'lgsArenaParentV1';
-  const defaultParent = {
-    phone: '',
-    verified: false,
-    dailyEnabled: true,
-    weeklyEnabled: true,
-    criticalEnabled: true,
-    dailyTime: '20:30',
-    consent: false,
-    lastSent: ''
-  };
-
+  const PARENT_KEY = 'lgsArenaParentPortalV2';
+  const DEMO_PAIR_CODE = '202727';
+  const defaults = { linked:false, studentName:'LGS 2027 Öğrencisi', linkedAt:'' };
   let parentState = readParent();
 
-  function readParent(){
-    try { return {...defaultParent, ...JSON.parse(localStorage.getItem(PARENT_KEY) || '{}')}; }
-    catch { return {...defaultParent}; }
-  }
-  function saveParent(){ localStorage.setItem(PARENT_KEY, JSON.stringify(parentState)); renderCard(); }
-  function appState(){
-    try { return JSON.parse(localStorage.getItem(STATE_KEY) || '{}'); }
-    catch { return {}; }
-  }
-  function esc(value=''){ return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-  function maskPhone(phone){
-    const d = String(phone).replace(/\D/g,'');
-    if(d.length < 10) return phone || 'Telefon eklenmedi';
-    return `+90 ${d.slice(-10,-7)} *** ** ${d.slice(-2)}`;
-  }
+  function readParent(){ try{return {...defaults,...JSON.parse(localStorage.getItem(PARENT_KEY)||'{}')}}catch{return {...defaults}} }
+  function saveParent(){ localStorage.setItem(PARENT_KEY,JSON.stringify(parentState)); renderAccessCard(); }
+  function appState(){ try{return JSON.parse(localStorage.getItem(STATE_KEY)||'{}')}catch{return {}} }
+  function esc(v=''){ return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function trNum(n,digits=0){ return Number(n||0).toLocaleString('tr-TR',{minimumFractionDigits:digits,maximumFractionDigits:digits}); }
+
   function todayRows(){
-    const s = appState();
-    const history = Array.isArray(s.history) ? s.history : [];
-    const count = Math.max(0, Number(s.daily?.count || 0));
-    return count ? history.slice(-Math.min(count, history.length)) : [];
+    const s=appState(), history=Array.isArray(s.history)?s.history:[];
+    const count=Math.max(0,Number(s.daily?.count||0));
+    return count ? history.slice(-Math.min(count,history.length)) : [];
+  }
+  function usableRows(rows){ return rows.filter(r=>!r.assisted && r.selected!==null); }
+  function subjectStats(rows){
+    const map={};
+    rows.forEach(r=>{
+      if(!r.subject) return;
+      map[r.subject] ||= {name:r.subject,n:0,c:0,w:0};
+      if(!r.assisted && r.selected!==null){ map[r.subject].n++; r.correct?map[r.subject].c++:map[r.subject].w++; }
+    });
+    return Object.values(map).filter(x=>x.n).map(x=>({...x,pct:Math.round(x.c/x.n*100)}));
+  }
+  function weakestTopic(rows){
+    const map={};
+    rows.forEach(r=>{
+      if(!r.topic) return;
+      map[r.topic] ||= {topic:r.topic,n:0,c:0,w:0,b:0,a:0};
+      const x=map[r.topic]; x.n++;
+      if(r.assisted)x.a++; else if(r.selected===null)x.b++; else if(r.correct)x.c++; else x.w++;
+    });
+    const list=Object.values(map).map(x=>({...x,score:x.w*2+x.b+x.a*.7-x.c*.15})).sort((a,b)=>b.score-a.score);
+    return list[0] || null;
+  }
+  function deficiency(d){
+    if(!d.total) return 'Bugün çalışma başlamadı';
+    if(d.assisted>=2) return 'Yardım almadan çözüm üretme ve kavramı hatırlama';
+    if(d.blank>=Math.max(2,d.wrong)) return 'Süre yönetimi ve seçenekler arasında karar verme';
+    if(d.accuracy<55) return `${d.weakTopic}: temel kavramları pekiştirme ve soru tipini tanıma`;
+    if(d.wrong>=3) return `${d.weakTopic}: yanlış analizi, işlem kontrolü ve dikkat`;
+    return `${d.weakTopic}: hız ve kalıcılık için kısa tekrar`;
+  }
+  function zeusAdvice(d){
+    if(!d.total) return 'Bugün 10 soruluk kısa bir çalışma ile başlasın. İlk veriler geldikten sonra hedefi otomatik daraltacağım.';
+    if(d.blank>=Math.max(2,d.wrong)) return `Yarın ${d.weakTopic} konusundan 10 soruyu süre tutarak çözsün. Boş bıraktığı soruları test bitince tek tek inceleyelim.`;
+    if(d.assisted>=2) return `Yarın ${d.weakTopic} için önce 1 Akıllı Not, ardından yardım almadan 10 hedef soru öneriyorum.`;
+    if(d.accuracy<65) return `${d.weakTopic} konusunda 10 hedef soru + yanlış analizi öneriyorum. Amaç önce doğruluğu %75'in üzerine çıkarmak.`;
+    return `${d.weakTopic} konusundan 10 pekiştirme sorusu çözüp ardından güçlü olduğu ${d.strongSubject} dersinde temposunu korusun.`;
   }
   function reportData(){
-    const s = appState();
-    const rows = todayRows();
-    const scored = rows.filter(r => !r.assisted && r.selected !== null);
-    const correct = scored.filter(r => r.correct).length;
-    const wrong = scored.length - correct;
-    const assisted = rows.filter(r => r.assisted).length;
-    const blank = rows.filter(r => !r.assisted && r.selected === null).length;
-    const accuracy = scored.length ? Math.round(correct / scored.length * 100) : 0;
-    const bySubject = {};
-    rows.forEach(r => {
-      if(!r.subject) return;
-      bySubject[r.subject] ||= {n:0,c:0};
-      if(!r.assisted && r.selected !== null){
-        bySubject[r.subject].n++;
-        if(r.correct) bySubject[r.subject].c++;
-      }
-    });
-    const subjectStats = Object.entries(bySubject).map(([name,v]) => ({name, pct:v.n ? Math.round(v.c/v.n*100) : 0, n:v.n})).filter(x=>x.n);
-    subjectStats.sort((a,b)=>b.pct-a.pct);
-    const strong = subjectStats[0]?.name || 'Henüz veri yok';
-    const weak = subjectStats.length ? subjectStats[subjectStats.length-1].name : 'Henüz veri yok';
-    return {
-      total: Number(s.daily?.count || 0), correct, wrong, blank, assisted, accuracy,
-      xp: Number(s.xp || 0), streak: Number(s.streak || 1), strong, weak,
-      estimatedMinutes: Math.max(0, Math.round(Number(s.daily?.count || 0) * 1.25))
-    };
+    const s=appState();
+    const today=todayRows();
+    const fallback=(Array.isArray(s.history)?s.history:[]).slice(-80);
+    const basis=today.length?today:fallback;
+    const scored=usableRows(today);
+    const correct=scored.filter(r=>r.correct).length;
+    const wrong=scored.length-correct;
+    const assisted=today.filter(r=>r.assisted).length;
+    const blank=today.filter(r=>!r.assisted && r.selected===null).length;
+    const total=Math.max(Number(s.daily?.count||0),today.length);
+    const accuracy=scored.length?Math.round(correct/scored.length*100):0;
+    const net=correct-wrong/3;
+    const subjects=subjectStats(basis).sort((a,b)=>b.pct-a.pct || b.n-a.n);
+    const strongSubject=subjects[0]?.name||'Henüz veri yok';
+    const weakSubject=subjects.length?subjects[subjects.length-1].name:'Henüz veri yok';
+    const wt=weakestTopic(basis);
+    const weakTopic=wt?.topic||'Henüz veri yok';
+    const data={total,correct,wrong,blank,assisted,accuracy,net,strongSubject,weakSubject,weakTopic,estimatedMinutes:Math.max(0,Math.round(total*1.25)),streak:Number(s.streak||1),xp:Number(s.xp||0)};
+    data.deficiency=deficiency(data);
+    data.zeus=zeusAdvice(data);
+    return data;
   }
 
   function toast(msg){
-    const el = document.getElementById('toast');
-    if(el){ el.textContent=msg; el.classList.remove('hidden'); clearTimeout(window.__parentToast); window.__parentToast=setTimeout(()=>el.classList.add('hidden'),3000); }
-    else alert(msg);
+    const el=document.getElementById('toast');
+    if(el){el.textContent=msg;el.classList.remove('hidden');clearTimeout(window.__parentPortalToast);window.__parentPortalToast=setTimeout(()=>el.classList.add('hidden'),2800)}
   }
 
-  function ensureCard(){
+  function ensureCoverEntry(){
+    if(document.getElementById('parentCoverEntry')) return;
+    const cover=document.getElementById('cover');
+    const arenaBtn=document.getElementById('skipCover');
+    if(!cover||!arenaBtn) return;
+    const btn=document.createElement('button');
+    btn.id='parentCoverEntry'; btn.className='parent-cover-entry'; btn.type='button';
+    btn.innerHTML='<span>👨‍👩‍👧</span> VELİ GİRİŞİ';
+    btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();openPortal()});
+    cover.appendChild(btn);
+  }
+
+  function ensureAccessCard(){
     if(document.getElementById('parentTrackingCard')) return;
-    const progress = document.querySelector('[data-page="progress"]');
+    const progress=document.querySelector('[data-page="progress"]');
     if(!progress) return;
-    const target = progress.querySelector('.plan-card') || progress.lastElementChild;
-    const card = document.createElement('section');
-    card.id = 'parentTrackingCard';
-    card.className = 'parent-track-card';
-    card.innerHTML = `
-      <div class="parent-card-icon" aria-hidden="true">👨‍👩‍👧</div>
-      <div class="parent-card-copy"><span>PREMIUM · VELİ TAKİBİ</span><b>Günlük Karne</b><small id="parentCardStatus">Kurulum yapılmadı</small></div>
-      <button id="openParentTracking">Aç</button>`;
-    progress.insertBefore(card, target);
-    card.querySelector('#openParentTracking').addEventListener('click', openPanel);
+    const target=progress.querySelector('.plan-card')||progress.lastElementChild;
+    const card=document.createElement('section');
+    card.id='parentTrackingCard'; card.className='parent-track-card';
+    card.innerHTML=`<div class="parent-card-icon">👨‍👩‍👧</div><div class="parent-card-copy"><span>PREMIUM · VELİ PANELİ</span><b>Öğrenci Karnesi</b><small id="parentCardStatus"></small></div><button id="openParentTracking">Aç</button>`;
+    progress.insertBefore(card,target);
+    card.querySelector('#openParentTracking').onclick=openPortal;
+  }
+  function renderAccessCard(){
+    ensureAccessCard();
+    const el=document.getElementById('parentCardStatus');
+    if(el) el.textContent=parentState.linked?'Veli hesabı öğrenciyle eşleştirildi':'Telefon numarası olmadan eşleştir';
   }
 
-  function renderCard(){
-    ensureCard();
-    const status = document.getElementById('parentCardStatus');
-    if(!status) return;
-    if(parentState.verified && parentState.dailyEnabled) status.textContent = `${maskPhone(parentState.phone)} · Her gün ${parentState.dailyTime}`;
-    else if(parentState.verified) status.textContent = `${maskPhone(parentState.phone)} · Rapor kapalı`;
-    else if(parentState.phone) status.textContent = 'Telefon doğrulaması bekleniyor';
-    else status.textContent = 'Veli telefonunu ekle';
-  }
-
-  function ensurePanel(){
-    if(document.getElementById('parentTrackingOverlay')) return;
-    const overlay = document.createElement('div');
-    overlay.id = 'parentTrackingOverlay';
-    overlay.className = 'parent-overlay hidden';
-    overlay.innerHTML = `
-      <section class="parent-sheet" role="dialog" aria-modal="true" aria-label="Veli Takip Modülü">
-        <header class="parent-sheet-head">
-          <button id="closeParentTracking" aria-label="Kapat">‹</button>
-          <div><span>VELİ TAKİP MODÜLÜ</span><h2>Günlük Karne</h2></div>
-          <em>PREMIUM</em>
-        </header>
-        <div class="parent-tabs">
-          <button class="selected" data-parent-tab="setup">Kurulum</button>
-          <button data-parent-tab="report">Karne Önizleme</button>
+  function ensurePortal(){
+    if(document.getElementById('parentPortalOverlay')) return;
+    const overlay=document.createElement('div');
+    overlay.id='parentPortalOverlay'; overlay.className='parent-portal-overlay hidden';
+    overlay.innerHTML=`
+      <section class="parent-portal" role="dialog" aria-modal="true" aria-label="LGS Arena Veli Paneli">
+        <header class="parent-portal-head"><button id="closeParentPortal" aria-label="Kapat">‹</button><div><span>VELİ GİRİŞİ</span><h2>LGS Arena Veli Paneli</h2></div><em>PREMIUM</em></header>
+        <div id="parentLoginView" class="parent-login-view">
+          <div class="parent-login-mark">👨‍👩‍👧</div>
+          <h3>Öğrencinin gelişimini kendi ekranından takip et</h3>
+          <p>Telefon numarası ve SMS yok. Gerçek sürümde öğrenci hesabının ürettiği tek kullanımlık eşleştirme kodu ile veli hesabı bağlanacak.</p>
+          <label><span>Öğrenci eşleştirme kodu</span><input id="parentPairCode" inputmode="numeric" maxlength="6" placeholder="6 haneli kod"></label>
+          <button id="parentPairButton" class="parent-main-btn">Veli Panelini Aç</button>
+          <small>Demo eşleştirme kodu: <b>${DEMO_PAIR_CODE}</b></small>
         </div>
-        <div class="parent-tab-panel" data-parent-panel="setup">
-          <div class="parent-hero-note"><b>Veli, öğrencinin günlük ilerlemesini kendi telefonundan takip eder.</b><span>Gerçek sürümde numara SMS koduyla doğrulanacak. Demo doğrulama kodu: <strong>2027</strong></span></div>
-          <label class="parent-field"><span>Veli telefon numarası</span><input id="parentPhone" inputmode="tel" placeholder="05xx xxx xx xx" maxlength="15"></label>
-          <div class="parent-verify-row"><button id="sendParentCode">Kod Gönder</button><input id="parentCode" inputmode="numeric" placeholder="Doğrulama kodu" maxlength="4"><button id="verifyParentCode">Doğrula</button></div>
-          <div id="parentVerifyStatus" class="parent-verify-status"></div>
-          <label class="parent-field"><span>Günlük karne saati</span><input id="parentDailyTime" type="time" value="20:30"></label>
-          <div class="parent-switches">
-            <label><input id="parentDailyEnabled" type="checkbox"><span><b>Günlük karne</b><small>Çözülen soru, başarı, XP, seri ve zayıf ders</small></span></label>
-            <label><input id="parentWeeklyEnabled" type="checkbox"><span><b>Haftalık özet</b><small>7 günlük gelişim özeti</small></span></label>
-            <label><input id="parentCriticalEnabled" type="checkbox"><span><b>Kritik düşüş uyarısı</b><small>Başarı veya çalışma belirgin düşerse veliye bildir</small></span></label>
-          </div>
-          <label class="parent-consent"><input id="parentConsent" type="checkbox"><span>Veli numarasının doğrulanacağını ve öğrenci çalışma özetlerinin bu numaraya gönderileceğini onaylıyorum.</span></label>
-          <div class="parent-actions"><button id="saveParentSettings" class="parent-primary">Ayarları Kaydet</button><button id="deleteParentPhone" class="parent-danger">Numarayı Sil</button></div>
-          <p class="parent-privacy">Demo sürümünde hiçbir SMS gönderilmez ve telefon numarası yalnızca bu cihazın yerel hafızasında tutulur. Gerçek sürümde KVKK/onay, şifreli saklama ve SMS sağlayıcısı backend üzerinden bağlanacaktır.</p>
-        </div>
-        <div class="parent-tab-panel hidden" data-parent-panel="report">
-          <article id="parentReportCard" class="parent-report-card"></article>
-          <div class="parent-message-preview"><span>SMS ÖNİZLEMESİ</span><p id="parentSmsPreview"></p></div>
-          <button id="simulateParentSend" class="parent-primary wide">Bugünkü Karneyi Gönder · Demo</button>
-          <p class="parent-privacy">Gerçek sürümde bu işlem sunucu tarafından belirlenen saatte otomatik yapılacak; öğrenci uygulamasının açık olması gerekmeyecek.</p>
+        <div id="parentDashboardView" class="parent-dashboard-view hidden">
+          <div class="parent-student-strip"><div><span>ÖĞRENCİ</span><b id="parentStudentName">LGS 2027 Öğrencisi</b></div><button id="refreshParentDashboard">↻ Yenile</button></div>
+          <section class="parent-today-hero"><div><span>BUGÜN</span><strong id="pTotal">0</strong><small>soru çözdü</small></div><i></i><div><span>LGS NETİ</span><strong id="pNet">0,00</strong><small>3 yanlış = 1 doğru</small></div></section>
+          <div class="parent-kpi-grid"><div><span>Doğru</span><b id="pCorrect">0</b></div><div><span>Yanlış</span><b id="pWrong">0</b></div><div><span>Boş</span><b id="pBlank">0</b></div><div><span>Başarı</span><b id="pAccuracy">%0</b></div></div>
+          <section class="parent-insight-card"><div class="parent-insight-row"><span>En güçlü ders</span><b id="pStrong">—</b></div><div class="parent-insight-row warn"><span>Zayıf ders</span><b id="pWeakSubject">—</b></div><div class="parent-insight-row danger"><span>Zayıf konu</span><b id="pWeakTopic">—</b></div><div class="parent-insight-row"><span>Eksik yönü</span><b id="pDeficiency">—</b></div></section>
+          <div class="parent-mini-grid"><div><span>Çalışma</span><b id="pMinutes">~0 dk</b></div><div><span>Seri</span><b id="pStreak">1 gün</b></div><div><span>XP</span><b id="pXp">0</b></div></div>
+          <section class="parent-zeus-coach"><div class="parent-zeus-icon">⚡</div><div><span>ZEUS KOÇLUK ÖNERİSİ</span><p id="pZeusAdvice"></p></div></section>
+          <div class="parent-dashboard-actions"><button id="unlinkParent" class="parent-secondary-btn">Eşleştirmeyi Kaldır</button><button id="closeParentDashboard" class="parent-main-btn">Tamam</button></div>
+          <p class="parent-demo-note">Demo şu anda aynı cihazdaki öğrenci verilerini gösterir. Üretimde veli hesabı farklı telefondan giriş yapacak ve veriler merkezi hesaptan güvenli biçimde okunacak.</p>
         </div>
       </section>`;
     document.body.appendChild(overlay);
-
-    overlay.querySelector('#closeParentTracking').onclick = closePanel;
-    overlay.addEventListener('click', e => { if(e.target === overlay) closePanel(); });
-    overlay.querySelectorAll('[data-parent-tab]').forEach(btn => btn.onclick = () => switchTab(btn.dataset.parentTab));
-    overlay.querySelector('#sendParentCode').onclick = () => {
-      const phone = overlay.querySelector('#parentPhone').value.trim();
-      if(phone.replace(/\D/g,'').length < 10){ toast('Geçerli bir veli telefon numarası gir.'); return; }
-      parentState.phone = phone;
-      parentState.verified = false;
-      saveParent();
-      overlay.querySelector('#parentVerifyStatus').textContent = 'Demo doğrulama kodu gönderildi: 2027';
-      toast('Demo kodu: 2027');
+    overlay.querySelector('#closeParentPortal').onclick=closePortal;
+    overlay.querySelector('#closeParentDashboard').onclick=closePortal;
+    overlay.addEventListener('click',e=>{if(e.target===overlay)closePortal()});
+    overlay.querySelector('#parentPairButton').onclick=()=>{
+      const code=overlay.querySelector('#parentPairCode').value.trim();
+      if(code!==DEMO_PAIR_CODE){toast(`Demo eşleştirme kodu ${DEMO_PAIR_CODE}.`);return}
+      parentState={...parentState,linked:true,linkedAt:new Date().toISOString()}; saveParent(); showDashboard(); toast('Veli hesabı öğrenciyle eşleştirildi.');
     };
-    overlay.querySelector('#verifyParentCode').onclick = () => {
-      if(!parentState.phone){ toast('Önce telefon numarasını girip Kod Gönder’e bas.'); return; }
-      if(overlay.querySelector('#parentCode').value.trim() !== '2027'){ toast('Demo doğrulama kodu 2027.'); return; }
-      parentState.verified = true;
-      saveParent();
-      overlay.querySelector('#parentVerifyStatus').textContent = '✓ Veli telefonu doğrulandı';
-      overlay.querySelector('#parentVerifyStatus').classList.add('verified');
-    };
-    overlay.querySelector('#saveParentSettings').onclick = () => {
-      const consent = overlay.querySelector('#parentConsent').checked;
-      if(!parentState.verified){ toast('Önce veli telefonunu doğrula.'); return; }
-      if(!consent){ toast('Veli takip onayını işaretle.'); return; }
-      parentState.dailyTime = overlay.querySelector('#parentDailyTime').value || '20:30';
-      parentState.dailyEnabled = overlay.querySelector('#parentDailyEnabled').checked;
-      parentState.weeklyEnabled = overlay.querySelector('#parentWeeklyEnabled').checked;
-      parentState.criticalEnabled = overlay.querySelector('#parentCriticalEnabled').checked;
-      parentState.consent = consent;
-      saveParent();
-      toast('Veli Takibi ayarları kaydedildi.');
-      renderSetup();
-    };
-    overlay.querySelector('#deleteParentPhone').onclick = () => {
-      parentState = {...defaultParent}; saveParent(); renderSetup(); toast('Veli telefonu silindi.');
-    };
-    overlay.querySelector('#simulateParentSend').onclick = () => {
-      if(!parentState.verified){ toast('Önce veli telefonunu doğrula.'); switchTab('setup'); return; }
-      parentState.lastSent = new Date().toISOString(); saveParent();
-      toast(`Demo karne ${maskPhone(parentState.phone)} numarasına gönderildi.`);
-    };
+    overlay.querySelector('#refreshParentDashboard').onclick=()=>{renderDashboard();toast('Karne güncellendi.')};
+    overlay.querySelector('#unlinkParent').onclick=()=>{parentState={...defaults};saveParent();showLogin();toast('Veli eşleştirmesi kaldırıldı.')};
   }
 
-  function switchTab(name){
-    const overlay = document.getElementById('parentTrackingOverlay');
-    overlay.querySelectorAll('[data-parent-tab]').forEach(b=>b.classList.toggle('selected',b.dataset.parentTab===name));
-    overlay.querySelectorAll('[data-parent-panel]').forEach(p=>p.classList.toggle('hidden',p.dataset.parentPanel!==name));
-    if(name === 'report') renderReport();
+  function renderDashboard(){
+    const d=reportData();
+    const set=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent=val};
+    set('parentStudentName',parentState.studentName||'LGS 2027 Öğrencisi');
+    set('pTotal',trNum(d.total)); set('pNet',trNum(d.net,2));
+    set('pCorrect',trNum(d.correct)); set('pWrong',trNum(d.wrong)); set('pBlank',trNum(d.blank)); set('pAccuracy',`%${d.accuracy}`);
+    set('pStrong',d.strongSubject); set('pWeakSubject',d.weakSubject); set('pWeakTopic',d.weakTopic); set('pDeficiency',d.deficiency);
+    set('pMinutes',`~${d.estimatedMinutes} dk`); set('pStreak',`${d.streak} gün`); set('pXp',trNum(d.xp)); set('pZeusAdvice',d.zeus);
   }
+  function showLogin(){document.getElementById('parentLoginView')?.classList.remove('hidden');document.getElementById('parentDashboardView')?.classList.add('hidden')}
+  function showDashboard(){document.getElementById('parentLoginView')?.classList.add('hidden');document.getElementById('parentDashboardView')?.classList.remove('hidden');renderDashboard()}
+  function openPortal(){ensurePortal();parentState.linked?showDashboard():showLogin();document.getElementById('parentPortalOverlay').classList.remove('hidden')}
+  function closePortal(){document.getElementById('parentPortalOverlay')?.classList.add('hidden')}
 
-  function renderSetup(){
-    const overlay = document.getElementById('parentTrackingOverlay');
-    if(!overlay) return;
-    overlay.querySelector('#parentPhone').value = parentState.phone || '';
-    overlay.querySelector('#parentDailyTime').value = parentState.dailyTime || '20:30';
-    overlay.querySelector('#parentDailyEnabled').checked = !!parentState.dailyEnabled;
-    overlay.querySelector('#parentWeeklyEnabled').checked = !!parentState.weeklyEnabled;
-    overlay.querySelector('#parentCriticalEnabled').checked = !!parentState.criticalEnabled;
-    overlay.querySelector('#parentConsent').checked = !!parentState.consent;
-    const st = overlay.querySelector('#parentVerifyStatus');
-    st.classList.toggle('verified', !!parentState.verified);
-    st.textContent = parentState.verified ? `✓ Doğrulandı · ${maskPhone(parentState.phone)}` : (parentState.phone ? 'Telefon doğrulaması bekleniyor' : 'Henüz veli telefonu eklenmedi');
-  }
-
-  function renderReport(){
-    const d = reportData();
-    const report = document.getElementById('parentReportCard');
-    const sms = document.getElementById('parentSmsPreview');
-    if(!report || !sms) return;
-    report.innerHTML = `
-      <div class="parent-report-head"><div><span>LGS ARENA · GÜNLÜK KARNE</span><b>Bugünkü Performans</b></div><em>${d.accuracy}%</em></div>
-      <div class="parent-report-grid">
-        <div><span>Soru</span><b>${d.total}</b></div><div><span>Doğru</span><b>${d.correct}</b></div><div><span>Yanlış</span><b>${d.wrong}</b></div><div><span>Boş</span><b>${d.blank}</b></div>
-      </div>
-      <div class="parent-report-lines"><p><span>Çalışma</span><b>~${d.estimatedMinutes} dk</b></p><p><span>Seri</span><b>${d.streak} gün</b></p><p><span>Güçlü ders</span><b>${esc(d.strong)}</b></p><p><span>Geliştirilmeli</span><b>${esc(d.weak)}</b></p></div>
-      <div class="parent-zeus-advice"><span>⚡ ZEUS</span><p>${d.total ? `${esc(d.weak)} için yarın kısa tekrar ve 10 hedef soru öneriyorum.` : 'Bugün henüz soru çözülmedi. İlk 10 soruluk çalışma tamamlandığında veli karnesi otomatik oluşacak.'}</p></div>`;
-    sms.textContent = `LGS Arena Günlük Karne: Bugün ${d.total} soru · ${d.correct} doğru · ${d.wrong} yanlış · ${d.blank} boş · Başarı %${d.accuracy} · Seri ${d.streak} gün. Güçlü: ${d.strong}. Geliştirilmeli: ${d.weak}.`;
-  }
-
-  function openPanel(){ ensurePanel(); renderSetup(); renderReport(); switchTab(parentState.verified ? 'report' : 'setup'); document.getElementById('parentTrackingOverlay').classList.remove('hidden'); }
-  function closePanel(){ document.getElementById('parentTrackingOverlay')?.classList.add('hidden'); }
-
-  function init(){ ensureCard(); ensurePanel(); renderCard(); }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
-  window.LgsArenaParentTracking = { open:openPanel, refresh:renderReport };
+  function init(){ensureCoverEntry();ensureAccessCard();ensurePortal();renderAccessCard();if(location.hash==='#parent')setTimeout(openPortal,250)}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+  window.LgsArenaParentPortal={open:openPortal,refresh:renderDashboard};
 })();
