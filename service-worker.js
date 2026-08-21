@@ -1,14 +1,20 @@
-const CACHE_NAME = 'lgs-2027-arena-pwa-v0.10-zeus-face-watermark';
+const CACHE_NAME = 'lgs-2027-arena-pwa-v1.0-hq-zeus-bank200';
 const APP_SHELL = [
-  './','./index.html','./styles.css','./mobile-v04.css','./android16-v05.css','./android16-v06.css','./android16-v07.css','./v09-vibrant.css','./app.js','./pwa.js','./manifest.webmanifest',
-  './data/matematik.js','./data/fen.js','./data/turkce.js','./data/inkilap.js','./data/din.js','./data/notes.js',
-  './assets/zeus-real-v09.webp','./assets/icon-192.jpg','./assets/icon-512.webp'
+  './','./index.html','./styles.css','./mobile-v04.css','./android16-v05.css','./android16-v06.css','./android16-v07.css','./v09-vibrant.css','./v10-zeus-fix.css','./app.js','./pwa.js','./manifest.webmanifest',
+  './data/matematik.js','./data/fen.js','./data/turkce.js','./data/inkilap.js','./data/din.js','./data/notes.js','./data/bank-v011.js',
+  './assets/zeus-real-v09.webp','./assets/icon-192.jpg','./assets/icon-512.webp',
+  './assets/zeus-v10/part-1.txt?v=12','./assets/zeus-v10/part-2.txt?v=12','./assets/zeus-v10/part-3a.txt?v=12','./assets/zeus-v10/part-3b.txt?v=12',
+  './assets/zeus-v10/part-4.txt?v=12','./assets/zeus-v10/part-5a.txt?v=12','./assets/zeus-v10/part-5b.txt?v=12','./assets/zeus-v10/part-6.txt?v=12'
 ];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', event => {
-  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))).then(() => self.clients.claim()));
+  event.waitUntil(
+    caches.keys()
+      .then(keys => Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))))
+      .then(() => self.clients.claim())
+  );
 });
 self.addEventListener('fetch', event => {
   const request = event.request;
