@@ -69,14 +69,18 @@
     window.__pwaToastTimer = window.setTimeout(() => el.classList.add('hidden'), 3600);
   }
 
+  async function loadBankFile(url, marker) {
+    if ((window.QUESTION_BANK || []).some(q => q.id === marker)) return;
+    const response = await fetch(url, { cache: 'no-store' });
+    if (!response.ok) throw new Error(`Soru havuzu yüklenemedi: ${url}`);
+    let code = await response.text();
+    code = code.replace('window.QUESTION_BANK=(window.QUESTION_BANK||[]).concat([', 'window.QUESTION_BANK.push(...[');
+    (0, eval)(code);
+  }
+
   async function loadExpandedBank() {
-    if ((window.QUESTION_BANK || []).some(q => q.id === 'MAT-031')) return;
     try {
-      const response = await fetch('./data/bank-v011.js?v=18', { cache: 'no-store' });
-      if (!response.ok) throw new Error('bank fetch failed');
-      let code = await response.text();
-      code = code.replace('window.QUESTION_BANK=(window.QUESTION_BANK||[]).concat([', 'window.QUESTION_BANK.push(...[');
-      (0, eval)(code);
+      await loadBankFile('./data/bank-v011.js?v=18', 'MAT-031');
       const title = document.querySelector('[data-page="subjects"] .page-title h1');
       if (title) title.textContent = 'Genişletilmiş + adaptif soru havuzları';
       const total = document.querySelector('[data-page="subjects"] .page-title > b');
@@ -92,9 +96,9 @@
     adaptivePromise = (async () => {
       await loadExpandedBank();
       await Promise.allSettled([parentReady, scoringReady]);
-      await loadScript('./data/english-v18.js?v=18');
+      await loadBankFile('./data/english-v18.js?v=18', 'ENG-001');
       await loadScript('./data/english-notes-v18.js?v=18');
-      await loadScript('./data/adaptive-bank-v17.js?v=18');
+      await loadBankFile('./data/adaptive-bank-v17.js?v=18', 'ADP-MAT-001');
       await loadScript('./adaptive-engine.js?v=18');
       await loadScript('./english-integration-v18.js?v=18');
       await loadScript('./weekly-exam-v18.js?v=18');
