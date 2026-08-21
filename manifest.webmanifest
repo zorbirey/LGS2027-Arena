@@ -4,7 +4,7 @@
   "short_name": "LGS Arena",
   "description": "LGS 2027 için öğrenci profili, 6 ders, 90 soruluk haftalık LGS provası, tahmini puan, ilerleme ve veli paneli.",
   "lang": "tr",
-  "start_url": "./index.html?v=28",
+  "start_url": "./index.html?v=29",
   "scope": "./",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
@@ -17,9 +17,9 @@
     {"src":"assets/icon-512.webp","sizes":"512x512","type":"image/webp","purpose":"any maskable"}
   ],
   "shortcuts": [
-    {"name":"Soru Çöz","short_name":"Soru Çöz","description":"Altı dersten hızlı soru çözme ekranını aç","url":"./index.html?v=28#solve","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]},
-    {"name":"Haftalık Deneme","short_name":"Deneme","description":"90 soruluk iki oturumlu haftalık LGS provasını aç","url":"./index.html?v=28#mock","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]},
-    {"name":"Zeus","short_name":"Zeus","description":"Zeus çalışma rehberini aç","url":"./index.html?v=28#zeus","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]},
-    {"name":"Veli Paneli","short_name":"Veli","description":"Öğrencinin günlük karnesi ve haftalık deneme sonucunu aç","url":"./index.html?v=28#parent","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]}
+    {"name":"Soru Çöz","short_name":"Soru Çöz","description":"Altı dersten hızlı soru çözme ekranını aç","url":"./index.html?v=29#solve","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]},
+    {"name":"Haftalık Deneme","short_name":"Deneme","description":"90 soruluk iki oturumlu haftalık LGS provasını aç","url":"./index.html?v=29#mock","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]},
+    {"name":"Zeus","short_name":"Zeus","description":"Zeus çalışma rehberini aç","url":"./index.html?v=29#zeus","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]},
+    {"name":"Veli Paneli","short_name":"Veli","description":"Öğrencinin günlük karnesi ve haftalık deneme sonucunu aç","url":"./index.html?v=29#parent","icons":[{"src":"assets/icon-192.jpg","sizes":"192x192","type":"image/jpeg"}]}
   ]
 }

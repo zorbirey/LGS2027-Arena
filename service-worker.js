@@ -1,4 +1,4 @@
-const CACHE_NAME='lgs-2027-arena-pwa-v2.8-critical';
+const CACHE_NAME='lgs-2027-arena-pwa-v2.9-reset-safe';
 const INDEX='./index.html';
 
 const CRITICAL=[
@@ -62,11 +62,21 @@ async function refresh(request,key){
   }catch(e){}
 }
 
+function isRepairNavigation(url){
+  return /\/launch-v21\.html$/i.test(url.pathname) || url.searchParams.has('externalReset') || url.searchParams.has('bypassSW');
+}
+
 self.addEventListener('fetch',event=>{
   const request=event.request;
   if(request.method!=='GET')return;
   const url=new URL(request.url);
   if(url.origin!==self.location.origin)return;
+
+  // Repair/bootstrap pages must never be replaced with cached index.html.
+  if(request.mode==='navigate' && isRepairNavigation(url)){
+    event.respondWith(fetch(request,{cache:'no-store'}));
+    return;
+  }
 
   if(request.mode==='navigate'){
     event.respondWith((async()=>{
@@ -75,10 +85,12 @@ self.addEventListener('fetch',event=>{
       if(cached){event.waitUntil(refresh(request,INDEX));return cached}
       try{
         const r=await fetch(request,{cache:'no-store'});
-        if(r&&r.ok)await cache.put(INDEX,r.clone());
+        if(r&&r.ok && /\/index\.html$|\/LGS2027-Arena\/$/i.test(url.pathname))await cache.put(INDEX,r.clone());
         return r;
       }catch(e){
-        return new Response('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><body style="background:#020710;color:#fff;font-family:Arial;padding:24px"><h2>LGS Arena</h2><p>Temel çevrimdışı paket henüz tamamlanmadı. İnternet bağlantısı geldiğinde V2.8 onarım ekranını yeniden aç.</p></body>',{headers:{'Content-Type':'text/html; charset=utf-8'}})
+        const fallback=await cache.match(INDEX,{ignoreSearch:true});
+        if(fallback)return fallback;
+        return new Response('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><body style="background:#020710;color:#fff;font-family:Arial;padding:24px"><h2>LGS Arena</h2><p>Temel çevrimdışı paket henüz tamamlanmadı. İnternet bağlantısı geldiğinde dış reset sayfasını yeniden aç.</p></body>',{headers:{'Content-Type':'text/html; charset=utf-8'}})
       }
     })());
     return;
