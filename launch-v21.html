@@ -10,13 +10,25 @@ html,body{margin:0;width:100%;height:100%;background:#020710;color:#fff;font-fam
 </style>
 </head>
 <body>
-<div id="boot"><div><b>LGS 2027 ARENA</b><span>V2.4 OFFLINE-FIRST</span><p>Eski kurulum bağlantısı kullanılıyor. Önbellek silinmeden doğrudan Arena açılıyor.</p><button id="open">ARENAYI AÇ</button></div></div>
+<div id="boot"><div><b>LGS 2027 ARENA</b><span>V2.5 GİRİŞ ONARIMI</span><p>ARENAYA GİR düğmesi çevrimdışı çekirdeğe bağlanıyor. Önbelleğiniz ve ilerlemeniz silinmez.</p><button id="open">ARENAYI AÇ</button></div></div>
 <script>
 (function(){
-  'use strict';
-  function go(){location.replace('./index.html?v=24')}
-  document.getElementById('open').onclick=go;
-  setTimeout(go,250);
+'use strict';
+var done=false,button=document.getElementById('open');
+function go(){if(done)return;done=true;location.replace('./index.html?v=25&entry='+Date.now())}
+button.onclick=go;
+(async function(){
+  try{
+    if('serviceWorker' in navigator){
+      var reg=await navigator.serviceWorker.register('./service-worker.js?v=25',{scope:'./'});
+      try{await reg.update()}catch(e){}
+      if(reg.waiting)reg.waiting.postMessage('SKIP_WAITING');
+      await Promise.race([navigator.serviceWorker.ready,new Promise(function(resolve){setTimeout(resolve,2500)})]);
+    }
+  }catch(e){}
+  go();
+})();
+setTimeout(go,5000);
 })();
 </script>
 </body>
