@@ -7,7 +7,8 @@
     'Matematik': { officialQuestions: 20, coefficient: 4, label: 'Matematik' },
     'Fen Bilimleri': { officialQuestions: 20, coefficient: 4, label: 'Fen' },
     'İnkılap Tarihi': { officialQuestions: 10, coefficient: 1, label: 'İnkılap' },
-    'Din Kültürü': { officialQuestions: 10, coefficient: 1, label: 'Din' }
+    'Din Kültürü': { officialQuestions: 10, coefficient: 1, label: 'Din' },
+    'Yabancı Dil': { officialQuestions: 10, coefficient: 1, label: 'İngilizce' }
   };
 
   function readState() {
@@ -29,6 +30,7 @@
     if (/fen/i.test(name)) return 'Fen Bilimleri';
     if (/mat/i.test(name)) return 'Matematik';
     if (/türk/i.test(name)) return 'Türkçe';
+    if (/ingiliz|english|yabancı/i.test(name)) return 'Yabancı Dil';
     return name;
   }
 
@@ -104,7 +106,7 @@
         <span><b id="lgsEquivalentNet">0,0</b> / 90 eşdeğer net</span>
         <span>Ağırlıklı başarı <b id="lgsWeightedPercent">%0,0</b></span>
       </div>
-      <p>MEB’in 3 yanlış = 1 doğru ve 4-4-4-1-1 test ağırlıkları esas alınarak tam sınava ölçeklenen tahmini değerdir. Resmî LGS puanı değildir.</p>`;
+      <p>MEB’in 3 yanlış = 1 doğru ve 4-4-4-1-1-1 test ağırlıkları esas alınarak tam sınava ölçeklenen tahmini değerdir. Resmî LGS puanı değildir.</p>`;
 
     const actions = page.querySelector('.result-actions');
     if (actions) page.insertBefore(card, actions);
