@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050b18">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>LGS 2027 Arena</title>
+<link rel="manifest" href="./manifest-v35.webmanifest?v=35">
+<link rel="icon" href="./assets/icon-192.jpg">
+<style>
+html,body{margin:0;width:100%;height:100%;height:100dvh;background:#020710;overflow:hidden}#arenaFrame{position:fixed;inset:0;width:100%;height:100%;border:0;background:#020710}.boot{position:fixed;inset:0;z-index:9;display:grid;place-items:center;background:radial-gradient(circle at 50% 34%,#123b70,#061528 42%,#020710 78%);color:#fff;font-family:Arial;text-align:center;padding:24px;box-sizing:border-box}.boot.hidden{display:none}.boot b{display:block;font:800 27px Georgia,serif;color:#78b9ff;letter-spacing:1.5px}.boot span{display:block;margin-top:9px;color:#f0c96b;font-weight:900}.boot p{font-size:12px;line-height:1.5;color:#a9bfd5;max-width:320px;margin:14px auto}.boot button{min-height:48px;border:0;border-radius:12px;background:#2677ff;color:#fff;padding:12px 20px;font-weight:900}
+</style>
+</head>
+<body>
+<div id="boot" class="boot"><div><b>LGS 2027 ARENA</b><span>TEMİZ BAŞLATICI V3.5</span><p id="status">Eski PWA önbelleği temizleniyor ve Arena hazırlanıyor.</p><button id="retry" hidden>TEKRAR DENE</button></div></div>
+<iframe id="arenaFrame" title="LGS 2027 Arena"></iframe>
+<script>
+(function(){
+'use strict';
+var frame=document.getElementById('arenaFrame'),boot=document.getElementById('boot'),status=document.getElementById('status'),retry=document.getElementById('retry');
+function patchEntry(){
+  try{
+    var d=frame.contentDocument,w=frame.contentWindow;if(!d)return false;
+    var btn=d.getElementById('skipCover');if(!btn)return false;
+    btn.addEventListener('click',function(e){
+      if(e){e.preventDefault();e.stopImmediatePropagation()}
+      var gate=d.getElementById('cleanStudentGate');if(gate)gate.classList.add('hidden');
+      var cover=d.getElementById('cover'),shell=d.getElementById('shell');
+      if(cover){cover.classList.remove('active');cover.classList.add('hidden')}
+      if(shell)shell.classList.remove('hidden');
+      try{if(w.LgsArenaCore&&w.LgsArenaCore.showPage)w.LgsArenaCore.showPage('arena')}catch(x){}
+    },true);
+    btn.textContent='ARENAYA GİR';
+    return true;
+  }catch(e){return false}
+}
+async function cleanAndLoad(){
+  retry.hidden=true;status.textContent='Eski PWA önbelleği temizleniyor.';
+  try{
+    if('serviceWorker' in navigator){var regs=await navigator.serviceWorker.getRegistrations();await Promise.allSettled(regs.map(function(r){return r.unregister()}))}
+    if('caches' in window){var keys=await caches.keys();await Promise.allSettled(keys.filter(function(k){return /lgs-2027-arena/i.test(k)}).map(function(k){return caches.delete(k)}))}
+  }catch(e){}
+  status.textContent='Arena temiz sürümden yükleniyor.';
+  frame.onload=function(){
+    var tries=0,t=setInterval(function(){tries++;if(patchEntry()||tries>40){clearInterval(t);boot.classList.add('hidden');setTimeout(function(){try{navigator.serviceWorker.register('./service-worker-v35.js?v=35',{scope:'./'})}catch(e){}},1200)}},100);
+  };
+  frame.onerror=function(){status.textContent='Arena yüklenemedi. Bağlantıyı kontrol edip tekrar dene.';retry.hidden=false};
+  frame.src='./index.html?v=35&direct=1&t='+Date.now();
+}
+retry.onclick=cleanAndLoad;
+cleanAndLoad();
+})();
+</script>
+</body>
+</html>
