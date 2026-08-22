@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720" role="img" aria-label="LGS Arena Zeus uygulama ikonu">
+<defs>
+  <radialGradient id="b" cx="50%" cy="38%" r="72%"><stop stop-color="#174f9b"/><stop offset=".5" stop-color="#07182e"/><stop offset="1" stop-color="#020711"/></radialGradient>
+  <filter id="glow"><feGaussianBlur stdDeviation="8" result="c"/><feMerge><feMergeNode in="c"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="720" height="720" rx="150" fill="url(#b)"/>
+<circle cx="360" cy="355" r="275" fill="none" stroke="#1da7ff" stroke-width="3" opacity=".22"/>
+<g fill="none" stroke="#e7b85b" stroke-width="10" filter="url(#glow)"><path d="M88 75l60 165-38-13 27 137-76-173 44 17z"/><path d="M632 92l-42 102 28-9-18 84 54-118-32 14z" opacity=".8"/></g>
+<g>
+  <path d="M222 610c8-135 55-230 138-282 83 52 130 147 138 282l-42 110H264z" fill="#d9e2ea" opacity=".96"/>
+  <path d="M242 470c-17-108 27-216 118-216s135 108 118 216c-32 48-72 74-118 74s-86-26-118-74z" fill="#b98965"/>
+  <path d="M262 340c23-90 172-108 196 0-32-44-67-63-99-63s-66 19-97 63z" fill="#f1f3f7"/>
+  <path d="M270 406c16 118 48 176 90 176s74-58 90-176c-24 54-54 80-90 80s-66-26-90-80z" fill="#f4f5f8"/>
+  <path d="M315 382h31" stroke="#5fd0ff" stroke-width="10" filter="url(#glow)"/>
+  <path d="M374 382h31" stroke="#5fd0ff" stroke-width="10" filter="url(#glow)"/>
+  <circle cx="360" cy="620" r="46" fill="#092148" stroke="#e7b85b" stroke-width="9"/>
+  <path d="M366 586l-31 47h25l-11 36 40-56h-24z" fill="#6bd4ff" filter="url(#glow)"/>
+</g>
+</svg>
