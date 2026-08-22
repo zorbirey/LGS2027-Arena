@@ -1,17 +1,19 @@
 (() => {
   'use strict';
   const KEY='lgsArenaPwaV02';
+  const PROFILE_KEY='lgsArenaProfileV41';
   const SUBJECTS=['Türkçe','Matematik','Fen Bilimleri','İnkılap Tarihi','Din Kültürü','İngilizce'];
   const $=s=>document.querySelector(s), byId=id=>document.getElementById(id);
 
-  function read(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch{return {}}}
-  function write(state){localStorage.setItem(KEY,JSON.stringify(state));window.dispatchEvent(new CustomEvent('arena:profile-updated',{detail:state}))}
-  function ensurePairCode(state){if(!/^\d{6}$/.test(String(state.parentPairCode||''))){state.parentPairCode=String(Math.floor(100000+Math.random()*900000));write(state)}return state.parentPairCode}
+  function readState(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch{return {}}}
+  function readProfile(){try{return JSON.parse(localStorage.getItem(PROFILE_KEY)||'{}')}catch{return {}}}
+  function writeProfile(profile){localStorage.setItem(PROFILE_KEY,JSON.stringify(profile));window.dispatchEvent(new CustomEvent('arena:profile-updated',{detail:profile}))}
+  function ensurePairCode(profile){if(!/^\d{6}$/.test(String(profile.parentPairCode||''))){profile.parentPairCode=String(Math.floor(100000+Math.random()*900000));writeProfile(profile)}return profile.parentPairCode}
   function today(){return new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Istanbul'})}
   function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   function open(id){byId(id)?.classList.remove('hidden')}
   function close(id){byId(id)?.classList.add('hidden')}
-  function nameOf(state){return (state.studentName||'Öğrenci').trim()||'Öğrenci'}
+  function nameOf(profile){return (profile.studentName||'Öğrenci').trim()||'Öğrenci'}
 
   function metrics(state){
     const rows=Array.isArray(state.history)?state.history:[];
@@ -46,9 +48,9 @@
     return 'Genel gidişat dengeli. Günlük hedefi sürdürülebilir tutup zor soruları küçük kademelerle artırmak motivasyonu korur.';
   }
 
-  function panelHtml(state){
-    const m=metrics(state), code=ensurePairCode(state);
-    return `<img class="pp-zeus-watermark" src="./assets/zeus.webp" alt="" aria-hidden="true"><div class="pp-head"><div><span>VELİ PANELİ · DEMO</span><h2>${esc(nameOf(state))}</h2></div><button class="pp-close" data-pp-close="parentPanel" aria-label="Kapat">×</button></div>
+  function panelHtml(state,profile){
+    const m=metrics(state), code=ensurePairCode(profile);
+    return `<img class="pp-zeus-watermark" src="./assets/zeus.webp" alt="" aria-hidden="true"><div class="pp-head"><div><span>VELİ PANELİ · DEMO</span><h2>${esc(nameOf(profile))}</h2></div><button class="pp-close" data-pp-close="parentPanel" aria-label="Kapat">×</button></div>
     <p class="pp-copy">Bu demo, yalnızca bu cihazdaki öğrenci verilerini okur. Farklı cihazlardan bağlantı için ileride merkezî hesap/backend sistemi kullanılacaktır.</p>
     <div class="pp-grid">
       <div class="pp-stat"><span>Bugün çözülen</span><b>${m.daily} soru</b></div>
@@ -70,15 +72,15 @@
   }
 
   function renderProfile(){
-    const state=read(),code=ensurePairCode(state);
+    const profile=readProfile(),code=ensurePairCode(profile);
     byId('profileCard').innerHTML=`<div class="pp-head"><div><span>ÖĞRENCİ PROFİLİ</span><h2>Profil</h2></div><button class="pp-close" data-pp-close="profileOverlay" aria-label="Kapat">×</button></div>
       <p class="pp-copy">Profil demo aşamasında yalnızca bu cihazda saklanır. Arena'ya giriş için zorunlu değildir.</p>
-      <label class="pp-field"><span>Öğrenci adı</span><input id="studentNameInput" maxlength="32" value="${esc(state.studentName||'')}" placeholder="Adını yaz"></label>
+      <label class="pp-field"><span>Öğrenci adı</span><input id="studentNameInput" maxlength="32" value="${esc(profile.studentName||'')}" placeholder="Adını yaz"></label>
       <div class="pp-code"><span>Veli eşleştirme kodu</span><b>${code}</b></div>
       <p class="pp-note">Bu kod yalnızca demo eşleştirmesi içindir ve aynı cihazdaki verileri açar.</p>
       <button id="saveStudentProfile" class="pp-primary">PROFİLİ KAYDET</button>`;
     bindCloseButtons();
-    byId('saveStudentProfile').onclick=()=>{const s=read();s.studentName=(byId('studentNameInput').value||'').trim();ensurePairCode(s);write(s);refreshChip();close('profileOverlay')};
+    byId('saveStudentProfile').onclick=()=>{const p=readProfile();p.studentName=(byId('studentNameInput').value||'').trim();ensurePairCode(p);writeProfile(p);refreshChip();close('profileOverlay')};
   }
 
   function renderParentLogin(){
@@ -88,12 +90,12 @@
       <div id="parentLoginError" class="pp-error"></div>
       <button id="parentLoginBtn" class="pp-primary">VELİ PANELİNİ AÇ</button>`;
     bindCloseButtons();
-    const submit=()=>{const s=read(),code=ensurePairCode(s),v=(byId('parentCodeInput').value||'').replace(/\D/g,'');if(v!==code){byId('parentLoginError').textContent='Eşleştirme kodu doğru değil.';return}close('parentLogin');byId('parentPanelCard').innerHTML=panelHtml(s);bindCloseButtons();open('parentPanel')};
+    const submit=()=>{const state=readState(),profile=readProfile(),code=ensurePairCode(profile),v=(byId('parentCodeInput').value||'').replace(/\D/g,'');if(v!==code){byId('parentLoginError').textContent='Eşleştirme kodu doğru değil.';return}close('parentLogin');byId('parentPanelCard').innerHTML=panelHtml(state,profile);bindCloseButtons();open('parentPanel')};
     byId('parentLoginBtn').onclick=submit;byId('parentCodeInput').onkeydown=e=>{if(e.key==='Enter')submit()};
   }
 
   function bindCloseButtons(){document.querySelectorAll('[data-pp-close]').forEach(b=>b.onclick=()=>close(b.dataset.ppClose))}
-  function refreshChip(){const s=read(),chip=byId('studentProfileChip');if(chip)chip.textContent=s.studentName?.trim()?s.studentName.trim():'Profil'}
+  function refreshChip(){const profile=readProfile(),chip=byId('studentProfileChip');if(chip)chip.textContent=profile.studentName?.trim()?profile.studentName.trim():'Profil'}
 
   function installUi(){
     if(byId('parentEntry'))return;
@@ -111,5 +113,5 @@
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',installUi,{once:true});else installUi();
-  window.LgsArenaParent={openProfile:()=>{renderProfile();open('profileOverlay')},openParentLogin:()=>{renderParentLogin();open('parentLogin')},metrics:()=>metrics(read())};
+  window.LgsArenaParent={openProfile:()=>{renderProfile();open('profileOverlay')},openParentLogin:()=>{renderParentLogin();open('parentLogin')},metrics:()=>metrics(readState())};
 })();
