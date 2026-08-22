@@ -12,9 +12,11 @@
   "background_color": "#050b18",
   "theme_color": "#050b18",
   "categories": ["education"],
-  "icons": [{"src":"assets/zeus-cover.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}],
+  "icons": [
+    {"src":"assets/app-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ],
   "shortcuts": [
-    {"name":"Soru Çöz","short_name":"Soru Çöz","description":"Hızlı soru çözme ekranını aç","url":"./index.html#solve","icons":[{"src":"assets/zeus-cover.svg","sizes":"any","type":"image/svg+xml"}]},
-    {"name":"Zeus","short_name":"Zeus","description":"Zeus çalışma rehberini aç","url":"./index.html#zeus","icons":[{"src":"assets/zeus-cover.svg","sizes":"any","type":"image/svg+xml"}]}
+    {"name":"Soru Çöz","short_name":"Soru Çöz","description":"Hızlı soru çözme ekranını aç","url":"./index.html#solve","icons":[{"src":"assets/app-icon.svg","sizes":"any","type":"image/svg+xml"}]},
+    {"name":"Zeus","short_name":"Zeus","description":"Zeus çalışma rehberini aç","url":"./index.html#zeus","icons":[{"src":"assets/app-icon.svg","sizes":"any","type":"image/svg+xml"}]}
   ]
 }
