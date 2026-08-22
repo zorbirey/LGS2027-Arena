@@ -1,8 +1,8 @@
 (() => {
   'use strict';
   window.LGS_ARENA_CONFIG = Object.freeze({
-    schemaVersion: 2,
-    appVersion: '4.2.0-adaptive-score',
+    schemaVersion: 3,
+    appVersion: '4.3.0-usable-pwa',
     season: 2027,
     appName: 'LGS 2027 Arena',
     examDate: '2027-06-13T09:30:00+03:00',
