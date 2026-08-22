@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lgs-2027-arena-pwa-v4.2.0-adaptive';
+const CACHE_NAME = 'lgs-2027-arena-pwa-v4.3.0-usable';
 const APP_SHELL = [
   './',
   './index.html',
@@ -27,7 +27,7 @@ self.addEventListener('install', event => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_NAME);
     await cache.addAll(APP_SHELL);
-    const checks = await Promise.all(APP_SHELL.map(url => cache.match(url)));
+    const checks = await Promise.all(APP_SHELL.map(url => cache.match(url, {ignoreSearch:true})));
     if (checks.some(item => !item)) throw new Error('Critical app shell file missing');
     await self.skipWaiting();
   })());
@@ -38,12 +38,15 @@ self.addEventListener('activate', event => {
     const keys = await caches.keys();
     await Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)));
     await self.clients.claim();
+    const clients = await self.clients.matchAll({type:'window', includeUncontrolled:true});
+    clients.forEach(client => client.postMessage({type:'ARENA_SW_READY', version:'4.3.0'}));
   })());
 });
 
 self.addEventListener('fetch', event => {
   const request = event.request;
   if (request.method !== 'GET') return;
+
   if (request.mode === 'navigate') {
     event.respondWith((async () => {
       try {
@@ -54,19 +57,23 @@ self.addEventListener('fetch', event => {
         }
         return response;
       } catch {
-        return (await caches.match('./index.html')) || Response.error();
+        return (await caches.match('./index.html', {ignoreSearch:true})) || (await caches.match('./', {ignoreSearch:true})) || Response.error();
       }
     })());
     return;
   }
+
   event.respondWith((async () => {
-    const cached = await caches.match(request);
+    const cached = await caches.match(request, {ignoreSearch:true});
     if (cached) return cached;
     try {
       const response = await fetch(request);
       if (response && response.status === 200 && response.type !== 'opaque') {
-        const cache = await caches.open(CACHE_NAME);
-        await cache.put(request, response.clone());
+        const url = new URL(request.url);
+        if (url.origin === self.location.origin) {
+          const cache = await caches.open(CACHE_NAME);
+          await cache.put(request, response.clone());
+        }
       }
       return response;
     } catch {
@@ -76,5 +83,5 @@ self.addEventListener('fetch', event => {
 });
 
 self.addEventListener('message', event => {
-  if (event.data === 'SKIP_WAITING') self.skipWaiting();
+  if (event.data === 'SKIP_WAITING' || event.data?.type === 'SKIP_WAITING') self.skipWaiting();
 });
