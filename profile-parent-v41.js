@@ -48,7 +48,7 @@
 
   function panelHtml(state){
     const m=metrics(state), code=ensurePairCode(state);
-    return `<div class="pp-head"><div><span>VELİ PANELİ · DEMO</span><h2>${esc(nameOf(state))}</h2></div><button class="pp-close" data-pp-close="parentPanel" aria-label="Kapat">×</button></div>
+    return `<img class="pp-zeus-watermark" src="./assets/zeus.webp" alt="" aria-hidden="true"><div class="pp-head"><div><span>VELİ PANELİ · DEMO</span><h2>${esc(nameOf(state))}</h2></div><button class="pp-close" data-pp-close="parentPanel" aria-label="Kapat">×</button></div>
     <p class="pp-copy">Bu demo, yalnızca bu cihazdaki öğrenci verilerini okur. Farklı cihazlardan bağlantı için ileride merkezî hesap/backend sistemi kullanılacaktır.</p>
     <div class="pp-grid">
       <div class="pp-stat"><span>Bugün çözülen</span><b>${m.daily} soru</b></div>
