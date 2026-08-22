@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lgs-2027-arena-pwa-v4.1.0-parent';
+const CACHE_NAME = 'lgs-2027-arena-pwa-v4.2.0-adaptive';
 const APP_SHELL = [
   './',
   './index.html',
@@ -8,6 +8,7 @@ const APP_SHELL = [
   './app.js',
   './pwa.js',
   './profile-parent-v41.js',
+  './adaptive-v42.js',
   './config.js',
   './manifest.webmanifest',
   './data/matematik.js',
@@ -43,7 +44,6 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const request = event.request;
   if (request.method !== 'GET') return;
-
   if (request.mode === 'navigate') {
     event.respondWith((async () => {
       try {
@@ -59,7 +59,6 @@ self.addEventListener('fetch', event => {
     })());
     return;
   }
-
   event.respondWith((async () => {
     const cached = await caches.match(request);
     if (cached) return cached;
