@@ -4,6 +4,7 @@
   "short_name": "LGS Arena",
   "description": "LGS 2027 için Zeus temalı soru çözme, akıllı notlar, deneme, ilerleme ve sıralama uygulaması.",
   "lang": "tr",
+  "dir": "ltr",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -12,11 +13,13 @@
   "background_color": "#050b18",
   "theme_color": "#050b18",
   "categories": ["education"],
+  "prefer_related_applications": false,
   "icons": [
-    {"src":"assets/app-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+    {"src":"assets/app-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"},
+    {"src":"assets/app-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"maskable"}
   ],
   "shortcuts": [
-    {"name":"Soru Çöz","short_name":"Soru Çöz","description":"Hızlı soru çözme ekranını aç","url":"./index.html#solve","icons":[{"src":"assets/app-icon.svg","sizes":"any","type":"image/svg+xml"}]},
-    {"name":"Zeus","short_name":"Zeus","description":"Zeus çalışma rehberini aç","url":"./index.html#zeus","icons":[{"src":"assets/app-icon.svg","sizes":"any","type":"image/svg+xml"}]}
+    {"name":"Soru Çöz","short_name":"Soru Çöz","description":"Hızlı soru çözme ekranını aç","url":"./index.html#solve","icons":[{"src":"assets/app-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}]},
+    {"name":"Zeus","short_name":"Zeus","description":"Zeus çalışma rehberini aç","url":"./index.html#zeus","icons":[{"src":"assets/app-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}]}
   ]
 }
