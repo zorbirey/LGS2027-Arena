@@ -1,12 +1,13 @@
 (() => {
   'use strict';
   window.LGS_ARENA_CONFIG = Object.freeze({
-    schemaVersion: 3,
-    appVersion: '4.3.0-usable-pwa',
+    schemaVersion: 4,
+    appVersion: '4.4.0-full-90',
     season: 2027,
     appName: 'LGS 2027 Arena',
     coverLocked: true,
     coverStandard: 'LGS2027-ZEUS-ARENA-COVER-2026-08-23-V1',
+    coverAsset: 'assets/lgs2027-cover-fixed.webp',
     coverRule: 'Bu kapak görseli LGS 2027 Arena için sabittir; kullanıcı açıkça değiştirmedikçe başka kapak kullanılmaz.',
     examDate: '2027-06-13T09:30:00+03:00',
     nextSeason: Object.freeze({
@@ -17,12 +18,12 @@
     dailyQuestionTarget: 25,
     questionSeconds: 90,
     miniMockDistribution: Object.freeze({
-      'Türkçe': 4,
-      'Matematik': 4,
-      'Fen Bilimleri': 4,
-      'İnkılap Tarihi': 3,
-      'Din Kültürü': 2,
-      'İngilizce': 3
+      'Türkçe': 20,
+      'Matematik': 20,
+      'Fen Bilimleri': 20,
+      'İnkılap Tarihi': 10,
+      'Din Kültürü': 10,
+      'İngilizce': 10
     }),
     lgsSubjectLimits: Object.freeze({
       'Türkçe': 20,
