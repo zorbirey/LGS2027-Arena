@@ -5,6 +5,9 @@
     appVersion: '4.3.0-usable-pwa',
     season: 2027,
     appName: 'LGS 2027 Arena',
+    coverLocked: true,
+    coverStandard: 'LGS2027-ZEUS-ARENA-COVER-2026-08-23-V1',
+    coverRule: 'Bu kapak görseli LGS 2027 Arena için sabittir; kullanıcı açıkça değiştirmedikçe başka kapak kullanılmaz.',
     examDate: '2027-06-13T09:30:00+03:00',
     nextSeason: Object.freeze({
       season: 2028,
