@@ -3,8 +3,18 @@
 
   const uiStyle = document.createElement('link');
   uiStyle.rel = 'stylesheet';
-  uiStyle.href = './mobile-v04.css?v=400';
+  uiStyle.href = './mobile-v04.css?v=410';
   document.head.appendChild(uiStyle);
+
+  const parentStyle = document.createElement('link');
+  parentStyle.rel = 'stylesheet';
+  parentStyle.href = './parent-v41.css?v=410';
+  document.head.appendChild(parentStyle);
+
+  const parentScript = document.createElement('script');
+  parentScript.src = './profile-parent-v41.js?v=410';
+  parentScript.defer = true;
+  document.head.appendChild(parentScript);
 
   const foundationStyle = document.createElement('style');
   foundationStyle.textContent = `
@@ -118,7 +128,7 @@
       menu.addEventListener('click', event => { event.stopImmediatePropagation(); installApp(); }, true);
     }
     if (!bypassServiceWorker && 'serviceWorker' in navigator && location.protocol !== 'file:') {
-      navigator.serviceWorker.register('./service-worker.js?v=400').then(reg => reg.update().catch(() => {})).catch(() => appToast('Çevrimdışı kullanım servisi bu ortamda etkinleştirilemedi.'));
+      navigator.serviceWorker.register('./service-worker.js?v=410').then(reg => reg.update().catch(() => {})).catch(() => appToast('Çevrimdışı kullanım servisi bu ortamda etkinleştirilemedi.'));
     }
   });
   window.LgsArenaPwa = { installApp, enterArena };
