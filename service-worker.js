@@ -1,11 +1,13 @@
-const CACHE_NAME = 'lgs-2027-arena-pwa-v4.0.0-foundation';
+const CACHE_NAME = 'lgs-2027-arena-pwa-v4.1.0-parent';
 const APP_SHELL = [
   './',
   './index.html',
   './styles.css',
   './mobile-v04.css',
+  './parent-v41.css',
   './app.js',
   './pwa.js',
+  './profile-parent-v41.js',
   './config.js',
   './manifest.webmanifest',
   './data/matematik.js',
