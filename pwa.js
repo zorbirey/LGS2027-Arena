@@ -1,7 +1,8 @@
 (() => {
   'use strict';
 
-  const RELEASE = '5.2.2';
+  const RELEASE = '5.2.3';
+  const BUILD_ID = '20260823-01';
   const CORE_TIMEOUT_MS = 12000;
   let deferredPrompt = null;
   let coreReady = false;
@@ -32,14 +33,14 @@
       link.dataset.arenaStyle = marker;
       document.head.appendChild(link);
     };
-    ensureLink('./mobile-v04.css?v=5.2.2', 'mobile');
-    ensureLink('./parent-v41.css?v=5.2.2', 'parent');
+    ensureLink('./mobile-v04.css?v=5.2.3', 'mobile');
+    ensureLink('./parent-v41.css?v=5.2.3', 'parent');
   }
 
   function ensureParentModule() {
     if (window.LgsArenaParent || document.querySelector('script[data-arena-parent]')) return;
     const script = document.createElement('script');
-    script.src = './profile-parent-v41.js?v=5.2.2';
+    script.src = './profile-parent-v41.js?v=5.2.3';
     script.dataset.arenaParent = '1';
     script.onload = () => window.dispatchEvent(new CustomEvent('lgsarena:parent-ready'));
     script.onerror = () => appToast('Veli modülü yüklenemedi. Öğrenci Arena bölümü kullanılabilir.');
@@ -70,7 +71,7 @@
       const img = document.createElement('img');
       img.id = 'globalZeusWatermark';
       img.className = 'global-zeus-watermark';
-      img.src = './assets/zeus-cover.svg?v=5.2.2';
+      img.src = './assets/zeus-cover.svg?v=5.2.3';
       img.alt = '';
       img.setAttribute('aria-hidden','true');
       shell.prepend(img);
@@ -232,5 +233,5 @@
   });
   registerServiceWorker();
 
-  window.LgsArenaPwa = { installApp, enterArena, version: RELEASE, isReady: () => coreReady };
+  window.LgsArenaPwa = { installApp, enterArena, version: RELEASE, buildId: BUILD_ID, isReady: () => coreReady };
 })();
