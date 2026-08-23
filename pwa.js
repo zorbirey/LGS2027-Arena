@@ -1,8 +1,8 @@
 (() => {
   'use strict';
 
-  const RELEASE = '6.1.0';
-  const BUILD_ID = '20260823-07';
+  const RELEASE = '6.2.0';
+  const BUILD_ID = '20260824-08';
   const CORE_TIMEOUT_MS = 12000;
   let deferredPrompt = null;
   let coreReady = false;
@@ -33,14 +33,15 @@
       link.dataset.arenaStyle = marker;
       document.head.appendChild(link);
     };
-    ensureLink('./mobile-v04.css?v=6.1.0', 'mobile');
-    ensureLink('./parent-v41.css?v=6.1.0', 'parent');
+    ensureLink('./mobile-v04.css?v=20260824-08', 'mobile');
+    ensureLink('./parent-v41.css?v=20260824-08', 'parent');
+    ensureLink('./gates-v62.css?v=20260824-08', 'gates');
   }
 
   function ensureParentModule() {
     if (window.LgsArenaParent || document.querySelector('script[data-arena-parent]')) return;
     const script = document.createElement('script');
-    script.src = './profile-parent-v41.js?v=6.1.0';
+    script.src = './profile-parent-v41.js?v=20260824-08';
     script.dataset.arenaParent = '1';
     script.onload = () => window.dispatchEvent(new CustomEvent('lgsarena:parent-ready'));
     script.onerror = () => appToast('Veli modülü yüklenemedi. Öğrenci Arena bölümü kullanılabilir.');
@@ -71,7 +72,7 @@
       const img = document.createElement('img');
       img.id = 'globalZeusWatermark';
       img.className = 'global-zeus-watermark';
-      img.src = './assets/zeus-hero-20260823-02.webp?v=6.1.0';
+      img.src = './assets/zeus-hero-20260823-02.webp?v=20260824-08';
       img.alt = '';
       img.setAttribute('aria-hidden','true');
       shell.prepend(img);
@@ -205,7 +206,7 @@
         sessionStorage.setItem(reloadMarker, '1');
         location.reload();
       }, {once:true});
-      const registration = await navigator.serviceWorker.register('./service-worker.js?v=' + RELEASE, {scope:'./', updateViaCache:'none'});
+      const registration = await navigator.serviceWorker.register('./service-worker.js?v=' + BUILD_ID, {scope:'./', updateViaCache:'none'});
       if (registration.waiting) registration.waiting.postMessage({type:'SKIP_WAITING'});
       registration.update().catch(() => {});
     } catch {
@@ -237,6 +238,8 @@
 
   window.LgsArenaPwa = { installApp, enterArena, version: RELEASE, buildId: BUILD_ID, isReady: () => coreReady };
 })();
+
+
 
 
 
