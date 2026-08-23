@@ -1,14 +1,14 @@
 (() => {
   'use strict';
   window.LGS_ARENA_CONFIG = Object.freeze({
-    schemaVersion: 8,
-    appVersion: '5.0.0-visual-core',
+    schemaVersion: 9,
+    appVersion: '5.1.0-visual-hero-rebuild',
     season: 2027,
     appName: 'LGS 2027 Arena',
     coverLocked: true,
-    coverStandard: 'LGS2027-ZEUS-ARENA-COVER-2026-08-23-V5',
-    coverAsset: 'assets/lgs2027-cover-fixed.webp?v=5.0.0',
-    coverRule: 'Bu kapak görseli LGS 2027 Arena için sabittir; kullanıcı açıkça değiştirmedikçe başka kapak kullanılmaz.',
+    coverStandard: 'LGS2027-ZEUS-ARENA-COVER-2026-08-23-V51',
+    coverAsset: 'assets/zeus.webp?v=5.1.0',
+    coverRule: 'Kapak, Arena hero ve Zeus hero gerçek img elemanlarıyla çalışır; CSS pseudo-element görsel üretimi kullanılmaz.',
     examDate: '2027-06-13T09:30:00+03:00',
     nextSeason: Object.freeze({ season: 2028, appName: 'LGS 2028 Arena', examDate: null }),
     dailyQuestionTarget: 25,
@@ -20,7 +20,7 @@
   });
   const core=document.createElement('link');
   core.rel='stylesheet';
-  core.href='./visual-core-v5.css?v=5.0.0';
-  core.dataset.arenaVisualCore='5.0.0';
+  core.href='./visual-core-v5.css?v=5.1.0';
+  core.dataset.arenaVisualCore='5.1.0';
   document.head.appendChild(core);
 })();
