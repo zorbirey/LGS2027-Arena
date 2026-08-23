@@ -1,245 +1,30 @@
 (() => {
   'use strict';
-
-  const RELEASE = '6.2.0';
-  const BUILD_ID = '20260824-08';
-  const CORE_TIMEOUT_MS = 12000;
-  let deferredPrompt = null;
-  let coreReady = false;
-  let coreFailed = false;
-
-  const params = new URLSearchParams(location.search);
-  const bypassServiceWorker = params.get('bypassSW') === '1' || params.get('direct') === '1';
-  const allowedHashes = new Set(['arena','zeus','subjects','solve','mock','progress','preference','membership']);
-  const pendingHash = allowedHashes.has(location.hash.replace('#','')) ? location.hash.replace('#','') : 'arena';
-  const isIos = () => /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
-  const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-
-  function appToast(message) {
-    const el = document.getElementById('toast');
-    if (!el) return;
-    el.textContent = message;
-    el.classList.remove('hidden');
-    clearTimeout(window.__pwaToastTimer);
-    window.__pwaToastTimer = setTimeout(() => el.classList.add('hidden'), 4200);
-  }
-
-  function ensureStyles() {
-    const ensureLink = (href, marker) => {
-      if (document.querySelector(`link[data-arena-style="${marker}"]`) || [...document.styleSheets].some(s => String(s.href || '').includes(href))) return;
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = href;
-      link.dataset.arenaStyle = marker;
-      document.head.appendChild(link);
-    };
-    ensureLink('./mobile-v04.css?v=20260824-08', 'mobile');
-    ensureLink('./parent-v41.css?v=20260824-08', 'parent');
-    ensureLink('./gates-v62.css?v=20260824-08', 'gates');
-  }
-
-  function ensureParentModule() {
-    if (window.LgsArenaParent || document.querySelector('script[data-arena-parent]')) return;
-    const script = document.createElement('script');
-    script.src = './profile-parent-v41.js?v=20260824-08';
-    script.dataset.arenaParent = '1';
-    script.onload = () => window.dispatchEvent(new CustomEvent('lgsarena:parent-ready'));
-    script.onerror = () => appToast('Veli modülü yüklenemedi. Öğrenci Arena bölümü kullanılabilir.');
-    document.head.appendChild(script);
-  }
-
-  function ensureFoundationStyle() {
-    if (document.getElementById('arenaFoundationStyle')) return;
-    const style = document.createElement('style');
-    style.id = 'arenaFoundationStyle';
-    style.textContent = `
-      .subject-cards{grid-template-rows:repeat(6,minmax(0,1fr))!important}
-      .subject-card{min-height:0}
-      .global-zeus-watermark{position:absolute;left:50%;top:54%;width:min(78%,360px);max-height:68%;object-fit:contain;transform:translate(-50%,-50%);opacity:.16;filter:saturate(.72) contrast(1.05);pointer-events:none;user-select:none;z-index:0}
-      .app-header,.page-host,.bottom-nav{position:relative;z-index:1}
-      .page{position:relative}
-      .cover-skip{min-width:min(82vw,340px);min-height:54px;font-size:15px;padding:13px 26px!important}
-      .cover-skip:disabled{opacity:.72;filter:saturate(.55);cursor:wait}
-      .model-notice{position:absolute;left:18px;right:18px;bottom:calc(90px + env(safe-area-inset-bottom));z-index:3;margin:0 auto;max-width:430px;text-align:center;color:#d3deea;font-size:10px;line-height:1.35;text-shadow:0 1px 5px #000;background:#020914aa;border:1px solid #e7b85b2e;border-radius:10px;padding:7px 9px;backdrop-filter:blur(5px)}
-      @media (max-height:690px){.model-notice{font-size:8px;bottom:calc(78px + env(safe-area-inset-bottom));padding:5px 7px}.cover-skip{min-height:48px}.subject-card{padding-top:5px!important;padding-bottom:5px!important}}
-    `;
-    document.head.appendChild(style);
-  }
-
-  function ensureBrandLayers() {
-    const shell = document.getElementById('shell');
-    if (shell && !document.getElementById('globalZeusWatermark')) {
-      const img = document.createElement('img');
-      img.id = 'globalZeusWatermark';
-      img.className = 'global-zeus-watermark';
-      img.src = './assets/zeus-hero-20260823-02.webp?v=20260824-08';
-      img.alt = '';
-      img.setAttribute('aria-hidden','true');
-      shell.prepend(img);
-    }
-    const cover = document.getElementById('cover');
-    if (cover && !cover.querySelector('.model-notice')) {
-      const note = document.createElement('p');
-      note.className = 'model-notice';
-      note.textContent = 'Türkiye Yüzyılı Maarif Modeli esasları dikkate alınarak hazırlanmıştır. Bu uygulama Millî Eğitim Bakanlığının resmî uygulaması değildir ve MEB onayı iddiası taşımaz.';
-      cover.appendChild(note);
-    }
-  }
-
-  function coreLooksReady() {
-    const launchers = document.querySelectorAll('#solveSubjects [data-launch]').length;
-    const subjects = document.querySelectorAll('#arenaSubjects .mini-sub').length;
-    return launchers >= 6 && subjects >= 6 && !!window.LgsArenaAdaptive && window.LgsArenaPreference?.dataCount === 3098;
-  }
-
-  function setEntryState(state) {
-    const button = document.getElementById('skipCover');
-    if (!button) return;
-    if (state === 'loading') {
-      button.disabled = true;
-      button.dataset.mode = 'loading';
-      button.textContent = 'ARENA HAZIRLANIYOR';
-      button.setAttribute('aria-busy','true');
-    } else if (state === 'ready') {
-      button.disabled = false;
-      button.dataset.mode = 'ready';
-      button.textContent = 'ARENAYA GİR';
-      button.removeAttribute('aria-busy');
-    } else {
-      button.disabled = false;
-      button.dataset.mode = 'retry';
-      button.textContent = 'YENİDEN YÜKLE';
-      button.removeAttribute('aria-busy');
-    }
-  }
-
-  function waitForCore() {
-    const started = Date.now();
-    setEntryState('loading');
-    const check = () => {
-      if (coreLooksReady()) {
-        coreReady = true;
-        coreFailed = false;
-        setEntryState('ready');
-        window.dispatchEvent(new CustomEvent('lgsarena:ready', {detail:{version:RELEASE}}));
-        return;
-      }
-      if (Date.now() - started >= CORE_TIMEOUT_MS) {
-        coreReady = false;
-        coreFailed = true;
-        setEntryState('retry');
-        appToast('Arena çekirdeği tam yüklenemedi. İnternet bağlantısını kontrol edip yeniden yükle.');
-        return;
-      }
-      setTimeout(check, 90);
-    };
-    check();
-  }
-
-  function enterArena(event) {
-    if (event) {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-    }
-    if (!coreReady) return;
-    const cover = document.getElementById('cover');
-    const shell = document.getElementById('shell');
-    if (cover) {
-      cover.classList.remove('active');
-      cover.classList.add('hidden');
-    }
-    if (shell) shell.classList.remove('hidden');
-    const targetName = pendingHash || 'arena';
-    const targetButton = document.querySelector(`#bottomNav [data-nav="${targetName}"]`);
-    if (targetName === 'membership' && window.LgsArenaPreference) window.LgsArenaPreference.openMembership('direct');
-    else if (targetName === 'preference' && window.LgsArenaPreference) window.LgsArenaPreference.open('exam');
-    else if (targetButton && targetName !== 'arena') targetButton.click();
-    else {
-      const arena = document.querySelector('.page[data-page="arena"]');
-      document.querySelectorAll('.page').forEach(page => page.classList.toggle('active', page === arena));
-      document.querySelectorAll('#bottomNav [data-nav]').forEach(button => button.classList.toggle('selected', button.dataset.nav === 'arena'));
-    }
-  }
-
-  function bindDirectEntry() {
-    const button = document.getElementById('skipCover');
-    if (!button) return;
-    button.addEventListener('click', event => {
-      if (button.dataset.mode === 'retry' || coreFailed) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        const url = new URL(location.href);
-        url.searchParams.delete('bypassSW');
-        url.searchParams.delete('direct');
-        url.searchParams.set('refresh', Date.now().toString());
-        location.replace(url.href);
-        return;
-      }
-      if (!coreReady) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        return;
-      }
-      enterArena(event);
-    }, true);
-  }
-
-  async function installApp() {
-    if (isStandalone()) { appToast('LGS Arena zaten uygulama olarak çalışıyor.'); return; }
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const choice = await deferredPrompt.userChoice;
-      if (choice.outcome === 'accepted') appToast('LGS Arena ana ekrana ekleniyor.');
-      deferredPrompt = null;
-      return;
-    }
-    if (isIos()) { appToast("iPhone/iPad: Safari'de Paylaş → Ana Ekrana Ekle seçeneğini kullan."); return; }
-    appToast('Chrome menüsünden “Uygulamayı yükle” veya “Ana ekrana ekle” seçeneğini kullan.');
-  }
-
-  async function registerServiceWorker() {
-    if (bypassServiceWorker || !('serviceWorker' in navigator) || location.protocol === 'file:') return;
-    try {
-      const reloadMarker = 'lgsarena-sw-reloaded-' + RELEASE;
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (sessionStorage.getItem(reloadMarker) === '1') return;
-        sessionStorage.setItem(reloadMarker, '1');
-        location.reload();
-      }, {once:true});
-      const registration = await navigator.serviceWorker.register('./service-worker.js?v=' + BUILD_ID, {scope:'./', updateViaCache:'none'});
-      if (registration.waiting) registration.waiting.postMessage({type:'SKIP_WAITING'});
-      registration.update().catch(() => {});
-    } catch {
-      appToast('Çevrimdışı kullanım servisi etkinleştirilemedi. Uygulama çevrimiçi kullanılabilir.');
-    }
-  }
-
-  ensureStyles();
-  ensureFoundationStyle();
-  ensureBrandLayers();
-  ensureParentModule();
-  bindDirectEntry();
-  waitForCore();
-
-  window.addEventListener('beforeinstallprompt', event => { event.preventDefault(); deferredPrompt = event; });
-  window.addEventListener('appinstalled', () => { deferredPrompt = null; appToast('LGS Arena telefona kuruldu.'); });
-  window.addEventListener('error', () => {
-    if (!coreReady && !coreFailed) appToast('Bazı uygulama dosyaları yükleniyor. Arena hazır olduğunda giriş açılacak.');
-  }, true);
-  window.addEventListener('load', () => {
-    const menu = document.getElementById('menuBtn');
-    if (menu) {
-      menu.title = 'Uygulamayı yükle';
-      menu.setAttribute('aria-label', 'LGS Arena uygulamasını yükle');
-      menu.addEventListener('click', event => { event.stopImmediatePropagation(); installApp(); }, true);
-    }
-  });
-  registerServiceWorker();
-
-  window.LgsArenaPwa = { installApp, enterArena, version: RELEASE, buildId: BUILD_ID, isReady: () => coreReady };
+  const RELEASE='6.3.0',BUILD_ID='20260824-09',CORE_TIMEOUT_MS=12000;
+  let deferredPrompt=null,coreReady=false,coreFailed=false;
+  const params=new URLSearchParams(location.search),bypassServiceWorker=params.get('bypassSW')==='1'||params.get('direct')==='1';
+  const allowedHashes=new Set(['arena','zeus','subjects','solve','mock','progress','preference','membership']),pendingHash=allowedHashes.has(location.hash.replace('#',''))?location.hash.replace('#',''):'arena';
+  const isIos=()=>/iphone|ipad|ipod/i.test(navigator.userAgent)&&!window.MSStream,isStandalone=()=>window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+  function appToast(message){const el=document.getElementById('toast');if(!el)return;el.textContent=message;el.classList.remove('hidden');clearTimeout(window.__pwaToastTimer);window.__pwaToastTimer=setTimeout(()=>el.classList.add('hidden'),4200)}
+  function ensureStyles(){const ensureLink=(href,marker)=>{if(document.querySelector(`link[data-arena-style="${marker}"]`)||[...document.styleSheets].some(s=>String(s.href||'').includes(href.split('?')[0])))return;const link=document.createElement('link');link.rel='stylesheet';link.href=href;link.dataset.arenaStyle=marker;document.head.appendChild(link)};ensureLink('./mobile-v04.css?v='+BUILD_ID,'mobile');ensureLink('./parent-v41.css?v='+BUILD_ID,'parent');ensureLink('./gates-v62.css?v='+BUILD_ID,'gates');ensureLink('./access-v63.css?v='+BUILD_ID,'access')}
+  function ensureParentModule(){if(window.LgsArenaParent||document.querySelector('script[data-arena-parent]'))return;const script=document.createElement('script');script.src='./profile-parent-v41.js?v='+BUILD_ID;script.dataset.arenaParent='1';script.onload=()=>window.dispatchEvent(new CustomEvent('lgsarena:parent-ready'));script.onerror=()=>appToast('Veli modülü yüklenemedi. Öğrenci Arena bölümü kullanılabilir.');document.head.appendChild(script)}
+  function ensureFoundationStyle(){if(document.getElementById('arenaFoundationStyle'))return;const style=document.createElement('style');style.id='arenaFoundationStyle';style.textContent=`
+    .subject-cards{grid-template-rows:repeat(6,minmax(0,1fr))!important}.subject-card{min-height:0}
+    .global-zeus-watermark{position:absolute;left:50%;top:54%;width:min(78%,360px);max-height:68%;object-fit:contain;transform:translate(-50%,-50%);opacity:.16;filter:saturate(.72) contrast(1.05);pointer-events:none;user-select:none;z-index:0}
+    .app-header,.page-host,.bottom-nav{position:relative;z-index:1}.page{position:relative}.cover-skip{min-width:min(82vw,340px);min-height:54px;font-size:15px;padding:13px 26px!important}.cover-skip:disabled{opacity:.72;filter:saturate(.55);cursor:wait}
+    .model-notice{position:absolute;left:18px;right:18px;bottom:calc(90px + env(safe-area-inset-bottom));z-index:3;margin:0 auto;max-width:430px;text-align:center;color:#d3deea;font-size:10px;line-height:1.35;text-shadow:0 1px 5px #000;background:#020914aa;border:1px solid #e7b85b2e;border-radius:10px;padding:7px 9px;backdrop-filter:blur(5px)}
+    @media(max-height:690px){.model-notice{font-size:8px;bottom:calc(78px + env(safe-area-inset-bottom));padding:5px 7px}.cover-skip{min-height:48px}.subject-card{padding-top:5px!important;padding-bottom:5px!important}}
+  `;document.head.appendChild(style)}
+  function ensureBrandLayers(){const shell=document.getElementById('shell');if(shell&&!document.getElementById('globalZeusWatermark')){const img=document.createElement('img');img.id='globalZeusWatermark';img.className='global-zeus-watermark';img.src='./assets/zeus-hero-20260823-02.webp?v='+BUILD_ID;img.alt='';img.setAttribute('aria-hidden','true');shell.prepend(img)}const cover=document.getElementById('cover');if(cover&&!cover.querySelector('.model-notice')){const note=document.createElement('p');note.className='model-notice';note.textContent='Türkiye Yüzyılı Maarif Modeli dikkate alınmıştır.';cover.appendChild(note)}}
+  function coreLooksReady(){return document.querySelectorAll('#solveSubjects [data-launch]').length>=6&&document.querySelectorAll('#arenaSubjects .mini-sub').length>=6&&!!window.LgsArenaAdaptive&&window.LgsArenaPreference?.dataCount===3098&&!!window.LgsArenaAccess}
+  function setEntryState(state){const button=document.getElementById('skipCover');if(!button)return;if(state==='loading'){button.disabled=true;button.dataset.mode='loading';button.textContent='ARENA HAZIRLANIYOR';button.setAttribute('aria-busy','true')}else if(state==='ready'){button.disabled=false;button.dataset.mode='ready';button.textContent='ARENAYA GİR';button.removeAttribute('aria-busy')}else{button.disabled=false;button.dataset.mode='retry';button.textContent='YENİDEN YÜKLE';button.removeAttribute('aria-busy')}}
+  function waitForCore(){const started=Date.now();setEntryState('loading');const check=()=>{if(coreLooksReady()){coreReady=true;coreFailed=false;setEntryState('ready');window.dispatchEvent(new CustomEvent('lgsarena:ready',{detail:{version:RELEASE,buildId:BUILD_ID}}));return}if(Date.now()-started>=CORE_TIMEOUT_MS){coreReady=false;coreFailed=true;setEntryState('retry');appToast('Arena çekirdeği tam yüklenemedi. İnternet bağlantısını kontrol edip yeniden yükle.');return}setTimeout(check,90)};check()}
+  function revealShell(){const cover=document.getElementById('cover'),shell=document.getElementById('shell');cover?.classList.remove('active');cover?.classList.add('hidden');shell?.classList.remove('hidden')}
+  function enterArena(event){if(event){event.preventDefault();event.stopImmediatePropagation()}if(!coreReady)return;revealShell();if(window.LgsArenaAccess?.isLocked?.()){window.LgsArenaPreference?.openMembership('daily-ad-lock');return}const targetName=pendingHash||'arena',targetButton=document.querySelector(`#bottomNav [data-nav="${targetName}"]`);if(targetName==='membership'&&window.LgsArenaPreference)window.LgsArenaPreference.openMembership('direct');else if(targetName==='preference'&&window.LgsArenaPreference)window.LgsArenaPreference.open('exam');else if(targetButton&&targetName!=='arena')targetButton.click();else{const arena=document.querySelector('.page[data-page="arena"]');document.querySelectorAll('.page').forEach(page=>page.classList.toggle('active',page===arena));document.querySelectorAll('#bottomNav [data-nav]').forEach(button=>button.classList.toggle('selected',button.dataset.nav==='arena'))}}
+  function bindDirectEntry(){const button=document.getElementById('skipCover');if(!button)return;button.addEventListener('click',event=>{if(button.dataset.mode==='retry'||coreFailed){event.preventDefault();event.stopImmediatePropagation();const url=new URL(location.href);url.searchParams.delete('bypassSW');url.searchParams.delete('direct');url.searchParams.set('id',BUILD_ID);url.searchParams.set('refresh',Date.now().toString());location.replace(url.href);return}if(!coreReady){event.preventDefault();event.stopImmediatePropagation();return}enterArena(event)},true)}
+  async function installApp(){if(isStandalone()){appToast('LGS Arena zaten uygulama olarak çalışıyor.');return}if(deferredPrompt){deferredPrompt.prompt();const choice=await deferredPrompt.userChoice;if(choice.outcome==='accepted')appToast('LGS Arena ana ekrana ekleniyor.');deferredPrompt=null;return}if(isIos()){appToast("iPhone/iPad: Safari'de Paylaş → Ana Ekrana Ekle seçeneğini kullan.");return}appToast('Chrome menüsünden “Uygulamayı yükle” veya “Ana ekrana ekle” seçeneğini kullan.')}
+  async function registerServiceWorker(){if(bypassServiceWorker||!('serviceWorker'in navigator)||location.protocol==='file:')return;try{const reloadMarker='lgsarena-sw-reloaded-'+RELEASE+'-'+BUILD_ID;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(sessionStorage.getItem(reloadMarker)==='1')return;sessionStorage.setItem(reloadMarker,'1');location.reload()},{once:true});const registration=await navigator.serviceWorker.register('./service-worker.js?v='+BUILD_ID,{scope:'./',updateViaCache:'none'});if(registration.waiting)registration.waiting.postMessage({type:'SKIP_WAITING'});registration.update().catch(()=>{})}catch{appToast('Çevrimdışı kullanım servisi etkinleştirilemedi. Uygulama çevrimiçi kullanılabilir.')}}
+  ensureStyles();ensureFoundationStyle();ensureBrandLayers();ensureParentModule();bindDirectEntry();waitForCore();
+  window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();deferredPrompt=event});window.addEventListener('appinstalled',()=>{deferredPrompt=null;appToast('LGS Arena telefona kuruldu.')});window.addEventListener('error',()=>{if(!coreReady&&!coreFailed)appToast('Bazı uygulama dosyaları yükleniyor. Arena hazır olduğunda giriş açılacak.')},true);window.addEventListener('load',()=>{const menu=document.getElementById('menuBtn');if(menu){menu.title='Uygulamayı yükle';menu.setAttribute('aria-label','LGS Arena uygulamasını yükle');menu.addEventListener('click',event=>{event.stopImmediatePropagation();installApp()},true)}});registerServiceWorker();
+  window.LgsArenaPwa={installApp,enterArena,version:RELEASE,buildId:BUILD_ID,isReady:()=>coreReady};
 })();
-
-
-
-
-

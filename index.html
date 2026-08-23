@@ -5,24 +5,25 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#050b18">
   <meta name="application-name" content="LGS 2027 Arena">
-  <meta name="pwa-build-id" content="20260824-08">
+  <meta name="pwa-build-id" content="20260824-09">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="LGS Arena">
   <meta name="format-detection" content="telephone=no">
   <title>LGS 2027 Arena</title>
-  <link rel="manifest" href="manifest.webmanifest?v=20260824-08">
+  <link rel="manifest" href="manifest.webmanifest?v=20260824-09">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/app-icon-20260823-03-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon-20260823-03.png">
-  <link rel="stylesheet" href="styles.css?v=20260824-08">
-  <link rel="stylesheet" href="mobile-v04.css?v=20260824-08">
-  <link rel="stylesheet" href="preference-v60.css?v=20260824-08">
-  <link rel="stylesheet" href="gates-v62.css?v=20260824-08">
+  <link rel="stylesheet" href="styles.css?v=20260824-09">
+  <link rel="stylesheet" href="mobile-v04.css?v=20260824-09">
+  <link rel="stylesheet" href="preference-v60.css?v=20260824-09">
+  <link rel="stylesheet" href="gates-v62.css?v=20260824-09">
+  <link rel="stylesheet" href="access-v63.css?v=20260824-09">
   <style id="arenaCriticalCover">
     html,body,#app{margin:0;width:100%;height:100%;min-height:100%;background:#020710}
     #cover.cover.active{display:block;position:fixed;inset:0;z-index:50;background:#020710}
-    #cover>img{display:block;width:100%;height:100%;object-fit:cover;background:#020710 url('assets/zeus-hero-20260823-02.webp?v=20260824-08') center/cover no-repeat}
+    #cover>img{display:block;width:100%;height:100%;object-fit:cover;background:#020710 url('assets/zeus-hero-20260823-02.webp?v=20260824-09') center/cover no-repeat}
     #skipCover{position:absolute;z-index:5;left:7%;right:7%;bottom:calc(18px + env(safe-area-inset-bottom));min-height:56px;transform:none}
     .pwa-build-id{position:absolute;z-index:60;top:calc(8px + env(safe-area-inset-top));left:8px;padding:5px 8px;border:1px solid #fff3a0;border-radius:999px;background:#ffde59;color:#07111f;font:900 10px/1 Arial,sans-serif;letter-spacing:.4px;box-shadow:0 3px 12px #0008;pointer-events:none}
     .shell-build-id{position:absolute;z-index:30;top:calc(68px + env(safe-area-inset-top));left:8px}
@@ -35,25 +36,28 @@
 <body>
 <div id="app">
   <section id="cover" class="cover active" aria-label="LGS 2027 Arena Inspired From Zeus kapak ekranı">
-    <span id="coverBuildId" class="pwa-build-id" aria-label="PWA test kimliği">PWA-ID 20260824-08</span>
-    <img src="assets/zeus-hero-20260823-02.webp?v=20260824-08" alt="Zeus - LGS 2027 Arena">
+    <span id="coverBuildId" class="pwa-build-id" aria-label="PWA test kimliği">PWA-ID 20260824-09</span>
+    <img src="assets/zeus-hero-20260823-02.webp?v=20260824-09" alt="Zeus - LGS 2027 Arena">
     <div class="cover-overlay"></div>
     <div class="cover-branding"><span>LGS 2027</span><strong>ARENA</strong><em>INSPIRED FROM ZEUS</em></div>
     <button id="skipCover" class="cover-skip">ARENAYA GİR</button>
   </section>
 
   <section id="shell" class="shell hidden">
-    <span id="shellBuildId" class="pwa-build-id shell-build-id" aria-label="PWA test kimliği">PWA-ID 20260824-08</span>
+    <span id="shellBuildId" class="pwa-build-id shell-build-id" aria-label="PWA test kimliği">PWA-ID 20260824-09</span>
     <header class="app-header">
       <button id="menuBtn" class="icon-btn" aria-label="Menü"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <div class="brand"><span>LGS 2027</span><strong>ARENA</strong></div>
-      <button id="bellBtn" class="icon-btn" aria-label="Bildirimler"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></button>
+      <div class="header-actions">
+        <button id="bellBtn" class="icon-btn" aria-label="Bildirimler"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></button>
+        <button id="studentProfileChip" class="student-chip header-profile-chip" aria-label="Öğrenci profilini aç"><span class="profile-chip-label">Ö</span></button>
+      </div>
     </header>
 
     <main id="pageHost" class="page-host">
       <section class="page active arena-page" data-page="arena">
         <div class="arena-hero-card">
-          <img src="assets/zeus-hero-20260823-02.webp?v=20260824-08" alt="Zeus - LGS 2027 Arena">
+          <img src="assets/zeus-hero-20260823-02.webp?v=20260824-09" alt="Zeus - LGS 2027 Arena">
           <div class="arena-hero-overlay"></div>
           <div class="arena-hero-copy"><span class="arena-hero-kicker">ZEUS İLE LGS 2027</span><h1>Bilgi · Disiplin · Zafer</h1><p>13 Haziran 2027'ye hazırlan. Her gün biraz daha güçlen.</p></div>
           <div class="arena-hero-countdown"><strong id="daysLeft">297</strong><span>gün</span><small id="clockLeft">00:00:00</small></div>
@@ -65,56 +69,58 @@
         </div>
         <button class="arena-rank-card" data-nav="progress" aria-label="Türkiye ve il sıralamasını aç"><div><span>🇹🇷 Türkiye</span><b id="arenaTurkeyRank">—</b></div><i></i><div><span id="arenaProvinceLabel">İstanbul</span><b id="arenaProvinceRank">—</b></div><small><strong id="arenaSolvedCount">0</strong><br>benzersiz soru</small></button>
         <div class="home-progress-card"><div class="section-head home-section-head"><h2>Ders İlerlemen</h2><button data-nav="progress">Detayları Gör</button></div><div id="arenaSubjects" class="mini-subjects"></div></div>
-        <div class="arena-bottom-row"><div class="xp-card"><div class="xp-label"><span>XP</span><b id="xpValue">0</b></div><div class="xp-track"><i id="xpBar"></i></div></div><button id="quickStart" class="hero-start-btn"><span>⚡</span><div><small>Bugünkü Hedef</small><b id="dailyMission">Matematikten 10 soru çöz</b></div></button></div>
+        <div class="arena-bottom-row"><div class="xp-card"><div class="xp-label"><span>XP</span><b id="xpValue">0</b></div><div class="xp-track"><i id="xpBar"></i></div></div><button id="quickStart" class="hero-start-btn"><span>⚡</span><div><small>ARENA</small><b id="dailyMission">10 soruluk çalışma alanını aç</b></div></button></div>
       </section>
 
       <section class="page" data-page="zeus">
         <div class="zeus-hero">
-          <img src="assets/zeus-hero-20260823-02.webp?v=20260824-08" alt="Zeus">
-          <div><span>ZEUS</span><h2>“Disiplin, bilgiyi zafere taçlandırır.”</h2><p id="zeusSummary">Bugünkü planını hazırlıyorum.</p></div>
+          <img src="assets/zeus-hero-20260823-02.webp?v=20260824-09" alt="Zeus">
+          <div><span>ZEUS · PREMIUM</span><h2>“Disiplin, bilgiyi zafere taçlandırır.”</h2><p id="zeusSummary">Bugünkü planını hazırlıyorum.</p></div>
         </div>
         <div class="zeus-grid">
           <button data-zeus-action="plan"><b>▣</b><span>Bugünkü Plan</span><small>Kişisel çalışma rotası</small></button>
-          <button data-zeus-action="ask"><b>⚡</b><span>Zeus'a Sor</span><small>Demo rehberlik</small></button>
+          <button data-zeus-action="ask"><b>⚡</b><span>Zeus'a Sor</span><small>Premium rehberlik</small></button>
           <button data-zeus-action="weak"><b>◎</b><span>Zayıf Konular</span><small>Gelişim alanların</small></button>
-          <button data-zeus-action="test"><b>ϟ</b><span>Beni Sına</span><small>10 soruluk hızlı test</small></button>
+          <button data-zeus-action="test"><b>ϟ</b><span>Beni Sına</span><small>Arena çalışma alanı</small></button>
+          <button class="zeus-notes-action" data-zeus-action="notes"><b>✦</b><span>Akıllı Notlar</span><small>Premium konu kartları</small></button>
         </div>
         <div id="zeusPanel" class="zeus-panel">
-          <div id="zeusMessages" class="zeus-messages"><p><b>Zeus:</b> Hoş geldin. Önce birkaç soru çöz; performansına göre sana daha iyi öneriler sunacağım.</p></div>
+          <div id="zeusMessages" class="zeus-messages"><p><b>Zeus:</b> Hoş geldin. Performansına göre sana kişisel çalışma rotası hazırlayacağım.</p></div>
           <div class="chat-row"><input id="zeusInput" maxlength="120" placeholder="Zeus'a bir şey sor..."><button id="zeusSend">Gönder</button></div>
         </div>
       </section>
 
       <section class="page" data-page="subjects">
-        <div class="page-title"><div><span>DERSLER</span><h1>30'ar soruluk demo havuzları</h1></div><b>150</b></div>
+        <div class="page-title"><div><span>DERS ÖZETLERİ</span><h1>Ünite ünite konu özetleri</h1></div><b>6</b></div>
+        <p class="muted-copy">Bu bölümde soru bulunmaz. Dersini seçerek ünite özetlerini sırayla inceleyebilirsin.</p>
         <div id="subjectCards" class="subject-cards"></div>
       </section>
 
       <section class="page" data-page="smartnotes">
         <div class="smartnotes-head">
           <button id="smartNotesBack" class="back-btn" aria-label="Derslere dön">‹</button>
-          <div><span>AKILLI NOTLAR</span><h1 id="smartNotesSubjectTitle">Fen Bilimleri</h1></div>
+          <div><span id="smartNotesModeLabel">DERS ÖZETLERİ</span><h1 id="smartNotesSubjectTitle">Fen Bilimleri</h1></div>
           <b id="smartNotesCounter">1 / 6</b>
         </div>
         <div id="smartNoteSubjectTabs" class="smartnote-tabs"></div>
         <article class="smartnote-card">
           <div class="smartnote-kicker"><span id="smartNoteTopic">Konu</span><em id="smartNoteType">Kritik Bilgi</em></div>
-          <h2 id="smartNoteTitle">Akıllı not yükleniyor</h2>
+          <h2 id="smartNoteTitle">Ders özeti yükleniyor</h2>
           <div class="smartnote-block concept"><b>Kavram</b><p id="smartNoteConcept"></p></div>
           <div class="smartnote-block attention"><b>Dikkat</b><p id="smartNoteAttention"></p></div>
           <div class="smartnote-block example"><b>Örnek</b><p id="smartNoteExample"></p></div>
         </article>
         <div class="smartnote-nav">
           <button id="prevSmartNote" class="outline-btn">‹ Önceki</button>
-          <button id="smartNotePractice" class="primary-btn">10 Soru Çöz</button>
+          <button id="smartNotePractice" class="primary-btn">Arena’ya Git</button>
           <button id="nextSmartNote" class="outline-btn">Sonraki ›</button>
         </div>
       </section>
 
       <section class="page" data-page="solve">
         <div id="solveLauncher" class="launcher">
-          <div class="page-title"><div><span>SORU ÇÖZME</span><h1>Dersini seç</h1></div><b>10</b></div>
-          <p class="muted-copy">Aynı soru, havuz bitmeden yeniden gösterilmez. Çalışma modunda ipucu ve çözüm desteği kullanılabilir.</p>
+          <div class="page-title"><div><span>ARENA</span><h1>Dersini seç</h1></div><b>⚡</b></div>
+          <p class="muted-copy">Bütün sorular burada. Aynı soru, havuz bitmeden yeniden gösterilmez. Çalışma modunda ipucu ve çözüm desteği kullanılabilir.</p>
           <div id="solveSubjects" class="subject-picker"></div>
         </div>
         <div id="quizView" class="quiz-view hidden">
@@ -124,9 +130,7 @@
           <h2 id="questionText">Soru yükleniyor</h2>
           <div id="optionList" class="option-list"></div>
           <div id="supportBar" class="support-bar">
-            <button id="hintBtn">💡 İpucu</button>
-            <button id="solutionBtn">◉ Çözümü Göster</button>
-            <button id="askZeusBtn">⚡ Zeus'a Sor</button>
+            <button id="hintBtn">💡 İpucu</button><button id="solutionBtn">◉ Çözümü Göster</button><button id="askZeusBtn">⚡ Zeus'a Sor</button>
           </div>
           <div id="helpBox" class="help-box hidden"></div>
           <button id="nextBtn" class="primary-btn">Sonraki</button>
@@ -136,11 +140,9 @@
       <section class="page mock-page" data-page="mock">
         <div id="examPremiumCard" class="mock-card premium-feature-card" role="button" tabindex="0" aria-label="Arena 90 soruluk deneme Premium">
           <div class="mock-ring"><span>90</span><small>SORU</small></div>
-          <div><span>DENEME</span><h2>LGS 2027 Arena</h2><p>6 ders · 90 soru · LGS dağılımı · sonuç sonunda açıklanır</p><em>PREMIUM</em></div>
+          <div><h2>LGS 2027 Arena</h2><p>6 ders · 90 soru · LGS dağılımı · sonuç sonunda açıklanır</p><em>PREMIUM</em></div>
         </div>
-        <div class="mock-rules">
-          <div><b>155 dk</b><span>Toplam süre</span></div><div><b>6</b><span>Ders</span></div><div><b>90</b><span>Soru</span></div>
-        </div>
+        <div class="mock-rules"><div><b>155 dk</b><span>Toplam süre</span></div><div><b>6</b><span>Ders</span></div><div><b>90</b><span>Soru</span></div></div>
         <button id="startMock" class="primary-btn exam-premium-button">DENEMEYE BAŞLA · PREMIUM</button>
         <section id="writtenScenariosPanel" class="written-scenarios" aria-label="Yazılı deneme senaryoları">
           <div class="written-scenarios-head"><div><span>PREMIUM</span><h2>YAZILI DENEME SENARYOLARI</h2></div><b>4 SENARYO</b></div>
@@ -152,7 +154,7 @@
             <button data-written-scenario="2. Dönem 2. Yazılı"><span>2. DÖNEM</span><b>2. Yazılı</b></button>
           </div>
         </section>
-        <div class="notice premium-notice"><b>Premium içerik:</b> Ücretsiz kullanıcı Deneme veya Yazılı Senaryo seçtiğinde üyelik sayfasına yönlendirilir.</div>
+        <div class="notice premium-notice"><b>Premium içerik:</b> Ücretsiz kullanıcı Arena Denemesi veya Yazılı Senaryo seçtiğinde üyelik sayfasına yönlendirilir.</div>
       </section>
 
       <section class="page" data-page="progress">
@@ -163,90 +165,67 @@
           <div class="rank-grid"><div class="rank-box"><span>🇹🇷 Türkiye</span><b id="turkeyRank">—</b><small id="turkeyRankTotal">/ 250.000</small></div><div class="rank-box"><span id="provinceRankLabel">İstanbul</span><b id="provinceRank">—</b><small id="provinceRankTotal">/ 42.000</small></div></div>
           <div class="ranking-meta"><span><b id="rankSolvedCount">0</b> benzersiz soru çözüldü</span><span>Doğruluk <b id="rankAccuracy">0%</b></span></div>
           <label class="province-row"><span>İl sıralaması</span><select id="provinceSelect" aria-label="İl seç"></select></label>
-          <p class="ranking-note">Demo sürümünde sıralama örnek kullanıcı dağılımıyla simüle edilir. Gerçek sürümde yalnızca benzersiz çözülen sorular sayılır; soru geçmişini sıfırlamak sıralamayı yükseltmez.</p>
+          <p class="ranking-note">Demo sürümünde sıralama örnek kullanıcı dağılımıyla simüle edilir. Gerçek sürümde yalnızca benzersiz çözülen sorular sayılır.</p>
         </section>
         <section class="preference-launch-card" aria-label="Lise tercih robotu">
-          <div class="section-head"><h2>Lise Tercih Robotu</h2><span class="preference-badge">2026 · 81 il</span></div>
+          <div class="section-head"><h2>Lise Tercih Robotu</h2><span class="preference-badge">PREMIUM · 2026</span></div>
           <p>Deneme puanını 2026 taban değerleriyle karşılaştır; 6–8. sınıf puanlarından OBP’ni hesapla.</p>
           <div class="preference-launch-actions"><button id="openPreferenceFromProgress">Puanla Lise Ara</button><button id="openObpFromProgress">OBP Hesapla</button></div>
         </section>
         <div class="weak-card"><div class="section-head"><h2>Zayıf Konular</h2><span>son çözümler</span></div><div id="weakTopics"></div></div>
         <div class="plan-card"><div><span>Paket</span><b id="planText">Ücretsiz</b></div><button id="togglePlan">Premium’u İncele</button></div>
-        <p class="fine-print">Bu anahtar yalnızca reklam akışını test etmek içindir. Gerçek paket adı ve fiyatlandırma HMGS Arena ile aynı ürün kuralları kullanılarak bağlanacaktır.</p>
+        <p class="fine-print">Demo üyelik düğmesi gerçek ödeme yapmaz. Üretim ödeme sağlayıcısı daha sonra bağlanacaktır.</p>
       </section>
 
       <section id="membershipPage" class="page membership-page" data-page="membership">
-        <div class="membership-top">
-          <button id="membershipBack" class="back-btn" aria-label="Geri dön">‹</button>
-          <div><span>ARENA PREMIUM</span><h1>Başarını tercihe dönüştür</h1></div>
-          <b id="membershipStatus" class="membership-status">ÜCRETSİZ</b>
-        </div>
-        <div class="membership-hero"><span>⚡ PREMIUM</span><h2>Arena’nın tüm gücünü aç</h2><p>90 soruluk Arena denemesi, yazılı senaryoları, OBP, okul eşleştirme ve Veli Takip tek pakette.</p></div>
+        <div class="membership-top"><button id="membershipBack" class="back-btn" aria-label="Geri dön">‹</button><div><span>ARENA PREMIUM</span><h1>Başarını tercihe dönüştür</h1></div><b id="membershipStatus" class="membership-status">ÜCRETSİZ</b></div>
+        <div class="membership-hero"><span>⚡ PREMIUM</span><h2>Arena’nın tüm gücünü aç</h2><p>Zeus, Akıllı Notlar, 90 soruluk Arena denemesi, yazılı senaryoları, OBP, okul eşleştirme ve Veli Takip tek pakette.</p></div>
         <div class="membership-benefits">
+          <div><b>⚡</b><span><strong>Zeus ve Akıllı Notlar</strong>Kişisel rota, rehberlik ve Premium konu kartları</span></div>
           <div><b>🏛️</b><span><strong>90 soruluk Arena Denemesi</strong>6 dersin LGS dağılımına göre tam deneme akışı</span></div>
           <div><b>📝</b><span><strong>Yazılı deneme senaryoları</strong>1. ve 2. dönem için dört yazılı senaryosu</span></div>
-          <div><b>🎯</b><span><strong>Okul eşleştirme</strong>Deneme puanı ve yüzdelikle il/ilçe bazlı yakın liseler</span></div>
+          <div><b>🎯</b><span><strong>Lise Tercih Robotu</strong>Puan ve yüzdelikle il/ilçe bazlı yakın liseler</span></div>
           <div><b>📘</b><span><strong>OBP ve yerel tercih</strong>6–8. sınıf YBP ortalaması ve yerel yerleştirme rehberi</span></div>
           <div><b>👨‍👩‍👧</b><span><strong>Veli Takip</strong>Net, gelişim, adaptif rota ve çalışma özeti</span></div>
-          <div><b>⚡</b><span><strong>Kesintisiz çalışma</strong>Günlük ücretsiz kota ve ödüllü reklam sınırı olmadan çalışma</span></div>
+          <div><b>∞</b><span><strong>Kesintisiz çalışma</strong>Günlük ücretsiz kota ve ödüllü reklam sınırı olmadan çalışma</span></div>
         </div>
-        <div class="membership-note"><b>Prototip üyelik ekranı</b><p>Gerçek ödeme sağlayıcısı henüz bağlı değildir. Aşağıdaki düğme yalnız PWA’daki Premium akışını test etmek için bu cihazda etkinleştirir; ücret tahsil etmez.</p></div>
-        <button id="membershipEnable" class="membership-primary">Premium Akışı Etkinleştir · Demo</button>
-        <button id="membershipContinueFree" class="membership-secondary">Ücretsiz Devam Et</button>
+        <div class="membership-note"><b>Prototip üyelik ekranı</b><p>Gerçek ödeme sağlayıcısı henüz bağlı değildir. Aşağıdaki düğme yalnız PWA’daki Premium akışını bu cihazda test eder; ücret tahsil etmez.</p></div>
+        <button id="membershipEnable" class="membership-primary">ÜCRETLİ ÜYELİĞİ AÇ · DEMO</button>
+        <button id="membershipContinueFree" class="membership-secondary">ANA SAYFAYA DEVAM ET</button>
         <button id="membershipDisable" class="membership-text hidden">Premium demoyu kapat</button>
       </section>
 
       <section id="preferencePage" class="page preference-page" data-page="preference">
-        <div class="preference-top">
-          <button id="preferenceBack" class="back-btn" aria-label="Geri dön">‹</button>
-          <div><span>TERCİH REHBERİ</span><h1>Lise Tercih Robotu</h1></div>
-          <b class="preference-data-badge">3.098 program</b>
-        </div>
+        <div class="preference-top"><button id="preferenceBack" class="back-btn" aria-label="Geri dön">‹</button><div><span>TERCİH REHBERİ · PREMIUM</span><h1>Lise Tercih Robotu</h1></div><b class="preference-data-badge">3.098 program</b></div>
         <p class="preference-intro">2026 yerleştirme tabanlarıyla yaklaşık eşleşme üretir. Gelecek yılın kontenjan ve tabanları değişebilir; son karar için e-Okul’u kontrol et.</p>
-        <div class="preference-tabs" role="tablist" aria-label="Tercih hesaplama türü">
-          <button class="preference-tab selected" data-preference-tab="exam" role="tab">LGS Puanı</button>
-          <button class="preference-tab" data-preference-tab="obp" role="tab">OBP / Yerel</button>
-        </div>
-
+        <div class="preference-tabs" role="tablist" aria-label="Tercih hesaplama türü"><button class="preference-tab selected" data-preference-tab="exam" role="tab">LGS Puanı</button><button class="preference-tab" data-preference-tab="obp" role="tab">OBP / Yerel</button></div>
         <div id="examPreferencePanel" class="preference-panel">
-          <section class="preference-form-card">
-            <h2>Puanla okul eşleştir</h2>
-            <div class="preference-form-grid">
-              <label class="preference-field"><span>LGS puanı</span><input id="prefScore" type="number" inputmode="decimal" min="100" max="500" step="0.1" placeholder="Örn. 425,6"></label>
-              <label class="preference-field"><span>Yüzdelik (varsa)</span><input id="prefPercentile" type="number" inputmode="decimal" min="0.01" max="100" step="0.01" placeholder="Örn. 5,20"></label>
-              <label class="preference-field"><span>İl</span><select id="prefProvince" aria-label="Tercih ili"></select></label>
-              <label class="preference-field"><span>İlçe</span><select id="prefDistrict" aria-label="Tercih ilçesi"></select></label>
-              <button id="findSchools" class="preference-primary wide" type="button">Yakın Liseleri Göster</button>
-            </div>
-          </section>
-          <div id="preferenceMatchSummary" class="preference-match-summary"><b>2026 verisi</b><span>Yüzdelik girildiğinde eşleşmede öncelikle yüzdelik kullanılır.</span></div>
+          <section class="preference-form-card"><h2>Puanla okul eşleştir</h2><div class="preference-form-grid">
+            <label class="preference-field"><span>LGS puanı</span><input id="prefScore" type="number" inputmode="decimal" min="100" max="500" step="0.1" placeholder="Örn. 425,6"></label>
+            <label class="preference-field"><span>Yüzdelik (isteğe bağlı)</span><input id="prefPercentile" type="number" inputmode="decimal" min="0.01" max="100" step="0.01" placeholder="Örn. 5,20"></label>
+            <label class="preference-field"><span>İl</span><select id="prefProvince" aria-label="Tercih ili"></select></label>
+            <label class="preference-field"><span>İlçe</span><select id="prefDistrict" aria-label="Tercih ilçesi"></select></label>
+            <button id="findSchools" class="preference-primary wide" type="button">Yakın Liseleri Göster</button>
+          </div></section>
+          <div id="preferenceMatchSummary" class="preference-match-summary"><b>2026 verisi</b><span>Yüzdelik girilmezse eşleştirme puan üzerinden yapılır.</span></div>
           <div id="schoolRecommendations" class="preference-results"><div class="preference-empty"><b>Puan veya yüzdelik gir</b><p>Deneme sonucundaki tahmini puan otomatik olarak buraya taşınır.</p></div></div>
+          <div id="preferenceFormalWarning" class="preference-formal-warning hidden" role="note"><b>Bilgilendirme notu</b><p>Bu liste yalnızca bilgilendirme ve ön değerlendirme amacıyla sunulmuştur; resmî tercih sonucu veya yerleşme garantisi niteliği taşımaz. Nihai tercihlerinizi güncel MEB ve e-Okul verileriyle doğrulayınız.</p></div>
         </div>
-
         <div id="obpPreferencePanel" class="preference-panel hidden">
           <div class="obp-explainer"><b>OBP nasıl hesaplanır?</b><p>6, 7 ve 8. sınıf yıl sonu başarı puanlarının aritmetik ortalaması alınır ve dört ondalık basamakla gösterilir.</p></div>
-          <section class="preference-form-card">
-            <h2>OBP’ni hesapla</h2>
-            <div class="preference-form-grid">
-              <label class="preference-field"><span>6. sınıf YBP</span><input id="obpY6" type="number" inputmode="decimal" min="0" max="100" step="0.0001" placeholder="0–100"></label>
-              <label class="preference-field"><span>7. sınıf YBP</span><input id="obpY7" type="number" inputmode="decimal" min="0" max="100" step="0.0001" placeholder="0–100"></label>
-              <label class="preference-field wide"><span>8. sınıf YBP</span><input id="obpY8" type="number" inputmode="decimal" min="0" max="100" step="0.0001" placeholder="0–100"></label>
-              <label class="preference-field"><span>İl</span><select id="obpProvince" aria-label="Yerel tercih ili"></select></label>
-              <label class="preference-field"><span>İlçe</span><select id="obpDistrict" aria-label="Yerel tercih ilçesi"></select></label>
-              <button id="calculateObp" class="preference-primary wide" type="button">OBP Hesapla ve Rehberi Aç</button>
-            </div>
-          </section>
+          <section class="preference-form-card"><h2>OBP’ni hesapla</h2><div class="preference-form-grid">
+            <label class="preference-field"><span>6. sınıf YBP</span><input id="obpY6" type="number" inputmode="decimal" min="0" max="100" step="0.0001" placeholder="0–100"></label>
+            <label class="preference-field"><span>7. sınıf YBP</span><input id="obpY7" type="number" inputmode="decimal" min="0" max="100" step="0.0001" placeholder="0–100"></label>
+            <label class="preference-field wide"><span>8. sınıf YBP</span><input id="obpY8" type="number" inputmode="decimal" min="0" max="100" step="0.0001" placeholder="0–100"></label>
+            <label class="preference-field"><span>İl</span><select id="obpProvince" aria-label="Yerel tercih ili"></select></label>
+            <label class="preference-field"><span>İlçe</span><select id="obpDistrict" aria-label="Yerel tercih ilçesi"></select></label>
+            <button id="calculateObp" class="preference-primary wide" type="button">OBP Hesapla ve Rehberi Aç</button>
+          </div></section>
           <div id="obpResult" class="obp-result"><b>—</b><span>Yıl sonu puanlarını gir</span></div>
           <section class="local-placement-card"><h2>Yerel tercih rehberi</h2><div id="localPlacementGuide"></div></section>
           <a class="official-link preference-source-link" data-source="eokul" target="_blank" rel="noopener">Resmî e-Okul Tercih Bilgilerini Aç</a>
         </div>
-
-        <section class="preference-sources">
-          <b>Kaynak ve sınırlar</b>
-          <a class="preference-source-link" data-source="meb" target="_blank" rel="noopener">MEB 2026 yerleştirme raporu</a> ·
-          <a class="preference-source-link" data-source="data" target="_blank" rel="noopener">2026 okul veri seti</a>
-          <p>Arena sonucu resmî MEB puanı değildir. “Daha güvenli / yakın / iddialı” etiketleri yalnız 2026 kapanış değerlerine göre üretilir ve kazanma garantisi vermez.</p>
-        </section>
+        <section class="preference-sources"><b>Kaynak ve sınırlar</b><a class="preference-source-link" data-source="meb" target="_blank" rel="noopener">MEB 2026 yerleştirme raporu</a> · <a class="preference-source-link" data-source="data" target="_blank" rel="noopener">2026 okul veri seti</a><p>Arena sonucu resmî MEB puanı değildir. Etiketler yalnız 2026 kapanış değerlerinden üretilir ve yerleşme garantisi vermez.</p></section>
       </section>
 
       <section id="resultPage" class="page result-page" data-page="result">
@@ -255,60 +234,42 @@
         <div class="result-stats"><div><span>Doğru</span><b id="rCorrect">0</b></div><div><span>Yanlış</span><b id="rWrong">0</b></div><div><span>Boş</span><b id="rBlank">0</b></div><div><span>Destekli</span><b id="rAssisted">0</b></div></div>
         <div class="earned-xp"><span>Kazanılan XP</span><b id="rXp">+0</b></div>
         <button id="resultPreferenceBtn" class="result-preference-btn hidden">Bu Puanla Liseleri Gör</button>
-        <div class="result-actions"><button id="reviewWrong" class="outline-btn">Yanlışları Tek Tek İncele</button><button id="resultHome" class="primary-btn">Arena'ya Dön</button></div>
+        <div class="result-actions"><button id="reviewWrong" class="outline-btn">Yanlışları Tek Tek İncele</button><button id="resultHome" class="primary-btn">Durum’a Dön</button></div>
       </section>
-
-      <section id="reviewPage" class="page review-page" data-page="review">
-        <div class="review-top"><button id="closeReview" class="back-btn">‹</button><div><b>YANLIŞ ANALİZİ</b><span id="reviewCounter">1 / 1</span></div></div>
-        <div class="review-card"><span id="reviewTopic"></span><h2 id="reviewQuestion"></h2><div id="reviewOptions"></div><div class="solution-box"><b>Çözüm Yolu</b><p id="reviewSolution"></p></div></div>
-        <div class="review-nav"><button id="prevReview">Önceki</button><button id="nextReview">Sonraki</button></div>
-      </section>
+      <section id="reviewPage" class="page review-page" data-page="review"><div class="review-top"><button id="closeReview" class="back-btn">‹</button><div><b>YANLIŞ ANALİZİ</b><span id="reviewCounter">1 / 1</span></div></div><div class="review-card"><span id="reviewTopic"></span><h2 id="reviewQuestion"></h2><div id="reviewOptions"></div><div class="solution-box"><b>Çözüm Yolu</b><p id="reviewSolution"></p></div></div><div class="review-nav"><button id="prevReview">Önceki</button><button id="nextReview">Sonraki</button></div></section>
     </main>
 
     <nav id="bottomNav" class="bottom-nav" aria-label="Ana menü">
-      <button class="selected" data-nav="arena" aria-label="Arena"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 10v10h13V10M9 20v-6h6v6"/></svg><span>Arena</span></button>
-      <button data-nav="zeus" aria-label="Zeus"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m13.5 2-8 11h6l-1 9 8-12h-6z"/></svg><span>Zeus</span></button>
+      <button class="selected" data-nav="arena" aria-label="Durum"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 10v10h13V10M9 20v-6h6v6"/></svg><span>Durum</span></button>
+      <button data-nav="zeus" aria-label="Zeus Premium"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m13.5 2-8 11h6l-1 9 8-12h-6z"/></svg><span>Zeus</span></button>
       <button data-nav="subjects" aria-label="Dersler"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v17H7.5A3.5 3.5 0 0 0 4 22zM20 5.5A3.5 3.5 0 0 0 16.5 2H13v17h3.5A3.5 3.5 0 0 1 20 22z"/></svg><span>Dersler</span></button>
-      <button data-nav="solve" aria-label="Soru Çöz"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2V0M12 24v-2M2 12H0M24 12h-2"/></svg><span>Soru Çöz</span></button>
+      <button data-nav="solve" aria-label="Arena"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m13.5 2-8 11h6l-1 9 8-12h-6z"/></svg><span>Arena</span></button>
       <button data-nav="mock" aria-label="Deneme"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3V1h6v2M8 8h8M8 12h8M8 16h5"/></svg><span>Deneme</span></button>
       <button data-nav="progress" aria-label="İlerleme"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>İlerleme</span></button>
     </nav>
   </section>
 
-  <div id="resultUpsell" class="result-upsell hidden" role="dialog" aria-modal="true" aria-labelledby="resultUpsellTitle">
-    <div class="result-upsell-card">
-      <span class="result-upsell-kicker">ARENA PREMIUM</span>
-      <h2 id="resultUpsellTitle">Kazanabileceğin okulları da görmek ister misin?</h2>
-      <p>Deneme puanına göre il ve ilçendeki yakın liseleri görmek, OBP hesaplamak ve Veli Takip özelliğini açmak Premium üyelikte.</p>
-      <div><button id="resultUpsellYes">Evet, Premium’u Gör</button><button id="resultUpsellNo">Hayır, Sadece Puanımı Göster</button></div>
-    </div>
-  </div>
-  <div id="quotaOverlay" class="quota-overlay hidden" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="quotaTitle">
-    <div class="quota-card"><span>ÜCRETSİZ GÜNLÜK SINIR</span><h2 id="quotaTitle">Günlük soru çözme hakkınız doldu</h2><p>Ücretsiz planda günlük 50 soru çözebilirsiniz. Sınırsız devam etmek için Premium üyeliği inceleyin.</p><button id="quotaPremium">Premium Üyeliği Gör</button></div>
-  </div>
+  <div id="resultUpsell" class="result-upsell hidden" role="dialog" aria-modal="true" aria-labelledby="resultUpsellTitle"><div class="result-upsell-card"><span class="result-upsell-kicker">ARENA PREMIUM</span><h2 id="resultUpsellTitle">Kazanabileceğin okulları da görmek ister misin?</h2><p>Deneme puanına göre il ve ilçendeki yakın liseleri görmek, OBP hesaplamak ve Veli Takip özelliğini açmak Premium üyelikte.</p><div><button id="resultUpsellYes">Evet, Premium’u Gör</button><button id="resultUpsellNo">Hayır, Sadece Puanımı Göster</button></div></div></div>
+  <div id="contentGate" class="content-gate hidden" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="contentGateTitle"><div class="content-gate-card"><span>DERS ÖZETİNE DEVAM</span><h2 id="contentGateTitle">Bir sonraki özeti nasıl açmak istersin?</h2><p>Ödüllü reklamı tamamla veya Premium erişimi aç.</p><button id="contentReward">ÖDÜLLÜ REKLAM İZLE</button><button id="contentPremium">PREMIUM ÜYELİĞİ GÖR</button></div></div>
+  <div id="quotaOverlay" class="quota-overlay hidden" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="quotaTitle"><div class="quota-card"><span>ÜCRETSİZ GÜNLÜK SINIR</span><h2 id="quotaTitle">Günlük soru çözme hakkınız doldu</h2><p id="quotaText">Ücretsiz planda günlük 50 soru çözebilirsiniz. Sınırsız devam etmek için Premium üyeliği inceleyin.</p><button id="quotaPremium">Premium Üyeliği Gör</button></div></div>
   <div id="toast" class="toast hidden"></div>
   <div id="modal" class="modal hidden"><div class="modal-card"><h3 id="modalTitle"></h3><p id="modalText"></p><div><button id="modalCancel" class="outline-btn">Vazgeç</button><button id="modalOk" class="primary-btn">Tamam</button></div></div></div>
-  <div id="adOverlay" class="ad-overlay hidden" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="adTitle"><div class="ad-demo"><span>ÖDÜLLÜ REKLAM · DEMO</span><strong id="adTitle">10 soru tamamlandı</strong><b id="adCount">8</b><p id="adMessage">Reklam tamamlandığında bir sonraki aşama otomatik açılacak.</p><small>Bu ekran sayaç bitmeden kapatılamaz.</small></div></div>
+  <div id="adOverlay" class="ad-overlay hidden" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="adTitle"><div class="ad-demo"><span>ÖDÜLLÜ REKLAM · DEMO</span><strong id="adTitle">İçeriğe devam et</strong><b id="adCount">8</b><p id="adMessage">Reklam tamamlandığında bir sonraki aşama otomatik açılacak.</p><small id="adQuota">Günlük reklam 1 / 6</small><small>Bu ekran sayaç bitmeden kapatılamaz.</small></div></div>
 </div>
-<script src="data/matematik.js?v=20260824-08"></script>
-<script src="data/fen.js?v=20260824-08"></script>
-<script src="data/turkce.js?v=20260824-08"></script>
-<script src="data/inkilap.js?v=20260824-08"></script>
-<script src="data/din.js?v=20260824-08"></script>
-<script src="data/notes.js?v=20260824-08"></script>
-<script src="data/schools-2026-p1.js?v=20260824-08"></script>
-<script src="data/schools-2026-p2.js?v=20260824-08"></script>
-<script src="data/schools-2026-p3.js?v=20260824-08"></script>
-<script src="data/schools-2026-p4.js?v=20260824-08"></script>
-<script src="data/schools-2026-p5.js?v=20260824-08"></script>
-<script src="data/schools-2026-p6.js?v=20260824-08"></script>
-<script src="app.js?v=20260824-08"></script>
-<script src="preference-v60.js?v=20260824-08"></script>
-<script src="pwa.js?v=20260824-08"></script>
+<script src="data/matematik.js?v=20260824-09"></script>
+<script src="data/fen.js?v=20260824-09"></script>
+<script src="data/turkce.js?v=20260824-09"></script>
+<script src="data/inkilap.js?v=20260824-09"></script>
+<script src="data/din.js?v=20260824-09"></script>
+<script src="data/notes.js?v=20260824-09"></script>
+<script src="data/schools-2026-p1.js?v=20260824-09"></script>
+<script src="data/schools-2026-p2.js?v=20260824-09"></script>
+<script src="data/schools-2026-p3.js?v=20260824-09"></script>
+<script src="data/schools-2026-p4.js?v=20260824-09"></script>
+<script src="data/schools-2026-p5.js?v=20260824-09"></script>
+<script src="data/schools-2026-p6.js?v=20260824-09"></script>
+<script src="app.js?v=20260824-09"></script>
+<script src="preference-v60.js?v=20260824-09"></script>
+<script src="pwa.js?v=20260824-09"></script>
 </body>
 </html>
-
-
-
-
-
