@@ -7,7 +7,7 @@
     season: 2027,
     appName: 'LGS 2027 Arena',
     coverLocked: true,
-    coverStandard: 'LGS2027-ZEUS-ARENA-COVER-2026-08-23-V521',
+    coverStandard: 'LGS2027-ZEUS-ARENA-COVER-2026-08-23-V524-20260823-02',
     coverAsset: 'assets/zeus-hero-20260823-02.webp?v=5.2.4',
     coverRule: 'Kapak, Arena hero ve Zeus hero gerçek img elemanlarıyla çalışır; yerel raster arka plan yalnız yükleme fallbackidir.',
     examDate: '2027-06-13T09:30:00+03:00',
