@@ -5,26 +5,26 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#050b18">
   <meta name="application-name" content="LGS 2027 Arena">
-  <meta name="pwa-build-id" content="20260823-04">
+  <meta name="pwa-build-id" content="20260823-05">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="LGS Arena">
   <meta name="format-detection" content="telephone=no">
   <title>LGS 2027 Arena</title>
-  <link rel="manifest" href="manifest.webmanifest?v=5.2.6">
+  <link rel="manifest" href="manifest.webmanifest?v=5.2.7">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/app-icon-20260823-03-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon-20260823-03.png">
-  <link rel="stylesheet" href="styles.css?v=5.2.6">
-  <link rel="stylesheet" href="mobile-v04.css?v=5.2.6">
+  <link rel="stylesheet" href="styles.css?v=5.2.7">
+  <link rel="stylesheet" href="mobile-v04.css?v=5.2.7">
   <style id="arenaCriticalCover">
     html,body,#app{margin:0;width:100%;height:100%;min-height:100%;background:#020710}
     #cover.cover.active{display:block;position:fixed;inset:0;z-index:50;background:#020710}
-    #cover>img{display:block;width:100%;height:100%;object-fit:cover;background:#020710 url('assets/zeus-hero-20260823-02.webp?v=5.2.6') center/cover no-repeat}
+    #cover>img{display:block;width:100%;height:100%;object-fit:cover;background:#020710 url('assets/zeus-hero-20260823-02.webp?v=5.2.7') center/cover no-repeat}
     #skipCover{position:absolute;z-index:5;left:7%;right:7%;bottom:calc(18px + env(safe-area-inset-bottom));min-height:56px;transform:none}
     .pwa-build-id{position:absolute;z-index:60;top:calc(8px + env(safe-area-inset-top));left:8px;padding:5px 8px;border:1px solid #fff3a0;border-radius:999px;background:#ffde59;color:#07111f;font:900 10px/1 Arial,sans-serif;letter-spacing:.4px;box-shadow:0 3px 12px #0008;pointer-events:none}
     .shell-build-id{position:absolute;z-index:30;top:calc(68px + env(safe-area-inset-top));left:8px}
-    #cover .cover-branding{position:absolute;z-index:4;left:16px;right:16px;bottom:calc(154px + env(safe-area-inset-bottom));text-align:center;text-shadow:0 4px 20px #000}
+    #cover .cover-branding{display:block!important;position:absolute;z-index:4;left:16px;right:16px;bottom:calc(154px + env(safe-area-inset-bottom));text-align:center;text-shadow:0 4px 20px #000}
     #cover .cover-branding span{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 18px;border:1px solid #ffe7a0;border-radius:999px;background:#041023e6;color:#ffe6a0;font:900 clamp(22px,6vw,34px)/1 Georgia,serif;letter-spacing:4px;box-shadow:0 7px 24px #000b,0 0 24px #e7b85b36}
     #cover .cover-branding strong{display:block;margin-top:8px;color:#72b7ff;font:900 clamp(44px,13vw,72px)/.92 Georgia,serif;letter-spacing:5px}
     #cover .cover-branding em{display:block;margin-top:10px;color:#fff;font:900 11px/1.2 Arial,sans-serif;font-style:normal;letter-spacing:2.5px}
@@ -33,15 +33,15 @@
 <body>
 <div id="app">
   <section id="cover" class="cover active" aria-label="LGS 2027 Arena Inspired From Zeus kapak ekranı">
-    <span id="coverBuildId" class="pwa-build-id" aria-label="PWA test kimliği">PWA-ID 20260823-04</span>
-    <img src="assets/zeus-hero-20260823-02.webp?v=5.2.6" alt="Zeus - LGS 2027 Arena">
+    <span id="coverBuildId" class="pwa-build-id" aria-label="PWA test kimliği">PWA-ID 20260823-05</span>
+    <img src="assets/zeus-hero-20260823-02.webp?v=5.2.7" alt="Zeus - LGS 2027 Arena">
     <div class="cover-overlay"></div>
     <div class="cover-branding"><span>LGS 2027</span><strong>ARENA</strong><em>INSPIRED FROM ZEUS</em></div>
     <button id="skipCover" class="cover-skip">ARENAYA GİR</button>
   </section>
 
   <section id="shell" class="shell hidden">
-    <span id="shellBuildId" class="pwa-build-id shell-build-id" aria-label="PWA test kimliği">PWA-ID 20260823-04</span>
+    <span id="shellBuildId" class="pwa-build-id shell-build-id" aria-label="PWA test kimliği">PWA-ID 20260823-05</span>
     <header class="app-header">
       <button id="menuBtn" class="icon-btn" aria-label="Menü"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <div class="brand"><span>LGS 2027</span><strong>ARENA</strong></div>
@@ -51,7 +51,7 @@
     <main id="pageHost" class="page-host">
       <section class="page active arena-page" data-page="arena">
         <div class="arena-hero-card">
-          <img src="assets/zeus-hero-20260823-02.webp?v=5.2.6" alt="Zeus - LGS 2027 Arena">
+          <img src="assets/zeus-hero-20260823-02.webp?v=5.2.7" alt="Zeus - LGS 2027 Arena">
           <div class="arena-hero-overlay"></div>
           <div class="arena-hero-copy"><span class="arena-hero-kicker">ZEUS İLE LGS 2027</span><h1>Bilgi · Disiplin · Zafer</h1><p>13 Haziran 2027'ye hazırlan. Her gün biraz daha güçlen.</p></div>
           <div class="arena-hero-countdown"><strong id="daysLeft">297</strong><span>gün</span><small id="clockLeft">00:00:00</small></div>
@@ -68,7 +68,7 @@
 
       <section class="page" data-page="zeus">
         <div class="zeus-hero">
-          <img src="assets/zeus-hero-20260823-02.webp?v=5.2.6" alt="Zeus">
+          <img src="assets/zeus-hero-20260823-02.webp?v=5.2.7" alt="Zeus">
           <div><span>ZEUS</span><h2>“Disiplin, bilgiyi zafere taçlandırır.”</h2><p id="zeusSummary">Bugünkü planını hazırlıyorum.</p></div>
         </div>
         <div class="zeus-grid">
@@ -187,13 +187,13 @@
   <div id="modal" class="modal hidden"><div class="modal-card"><h3 id="modalTitle"></h3><p id="modalText"></p><div><button id="modalCancel" class="outline-btn">Vazgeç</button><button id="modalOk" class="primary-btn">Tamam</button></div></div></div>
   <div id="adOverlay" class="ad-overlay hidden"><div class="ad-demo"><span>REKLAM · DEMO</span><b id="adCount">3</b><p>Gerçek sürümde bu alan HMGS Arena ile aynı reklam mantığına bağlanacak.</p></div></div>
 </div>
-<script src="data/matematik.js?v=5.2.6"></script>
-<script src="data/fen.js?v=5.2.6"></script>
-<script src="data/turkce.js?v=5.2.6"></script>
-<script src="data/inkilap.js?v=5.2.6"></script>
-<script src="data/din.js?v=5.2.6"></script>
-<script src="data/notes.js?v=5.2.6"></script>
-<script src="app.js?v=5.2.6"></script>
-<script src="pwa.js?v=5.2.6"></script>
+<script src="data/matematik.js?v=5.2.7"></script>
+<script src="data/fen.js?v=5.2.7"></script>
+<script src="data/turkce.js?v=5.2.7"></script>
+<script src="data/inkilap.js?v=5.2.7"></script>
+<script src="data/din.js?v=5.2.7"></script>
+<script src="data/notes.js?v=5.2.7"></script>
+<script src="app.js?v=5.2.7"></script>
+<script src="pwa.js?v=5.2.7"></script>
 </body>
 </html>
