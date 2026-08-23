@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const RELEASE = '5.2.1';
+  const RELEASE = '5.2.2';
   const CORE_TIMEOUT_MS = 12000;
   let deferredPrompt = null;
   let coreReady = false;
@@ -32,14 +32,14 @@
       link.dataset.arenaStyle = marker;
       document.head.appendChild(link);
     };
-    ensureLink('./mobile-v04.css?v=5.2.1', 'mobile');
-    ensureLink('./parent-v41.css?v=5.2.1', 'parent');
+    ensureLink('./mobile-v04.css?v=5.2.2', 'mobile');
+    ensureLink('./parent-v41.css?v=5.2.2', 'parent');
   }
 
   function ensureParentModule() {
     if (window.LgsArenaParent || document.querySelector('script[data-arena-parent]')) return;
     const script = document.createElement('script');
-    script.src = './profile-parent-v41.js';
+    script.src = './profile-parent-v41.js?v=5.2.2';
     script.dataset.arenaParent = '1';
     script.onload = () => window.dispatchEvent(new CustomEvent('lgsarena:parent-ready'));
     script.onerror = () => appToast('Veli modülü yüklenemedi. Öğrenci Arena bölümü kullanılabilir.');
@@ -70,7 +70,7 @@
       const img = document.createElement('img');
       img.id = 'globalZeusWatermark';
       img.className = 'global-zeus-watermark';
-      img.src = './assets/zeus-cover.svg';
+      img.src = './assets/zeus-cover.svg?v=5.2.2';
       img.alt = '';
       img.setAttribute('aria-hidden','true');
       shell.prepend(img);
@@ -161,11 +161,6 @@
     const button = document.getElementById('skipCover');
     if (!button) return;
     button.addEventListener('click', event => {
-      if (event.isTrusted === false) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        return;
-      }
       if (button.dataset.mode === 'retry' || coreFailed) {
         event.preventDefault();
         event.stopImmediatePropagation();
@@ -201,7 +196,14 @@
   async function registerServiceWorker() {
     if (bypassServiceWorker || !('serviceWorker' in navigator) || location.protocol === 'file:') return;
     try {
-      const registration = await navigator.serviceWorker.register('./service-worker.js', {scope:'./', updateViaCache:'none'});
+      const reloadMarker = 'lgsarena-sw-reloaded-' + RELEASE;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (sessionStorage.getItem(reloadMarker) === '1') return;
+        sessionStorage.setItem(reloadMarker, '1');
+        location.reload();
+      }, {once:true});
+      const registration = await navigator.serviceWorker.register('./service-worker.js?v=' + RELEASE, {scope:'./', updateViaCache:'none'});
+      if (registration.waiting) registration.waiting.postMessage({type:'SKIP_WAITING'});
       registration.update().catch(() => {});
     } catch {
       appToast('Çevrimdışı kullanım servisi etkinleştirilemedi. Uygulama çevrimiçi kullanılabilir.');
@@ -227,8 +229,8 @@
       menu.setAttribute('aria-label', 'LGS Arena uygulamasını yükle');
       menu.addEventListener('click', event => { event.stopImmediatePropagation(); installApp(); }, true);
     }
-    registerServiceWorker();
   });
+  registerServiceWorker();
 
   window.LgsArenaPwa = { installApp, enterArena, version: RELEASE, isReady: () => coreReady };
 })();
