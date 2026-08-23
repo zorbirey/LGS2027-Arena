@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lgs-2027-arena-pwa-v4.5.0-zeus-visual';
+const CACHE_NAME = 'lgs-2027-arena-pwa-v4.6.0-android-tablet';
 const APP_SHELL = [
   './',
   './index.html',
@@ -40,7 +40,7 @@ self.addEventListener('activate', event => {
     await Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)));
     await self.clients.claim();
     const clients = await self.clients.matchAll({type:'window', includeUncontrolled:true});
-    clients.forEach(client => client.postMessage({type:'ARENA_SW_READY', version:'4.5.0'}));
+    clients.forEach(client => client.postMessage({type:'ARENA_SW_READY', version:'4.6.0'}));
   })());
 });
 
