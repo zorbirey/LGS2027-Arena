@@ -1,9 +1,14 @@
 /* V5.2 interaction/layout layer: scrollable content and touch-sized quiz controls */
 html,body,#app{height:100%;min-height:100%;overflow:hidden}
 .shell{height:100dvh;min-height:100dvh;overflow:hidden}
-.page-host{min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior-y:contain!important;scrollbar-gutter:stable}
+.page-host{min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior-y:contain!important;scrollbar-gutter:auto;scrollbar-width:thin;scrollbar-color:rgba(231,184,91,.55) transparent}
 .page{height:auto!important;min-height:100%!important;overflow:visible!important;padding-bottom:22px!important}
 .page.active{display:flex!important;flex-direction:column!important}
+
+/* Dark, compact scrollbars avoid the white rail seen in mobile Chromium. */
+.page-host::-webkit-scrollbar{width:6px}
+.page-host::-webkit-scrollbar-track{background:transparent}
+.page-host::-webkit-scrollbar-thumb{background:rgba(231,184,91,.48);border-radius:999px}
 
 /* Long screens should grow naturally instead of squeezing all content into one viewport. */
 .subject-cards,.subject-picker,.progress-bars,.zeus-panel,.review-card{min-height:unset!important}
@@ -36,8 +41,8 @@ html,body,#app{height:100%;min-height:100%;overflow:hidden}
 .bottom-nav{position:relative!important;z-index:20!important;flex-shrink:0!important}
 
 /* Image fallback: if the real img fails, the container still has a local raster background. */
-.cover{background:#020710 url('./assets/lgs2027-cover-fixed.webp?v=5.2.0') center 24%/cover no-repeat!important}
-.arena-hero-card,.zeus-hero{background-color:#061426!important;background-image:url('./assets/lgs2027-cover-fixed.webp?v=5.2.0')!important;background-size:cover!important;background-repeat:no-repeat!important;background-position:center 24%!important}
+.cover{background:#020710 url('./assets/zeus-hero-20260823-02.webp?v=5.2.4') center 38%/cover no-repeat!important}
+.arena-hero-card,.zeus-hero{background-color:#061426!important;background-image:url('./assets/zeus-hero-20260823-02.webp?v=5.2.4')!important;background-size:cover!important;background-repeat:no-repeat!important;background-position:center 38%!important}
 .arena-hero-card>img,.zeus-hero>img,.cover>img{visibility:visible!important;opacity:1!important}
 
 @media(max-width:390px){
