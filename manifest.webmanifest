@@ -2,10 +2,10 @@
   "id": "./",
   "name": "LGS 2027 Arena",
   "short_name": "LGS Arena",
-  "description": "LGS 2027 için Zeus temalı soru çözme, akıllı notlar, deneme, ilerleme ve sıralama uygulaması.",
+  "description": "LGS 2027 için Zeus temalı soru çözme, akıllı notlar, Arena denemesi, yazılı senaryoları, ilerleme ve sıralama uygulaması.",
   "lang": "tr",
   "dir": "ltr",
-  "start_url": "./index.html?id=20260823-07",
+  "start_url": "./index.html?id=20260824-08",
   "scope": "./",
   "display": "standalone",
   "display_override": [
@@ -76,6 +76,8 @@
     }
   ]
 }
+
+
 
 
 

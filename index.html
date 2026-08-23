@@ -5,23 +5,24 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#050b18">
   <meta name="application-name" content="LGS 2027 Arena">
-  <meta name="pwa-build-id" content="20260823-07">
+  <meta name="pwa-build-id" content="20260824-08">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="LGS Arena">
   <meta name="format-detection" content="telephone=no">
   <title>LGS 2027 Arena</title>
-  <link rel="manifest" href="manifest.webmanifest?v=6.1.0">
+  <link rel="manifest" href="manifest.webmanifest?v=20260824-08">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/app-icon-20260823-03-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon-20260823-03.png">
-  <link rel="stylesheet" href="styles.css?v=6.1.0">
-  <link rel="stylesheet" href="mobile-v04.css?v=6.1.0">
-  <link rel="stylesheet" href="preference-v60.css?v=6.1.0">
+  <link rel="stylesheet" href="styles.css?v=20260824-08">
+  <link rel="stylesheet" href="mobile-v04.css?v=20260824-08">
+  <link rel="stylesheet" href="preference-v60.css?v=20260824-08">
+  <link rel="stylesheet" href="gates-v62.css?v=20260824-08">
   <style id="arenaCriticalCover">
     html,body,#app{margin:0;width:100%;height:100%;min-height:100%;background:#020710}
     #cover.cover.active{display:block;position:fixed;inset:0;z-index:50;background:#020710}
-    #cover>img{display:block;width:100%;height:100%;object-fit:cover;background:#020710 url('assets/zeus-hero-20260823-02.webp?v=6.1.0') center/cover no-repeat}
+    #cover>img{display:block;width:100%;height:100%;object-fit:cover;background:#020710 url('assets/zeus-hero-20260823-02.webp?v=20260824-08') center/cover no-repeat}
     #skipCover{position:absolute;z-index:5;left:7%;right:7%;bottom:calc(18px + env(safe-area-inset-bottom));min-height:56px;transform:none}
     .pwa-build-id{position:absolute;z-index:60;top:calc(8px + env(safe-area-inset-top));left:8px;padding:5px 8px;border:1px solid #fff3a0;border-radius:999px;background:#ffde59;color:#07111f;font:900 10px/1 Arial,sans-serif;letter-spacing:.4px;box-shadow:0 3px 12px #0008;pointer-events:none}
     .shell-build-id{position:absolute;z-index:30;top:calc(68px + env(safe-area-inset-top));left:8px}
@@ -34,15 +35,15 @@
 <body>
 <div id="app">
   <section id="cover" class="cover active" aria-label="LGS 2027 Arena Inspired From Zeus kapak ekranı">
-    <span id="coverBuildId" class="pwa-build-id" aria-label="PWA test kimliği">PWA-ID 20260823-07</span>
-    <img src="assets/zeus-hero-20260823-02.webp?v=6.1.0" alt="Zeus - LGS 2027 Arena">
+    <span id="coverBuildId" class="pwa-build-id" aria-label="PWA test kimliği">PWA-ID 20260824-08</span>
+    <img src="assets/zeus-hero-20260823-02.webp?v=20260824-08" alt="Zeus - LGS 2027 Arena">
     <div class="cover-overlay"></div>
     <div class="cover-branding"><span>LGS 2027</span><strong>ARENA</strong><em>INSPIRED FROM ZEUS</em></div>
     <button id="skipCover" class="cover-skip">ARENAYA GİR</button>
   </section>
 
   <section id="shell" class="shell hidden">
-    <span id="shellBuildId" class="pwa-build-id shell-build-id" aria-label="PWA test kimliği">PWA-ID 20260823-07</span>
+    <span id="shellBuildId" class="pwa-build-id shell-build-id" aria-label="PWA test kimliği">PWA-ID 20260824-08</span>
     <header class="app-header">
       <button id="menuBtn" class="icon-btn" aria-label="Menü"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <div class="brand"><span>LGS 2027</span><strong>ARENA</strong></div>
@@ -52,13 +53,13 @@
     <main id="pageHost" class="page-host">
       <section class="page active arena-page" data-page="arena">
         <div class="arena-hero-card">
-          <img src="assets/zeus-hero-20260823-02.webp?v=6.1.0" alt="Zeus - LGS 2027 Arena">
+          <img src="assets/zeus-hero-20260823-02.webp?v=20260824-08" alt="Zeus - LGS 2027 Arena">
           <div class="arena-hero-overlay"></div>
           <div class="arena-hero-copy"><span class="arena-hero-kicker">ZEUS İLE LGS 2027</span><h1>Bilgi · Disiplin · Zafer</h1><p>13 Haziran 2027'ye hazırlan. Her gün biraz daha güçlen.</p></div>
           <div class="arena-hero-countdown"><strong id="daysLeft">297</strong><span>gün</span><small id="clockLeft">00:00:00</small></div>
         </div>
         <div class="stat-grid three arena-stats">
-          <div class="stat"><span>Günlük Hedef</span><b id="dailyProgress">0 / 25</b></div>
+          <div class="stat"><span>Günlük Soru Hakkı</span><b id="dailyProgress">0 / 50</b></div>
           <div class="stat"><span>Seri</span><b id="streakValue">1 gün</b></div>
           <div class="stat"><span>Seviye</span><b id="levelValue">1</b></div>
         </div>
@@ -69,7 +70,7 @@
 
       <section class="page" data-page="zeus">
         <div class="zeus-hero">
-          <img src="assets/zeus-hero-20260823-02.webp?v=6.1.0" alt="Zeus">
+          <img src="assets/zeus-hero-20260823-02.webp?v=20260824-08" alt="Zeus">
           <div><span>ZEUS</span><h2>“Disiplin, bilgiyi zafere taçlandırır.”</h2><p id="zeusSummary">Bugünkü planını hazırlıyorum.</p></div>
         </div>
         <div class="zeus-grid">
@@ -132,16 +133,26 @@
         </div>
       </section>
 
-      <section class="page" data-page="mock">
-        <div class="mock-card">
-          <div class="mock-ring"><span>20</span><small>SORU</small></div>
-          <div><span>DEMO DENEME</span><h2>LGS Arena Karma Mini Deneme</h2><p>5 ders · her dersten 4 soru · sonuç sonunda açıklanır</p></div>
+      <section class="page mock-page" data-page="mock">
+        <div id="examPremiumCard" class="mock-card premium-feature-card" role="button" tabindex="0" aria-label="Arena 90 soruluk deneme Premium">
+          <div class="mock-ring"><span>90</span><small>SORU</small></div>
+          <div><span>DENEME</span><h2>LGS 2027 Arena</h2><p>6 ders · 90 soru · LGS dağılımı · sonuç sonunda açıklanır</p><em>PREMIUM</em></div>
         </div>
         <div class="mock-rules">
-          <div><b>30 dk</b><span>Süre</span></div><div><b>4</b><span>Seçenek</span></div><div><b>0</b><span>Anlık geri bildirim</span></div>
+          <div><b>155 dk</b><span>Toplam süre</span></div><div><b>6</b><span>Ders</span></div><div><b>90</b><span>Soru</span></div>
         </div>
-        <div class="notice"><b>HMGS mantığı:</b> Ücretsiz planda deneme sonunda reklam simülasyonu, reklamsız planda doğrudan sonuç ekranı.</div>
-        <button id="startMock" class="primary-btn big">Mini Denemeyi Başlat</button>
+        <button id="startMock" class="primary-btn exam-premium-button">DENEMEYE BAŞLA · PREMIUM</button>
+        <section id="writtenScenariosPanel" class="written-scenarios" aria-label="Yazılı deneme senaryoları">
+          <div class="written-scenarios-head"><div><span>PREMIUM</span><h2>YAZILI DENEME SENARYOLARI</h2></div><b>4 SENARYO</b></div>
+          <p>MEB ortak yazılı düzenine uygun dönem senaryolarını seç.</p>
+          <div class="written-scenario-grid">
+            <button data-written-scenario="1. Dönem 1. Yazılı"><span>1. DÖNEM</span><b>1. Yazılı</b></button>
+            <button data-written-scenario="1. Dönem 2. Yazılı"><span>1. DÖNEM</span><b>2. Yazılı</b></button>
+            <button data-written-scenario="2. Dönem 1. Yazılı"><span>2. DÖNEM</span><b>1. Yazılı</b></button>
+            <button data-written-scenario="2. Dönem 2. Yazılı"><span>2. DÖNEM</span><b>2. Yazılı</b></button>
+          </div>
+        </section>
+        <div class="notice premium-notice"><b>Premium içerik:</b> Ücretsiz kullanıcı Deneme veya Yazılı Senaryo seçtiğinde üyelik sayfasına yönlendirilir.</div>
       </section>
 
       <section class="page" data-page="progress">
@@ -170,11 +181,14 @@
           <div><span>ARENA PREMIUM</span><h1>Başarını tercihe dönüştür</h1></div>
           <b id="membershipStatus" class="membership-status">ÜCRETSİZ</b>
         </div>
-        <div class="membership-hero"><span>⚡ PREMIUM</span><h2>Sınav sonucundan okul hedefine</h2><p>OBP hesaplama, 81 ilde 3.098 programla lise eşleştirme ve Veli Takip Paneli tek pakette.</p></div>
+        <div class="membership-hero"><span>⚡ PREMIUM</span><h2>Arena’nın tüm gücünü aç</h2><p>90 soruluk Arena denemesi, yazılı senaryoları, OBP, okul eşleştirme ve Veli Takip tek pakette.</p></div>
         <div class="membership-benefits">
+          <div><b>🏛️</b><span><strong>90 soruluk Arena Denemesi</strong>6 dersin LGS dağılımına göre tam deneme akışı</span></div>
+          <div><b>📝</b><span><strong>Yazılı deneme senaryoları</strong>1. ve 2. dönem için dört yazılı senaryosu</span></div>
           <div><b>🎯</b><span><strong>Okul eşleştirme</strong>Deneme puanı ve yüzdelikle il/ilçe bazlı yakın liseler</span></div>
           <div><b>📘</b><span><strong>OBP ve yerel tercih</strong>6–8. sınıf YBP ortalaması ve yerel yerleştirme rehberi</span></div>
-          <div><b>👨‍👩‍👧</b><span><strong>Veli Takip Paneli</strong>Net, gelişim, adaptif rota ve çalışma özeti</span></div>
+          <div><b>👨‍👩‍👧</b><span><strong>Veli Takip</strong>Net, gelişim, adaptif rota ve çalışma özeti</span></div>
+          <div><b>⚡</b><span><strong>Kesintisiz çalışma</strong>Günlük ücretsiz kota ve ödüllü reklam sınırı olmadan çalışma</span></div>
         </div>
         <div class="membership-note"><b>Prototip üyelik ekranı</b><p>Gerçek ödeme sağlayıcısı henüz bağlı değildir. Aşağıdaki düğme yalnız PWA’daki Premium akışını test etmek için bu cihazda etkinleştirir; ücret tahsil etmez.</p></div>
         <button id="membershipEnable" class="membership-primary">Premium Akışı Etkinleştir · Demo</button>
@@ -265,31 +279,36 @@
     <div class="result-upsell-card">
       <span class="result-upsell-kicker">ARENA PREMIUM</span>
       <h2 id="resultUpsellTitle">Kazanabileceğin okulları da görmek ister misin?</h2>
-      <p>Deneme puanına göre il ve ilçendeki yakın liseleri görmek, OBP hesaplamak ve Veli Takip Panelini açmak Premium üyelikte.</p>
+      <p>Deneme puanına göre il ve ilçendeki yakın liseleri görmek, OBP hesaplamak ve Veli Takip özelliğini açmak Premium üyelikte.</p>
       <div><button id="resultUpsellYes">Evet, Premium’u Gör</button><button id="resultUpsellNo">Hayır, Sadece Puanımı Göster</button></div>
     </div>
   </div>
+  <div id="quotaOverlay" class="quota-overlay hidden" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="quotaTitle">
+    <div class="quota-card"><span>ÜCRETSİZ GÜNLÜK SINIR</span><h2 id="quotaTitle">Günlük soru çözme hakkınız doldu</h2><p>Ücretsiz planda günlük 50 soru çözebilirsiniz. Sınırsız devam etmek için Premium üyeliği inceleyin.</p><button id="quotaPremium">Premium Üyeliği Gör</button></div>
+  </div>
   <div id="toast" class="toast hidden"></div>
   <div id="modal" class="modal hidden"><div class="modal-card"><h3 id="modalTitle"></h3><p id="modalText"></p><div><button id="modalCancel" class="outline-btn">Vazgeç</button><button id="modalOk" class="primary-btn">Tamam</button></div></div></div>
-  <div id="adOverlay" class="ad-overlay hidden"><div class="ad-demo"><span>REKLAM · DEMO</span><b id="adCount">3</b><p>Gerçek sürümde bu alan HMGS Arena ile aynı reklam mantığına bağlanacak.</p></div></div>
+  <div id="adOverlay" class="ad-overlay hidden" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="adTitle"><div class="ad-demo"><span>ÖDÜLLÜ REKLAM · DEMO</span><strong id="adTitle">10 soru tamamlandı</strong><b id="adCount">8</b><p id="adMessage">Reklam tamamlandığında bir sonraki aşama otomatik açılacak.</p><small>Bu ekran sayaç bitmeden kapatılamaz.</small></div></div>
 </div>
-<script src="data/matematik.js?v=6.1.0"></script>
-<script src="data/fen.js?v=6.1.0"></script>
-<script src="data/turkce.js?v=6.1.0"></script>
-<script src="data/inkilap.js?v=6.1.0"></script>
-<script src="data/din.js?v=6.1.0"></script>
-<script src="data/notes.js?v=6.1.0"></script>
-<script src="data/schools-2026-p1.js?v=6.1.0"></script>
-<script src="data/schools-2026-p2.js?v=6.1.0"></script>
-<script src="data/schools-2026-p3.js?v=6.1.0"></script>
-<script src="data/schools-2026-p4.js?v=6.1.0"></script>
-<script src="data/schools-2026-p5.js?v=6.1.0"></script>
-<script src="data/schools-2026-p6.js?v=6.1.0"></script>
-<script src="app.js?v=6.1.0"></script>
-<script src="preference-v60.js?v=6.1.0"></script>
-<script src="pwa.js?v=6.1.0"></script>
+<script src="data/matematik.js?v=20260824-08"></script>
+<script src="data/fen.js?v=20260824-08"></script>
+<script src="data/turkce.js?v=20260824-08"></script>
+<script src="data/inkilap.js?v=20260824-08"></script>
+<script src="data/din.js?v=20260824-08"></script>
+<script src="data/notes.js?v=20260824-08"></script>
+<script src="data/schools-2026-p1.js?v=20260824-08"></script>
+<script src="data/schools-2026-p2.js?v=20260824-08"></script>
+<script src="data/schools-2026-p3.js?v=20260824-08"></script>
+<script src="data/schools-2026-p4.js?v=20260824-08"></script>
+<script src="data/schools-2026-p5.js?v=20260824-08"></script>
+<script src="data/schools-2026-p6.js?v=20260824-08"></script>
+<script src="app.js?v=20260824-08"></script>
+<script src="preference-v60.js?v=20260824-08"></script>
+<script src="pwa.js?v=20260824-08"></script>
 </body>
 </html>
+
+
 
 
 
