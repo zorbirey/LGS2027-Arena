@@ -1,1 +1,64 @@
-:root{--v5-bg:#020812;--v5-panel:rgba(6,20,38,.94);--v5-gold:#e7b85b;--v5-text:#f6f0e7}.cover{background:#020710 url('./assets/lgs2027-cover-fixed.webp?v=5.0.0') center 24%/cover no-repeat;overflow:hidden}.cover>img{display:none!important}.cover-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,7,16,.02),rgba(2,7,16,.05) 52%,rgba(2,7,16,.62) 82%,rgba(2,7,16,.88));pointer-events:none}.cover-branding{display:none!important}.cover-skip{left:50%!important;right:auto!important;width:min(84vw,420px)!important;transform:translateX(-50%)!important;bottom:calc(18px + env(safe-area-inset-bottom))!important;min-height:58px!important;padding:12px 24px!important;font-size:15px!important;border:1px solid rgba(231,184,91,.78)!important;background:rgba(4,16,34,.95)!important;color:#f5d88e!important;box-shadow:0 10px 34px rgba(0,0,0,.5)!important}.model-notice{left:50%!important;right:auto!important;transform:translateX(-50%)!important;width:min(86vw,460px)!important;bottom:calc(91px + env(safe-area-inset-bottom))!important;margin:0!important;padding:8px 12px!important;font-size:10px!important;line-height:1.35!important;text-align:center!important;background:rgba(2,9,20,.9)!important;border:1px solid rgba(231,184,91,.22)!important;border-radius:14px!important;color:#dbe4ee!important}.global-zeus-watermark{display:none!important}.page{position:relative!important;isolation:isolate!important}.page::before{content:"";position:absolute;inset:7% 5% 7%;z-index:-2;background:url('./assets/lgs2027-cover-fixed.webp?v=5.0.0') center 28%/contain no-repeat;opacity:.055;pointer-events:none}.page::after{content:"";position:absolute;inset:0;z-index:-3;background:radial-gradient(circle at 50% 28%,rgba(20,63,110,.13),rgba(3,9,18,.84) 58%,rgba(3,9,18,.98));pointer-events:none}.arena-hero-card,.zeus-hero{position:relative;overflow:hidden;background:#061426!important;border:1px solid rgba(231,184,91,.32)!important}.arena-hero-card>img,.zeus-hero>img{display:none!important}.arena-hero-card::after,.zeus-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.02),rgba(1,9,20,.12) 48%,rgba(1,9,20,.88));pointer-events:none}.arena-hero-card::before,.zeus-hero::before{content:"";position:absolute;inset:0;background:url('./assets/lgs2027-cover-fixed.webp?v=5.0.0') center 24%/cover no-repeat;z-index:0}.arena-hero-copy,.arena-hero-countdown,.zeus-hero>div{position:relative!important;z-index:2!important}.zeus-hero{height:34%!important;min-height:220px!important}.zeus-hero>div{position:absolute!important;left:16px!important;right:16px!important;bottom:16px!important;text-align:center!important}.zeus-hero h2{margin:4px 0!important;line-height:1.15!important}.zeus-hero p{margin:0!important}.subject-card,.stat,.arena-rank-card,.home-progress-card,.xp-card,.hero-start-btn,.mock-card,.mock-rules>div,.notice,.ranking-card,.weak-card,.plan-card,.smartnote-card,.review-card,.zeus-panel,.zeus-grid button,.option-btn{background:var(--v5-panel)!important;backdrop-filter:none!important}.zeus-grid button{min-height:92px!important}.zeus-panel{min-height:185px!important}.chat-row input{min-height:46px!important}.chat-row button{min-width:84px!important}.bottom-nav{min-height:70px!important}@media(max-height:760px){.zeus-hero{min-height:190px!important;height:31%!important}.zeus-grid button{min-height:80px!important}.zeus-panel{min-height:160px!important}}@media(max-height:660px){.zeus-hero{min-height:160px!important;height:28%!important}.zeus-grid button{min-height:70px!important}.zeus-panel{min-height:140px!important}.model-notice{font-size:9px!important}.cover-skip{min-height:54px!important}}@media(min-width:700px){.cover{background-size:contain;background-color:#020710}.page::before{inset:5% 12% 5%;opacity:.05}.zeus-hero{min-height:280px!important}.subject-cards,.subject-picker{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+:root{--v51-panel:rgba(6,20,38,.94);--v51-gold:#e7b85b;--v51-text:#f6f0e7}
+
+/* V5.1: deterministic visual layer. Real <img> elements are authoritative. */
+.cover{background:#020710!important;overflow:hidden!important}
+.cover>img{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center 24%!important;z-index:0!important}
+.cover-overlay{position:absolute!important;inset:0!important;z-index:1!important;background:linear-gradient(180deg,rgba(2,7,16,.03),rgba(2,7,16,.05) 52%,rgba(2,7,16,.58) 80%,rgba(2,7,16,.9))!important;pointer-events:none!important}
+.cover-branding{display:none!important}
+.cover-skip{position:absolute!important;z-index:4!important;left:8%!important;right:8%!important;width:auto!important;transform:none!important;bottom:calc(18px + env(safe-area-inset-bottom))!important;min-height:58px!important;margin:0!important;padding:12px 20px!important;font-size:15px!important;border:1px solid rgba(231,184,91,.78)!important;background:rgba(4,16,34,.96)!important;color:#f5d88e!important;box-shadow:0 10px 34px rgba(0,0,0,.5)!important}
+.model-notice{position:absolute!important;z-index:4!important;left:7%!important;right:7%!important;width:auto!important;transform:none!important;bottom:calc(91px + env(safe-area-inset-bottom))!important;margin:0!important;padding:8px 12px!important;font-size:10px!important;line-height:1.35!important;text-align:center!important;background:rgba(2,9,20,.9)!important;border:1px solid rgba(231,184,91,.22)!important;border-radius:14px!important;color:#dbe4ee!important}
+
+.global-zeus-watermark{display:none!important}
+.page{position:relative!important;isolation:isolate!important}
+.page::before{content:"";position:absolute;inset:8% 6% 7%;z-index:-2;background:url('./assets/zeus.webp?v=5.1.0') center 30%/contain no-repeat;opacity:.045;pointer-events:none}
+.page::after{content:"";position:absolute;inset:0;z-index:-3;background:radial-gradient(circle at 50% 28%,rgba(20,63,110,.12),rgba(3,9,18,.84) 58%,rgba(3,9,18,.98));pointer-events:none}
+
+.arena-hero-card,.zeus-hero{position:relative!important;overflow:hidden!important;background:#061426!important;border:1px solid rgba(231,184,91,.34)!important}
+.arena-hero-card>img,.zeus-hero>img{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center 24%!important;z-index:0!important}
+.arena-hero-card::before,.zeus-hero::before{content:none!important}
+.arena-hero-card::after,.zeus-hero::after{content:""!important;position:absolute!important;inset:0!important;z-index:1!important;background:linear-gradient(180deg,rgba(1,8,18,.02),rgba(1,8,18,.10) 40%,rgba(1,8,18,.76) 78%,rgba(1,8,18,.94))!important;pointer-events:none!important}
+
+/* Arena hero layout: text and counter never participate in normal flow. */
+.arena-hero-card{height:205px!important;min-height:205px!important}
+.arena-hero-copy{position:absolute!important;left:16px!important;right:118px!important;bottom:15px!important;width:auto!important;z-index:2!important;text-align:left!important}
+.arena-hero-kicker{display:inline-flex!important}
+.arena-hero-copy h1{margin:6px 0 3px!important;line-height:1.03!important}
+.arena-hero-copy p{margin:0!important;line-height:1.3!important}
+.arena-hero-countdown{position:absolute!important;top:12px!important;right:12px!important;left:auto!important;bottom:auto!important;width:92px!important;z-index:2!important;margin:0!important;transform:none!important}
+.arena-hero-countdown strong{display:block!important}
+.arena-hero-countdown small{white-space:normal!important;line-height:1.15!important}
+
+/* Zeus hero: image fills card, copy is anchored to bottom. */
+.zeus-hero{height:34%!important;min-height:220px!important}
+.zeus-hero>img{object-position:center 26%!important}
+.zeus-hero>div{position:absolute!important;left:18px!important;right:18px!important;bottom:16px!important;z-index:2!important;text-align:center!important}
+.zeus-hero h2{margin:4px 0!important;line-height:1.18!important}
+.zeus-hero p{margin:0!important}
+
+.subject-card,.stat,.arena-rank-card,.home-progress-card,.xp-card,.hero-start-btn,.mock-card,.mock-rules>div,.notice,.ranking-card,.weak-card,.plan-card,.smartnote-card,.review-card,.zeus-panel,.zeus-grid button,.option-btn{background:var(--v51-panel)!important;backdrop-filter:none!important}
+.zeus-grid button{min-height:92px!important}
+.zeus-panel{min-height:185px!important}
+.chat-row input{min-height:46px!important}
+.chat-row button{min-width:84px!important}
+.bottom-nav{min-height:70px!important}
+
+@media(max-height:760px){
+ .arena-hero-card{height:186px!important;min-height:186px!important}
+ .arena-hero-copy{left:14px!important;right:108px!important;bottom:12px!important}
+ .arena-hero-countdown{width:84px!important;top:10px!important;right:10px!important}
+ .zeus-hero{min-height:190px!important;height:31%!important}
+ .zeus-grid button{min-height:80px!important}.zeus-panel{min-height:160px!important}
+}
+@media(max-height:660px){
+ .arena-hero-card{height:160px!important;min-height:160px!important}
+ .arena-hero-copy{right:98px!important;bottom:10px!important}.arena-hero-countdown{width:78px!important}
+ .zeus-hero{min-height:160px!important;height:28%!important}.zeus-grid button{min-height:70px!important}.zeus-panel{min-height:140px!important}
+ .model-notice{font-size:9px!important}.cover-skip{min-height:54px!important}
+}
+@media(min-width:700px){
+ .cover>img{object-fit:contain!important;object-position:center center!important;background:#020710!important}
+ .page::before{inset:5% 12% 5%;opacity:.04}
+ .arena-hero-card{height:250px!important;min-height:250px!important}
+ .zeus-hero{min-height:280px!important}
+ .subject-cards,.subject-picker{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
