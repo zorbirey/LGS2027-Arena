@@ -8,7 +8,6 @@ Bu belge, görsel zinciri kullanıcı tarafından doğrulanmış üretim tabanı
 - Uygulama sürümü: `5.2.4`
 - Baseline commit: `92b18a44eda4ebc18f8dd130bca20a8b4b112d05`
 - Baseline dalı: `baseline/pwa-visual-20260823-02`
-- Kalıcı etiket: `pwa-visual-baseline-20260823-02`
 - Birleştirilen düzeltme: PR #49
 - Canlı doğrulama adresi: `https://zorbirey.github.io/LGS2027-Arena/?id=20260823-02`
 
