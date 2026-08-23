@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lgs-2027-arena-pwa-v4.4.0-full-90';
+const CACHE_NAME = 'lgs-2027-arena-pwa-v4.5.0-zeus-visual';
 const APP_SHELL = [
   './',
   './index.html',
@@ -10,6 +10,7 @@ const APP_SHELL = [
   './profile-parent-v41.js',
   './adaptive-v42.js',
   './config.js',
+  './visual-fix-v45.js',
   './manifest.webmanifest',
   './data/matematik.js',
   './data/fen.js',
@@ -18,7 +19,6 @@ const APP_SHELL = [
   './data/din.js',
   './data/ingilizce.js',
   './data/notes.js',
-  './assets/lgs2027-cover-fixed.webp',
   './assets/zeus.webp',
   './assets/zeus-cover.svg',
   './assets/app-icon.svg'
@@ -40,7 +40,7 @@ self.addEventListener('activate', event => {
     await Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)));
     await self.clients.claim();
     const clients = await self.clients.matchAll({type:'window', includeUncontrolled:true});
-    clients.forEach(client => client.postMessage({type:'ARENA_SW_READY', version:'4.4.0'}));
+    clients.forEach(client => client.postMessage({type:'ARENA_SW_READY', version:'4.5.0'}));
   })());
 });
 
