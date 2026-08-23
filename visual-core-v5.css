@@ -14,7 +14,7 @@
 .page::after{content:"";position:absolute;inset:0;z-index:-3;background:radial-gradient(circle at 50% 28%,rgba(20,63,110,.12),rgba(3,9,18,.84) 58%,rgba(3,9,18,.98));pointer-events:none}
 
 .arena-hero-card,.zeus-hero{position:relative!important;overflow:hidden!important;background:#061426!important;border:1px solid rgba(231,184,91,.34)!important}
-.arena-hero-card>img,.zeus-hero>img{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center 24%!important;z-index:0!important}
+.arena-hero-card>img,.zeus-hero>img{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center 38%!important;z-index:0!important}
 .arena-hero-card::before,.zeus-hero::before{content:none!important}
 .arena-hero-card::after,.zeus-hero::after{content:""!important;position:absolute!important;inset:0!important;z-index:1!important;background:linear-gradient(180deg,rgba(1,8,18,.01),rgba(1,8,18,.04) 46%,rgba(1,8,18,.38) 78%,rgba(1,8,18,.68))!important;pointer-events:none!important}
 
