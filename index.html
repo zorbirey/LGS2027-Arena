@@ -5,22 +5,23 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#050b18">
   <meta name="application-name" content="LGS 2027 Arena">
-  <meta name="pwa-build-id" content="20260823-05">
+  <meta name="pwa-build-id" content="20260823-07">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="LGS Arena">
   <meta name="format-detection" content="telephone=no">
   <title>LGS 2027 Arena</title>
-  <link rel="manifest" href="manifest.webmanifest?v=5.2.7">
+  <link rel="manifest" href="manifest.webmanifest?v=6.1.0">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/app-icon-20260823-03-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon-20260823-03.png">
-  <link rel="stylesheet" href="styles.css?v=5.2.7">
-  <link rel="stylesheet" href="mobile-v04.css?v=5.2.7">
+  <link rel="stylesheet" href="styles.css?v=6.1.0">
+  <link rel="stylesheet" href="mobile-v04.css?v=6.1.0">
+  <link rel="stylesheet" href="preference-v60.css?v=6.1.0">
   <style id="arenaCriticalCover">
     html,body,#app{margin:0;width:100%;height:100%;min-height:100%;background:#020710}
     #cover.cover.active{display:block;position:fixed;inset:0;z-index:50;background:#020710}
-    #cover>img{display:block;width:100%;height:100%;object-fit:cover;background:#020710 url('assets/zeus-hero-20260823-02.webp?v=5.2.7') center/cover no-repeat}
+    #cover>img{display:block;width:100%;height:100%;object-fit:cover;background:#020710 url('assets/zeus-hero-20260823-02.webp?v=6.1.0') center/cover no-repeat}
     #skipCover{position:absolute;z-index:5;left:7%;right:7%;bottom:calc(18px + env(safe-area-inset-bottom));min-height:56px;transform:none}
     .pwa-build-id{position:absolute;z-index:60;top:calc(8px + env(safe-area-inset-top));left:8px;padding:5px 8px;border:1px solid #fff3a0;border-radius:999px;background:#ffde59;color:#07111f;font:900 10px/1 Arial,sans-serif;letter-spacing:.4px;box-shadow:0 3px 12px #0008;pointer-events:none}
     .shell-build-id{position:absolute;z-index:30;top:calc(68px + env(safe-area-inset-top));left:8px}
@@ -33,15 +34,15 @@
 <body>
 <div id="app">
   <section id="cover" class="cover active" aria-label="LGS 2027 Arena Inspired From Zeus kapak ekranı">
-    <span id="coverBuildId" class="pwa-build-id" aria-label="PWA test kimliği">PWA-ID 20260823-05</span>
-    <img src="assets/zeus-hero-20260823-02.webp?v=5.2.7" alt="Zeus - LGS 2027 Arena">
+    <span id="coverBuildId" class="pwa-build-id" aria-label="PWA test kimliği">PWA-ID 20260823-07</span>
+    <img src="assets/zeus-hero-20260823-02.webp?v=6.1.0" alt="Zeus - LGS 2027 Arena">
     <div class="cover-overlay"></div>
     <div class="cover-branding"><span>LGS 2027</span><strong>ARENA</strong><em>INSPIRED FROM ZEUS</em></div>
     <button id="skipCover" class="cover-skip">ARENAYA GİR</button>
   </section>
 
   <section id="shell" class="shell hidden">
-    <span id="shellBuildId" class="pwa-build-id shell-build-id" aria-label="PWA test kimliği">PWA-ID 20260823-05</span>
+    <span id="shellBuildId" class="pwa-build-id shell-build-id" aria-label="PWA test kimliği">PWA-ID 20260823-07</span>
     <header class="app-header">
       <button id="menuBtn" class="icon-btn" aria-label="Menü"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <div class="brand"><span>LGS 2027</span><strong>ARENA</strong></div>
@@ -51,7 +52,7 @@
     <main id="pageHost" class="page-host">
       <section class="page active arena-page" data-page="arena">
         <div class="arena-hero-card">
-          <img src="assets/zeus-hero-20260823-02.webp?v=5.2.7" alt="Zeus - LGS 2027 Arena">
+          <img src="assets/zeus-hero-20260823-02.webp?v=6.1.0" alt="Zeus - LGS 2027 Arena">
           <div class="arena-hero-overlay"></div>
           <div class="arena-hero-copy"><span class="arena-hero-kicker">ZEUS İLE LGS 2027</span><h1>Bilgi · Disiplin · Zafer</h1><p>13 Haziran 2027'ye hazırlan. Her gün biraz daha güçlen.</p></div>
           <div class="arena-hero-countdown"><strong id="daysLeft">297</strong><span>gün</span><small id="clockLeft">00:00:00</small></div>
@@ -68,7 +69,7 @@
 
       <section class="page" data-page="zeus">
         <div class="zeus-hero">
-          <img src="assets/zeus-hero-20260823-02.webp?v=5.2.7" alt="Zeus">
+          <img src="assets/zeus-hero-20260823-02.webp?v=6.1.0" alt="Zeus">
           <div><span>ZEUS</span><h2>“Disiplin, bilgiyi zafere taçlandırır.”</h2><p id="zeusSummary">Bugünkü planını hazırlıyorum.</p></div>
         </div>
         <div class="zeus-grid">
@@ -153,9 +154,85 @@
           <label class="province-row"><span>İl sıralaması</span><select id="provinceSelect" aria-label="İl seç"></select></label>
           <p class="ranking-note">Demo sürümünde sıralama örnek kullanıcı dağılımıyla simüle edilir. Gerçek sürümde yalnızca benzersiz çözülen sorular sayılır; soru geçmişini sıfırlamak sıralamayı yükseltmez.</p>
         </section>
+        <section class="preference-launch-card" aria-label="Lise tercih robotu">
+          <div class="section-head"><h2>Lise Tercih Robotu</h2><span class="preference-badge">2026 · 81 il</span></div>
+          <p>Deneme puanını 2026 taban değerleriyle karşılaştır; 6–8. sınıf puanlarından OBP’ni hesapla.</p>
+          <div class="preference-launch-actions"><button id="openPreferenceFromProgress">Puanla Lise Ara</button><button id="openObpFromProgress">OBP Hesapla</button></div>
+        </section>
         <div class="weak-card"><div class="section-head"><h2>Zayıf Konular</h2><span>son çözümler</span></div><div id="weakTopics"></div></div>
-        <div class="plan-card"><div><span>Demo Planı</span><b id="planText">Ücretsiz</b></div><button id="togglePlan">Reklamsız akışı önizle</button></div>
+        <div class="plan-card"><div><span>Paket</span><b id="planText">Ücretsiz</b></div><button id="togglePlan">Premium’u İncele</button></div>
         <p class="fine-print">Bu anahtar yalnızca reklam akışını test etmek içindir. Gerçek paket adı ve fiyatlandırma HMGS Arena ile aynı ürün kuralları kullanılarak bağlanacaktır.</p>
+      </section>
+
+      <section id="membershipPage" class="page membership-page" data-page="membership">
+        <div class="membership-top">
+          <button id="membershipBack" class="back-btn" aria-label="Geri dön">‹</button>
+          <div><span>ARENA PREMIUM</span><h1>Başarını tercihe dönüştür</h1></div>
+          <b id="membershipStatus" class="membership-status">ÜCRETSİZ</b>
+        </div>
+        <div class="membership-hero"><span>⚡ PREMIUM</span><h2>Sınav sonucundan okul hedefine</h2><p>OBP hesaplama, 81 ilde 3.098 programla lise eşleştirme ve Veli Takip Paneli tek pakette.</p></div>
+        <div class="membership-benefits">
+          <div><b>🎯</b><span><strong>Okul eşleştirme</strong>Deneme puanı ve yüzdelikle il/ilçe bazlı yakın liseler</span></div>
+          <div><b>📘</b><span><strong>OBP ve yerel tercih</strong>6–8. sınıf YBP ortalaması ve yerel yerleştirme rehberi</span></div>
+          <div><b>👨‍👩‍👧</b><span><strong>Veli Takip Paneli</strong>Net, gelişim, adaptif rota ve çalışma özeti</span></div>
+        </div>
+        <div class="membership-note"><b>Prototip üyelik ekranı</b><p>Gerçek ödeme sağlayıcısı henüz bağlı değildir. Aşağıdaki düğme yalnız PWA’daki Premium akışını test etmek için bu cihazda etkinleştirir; ücret tahsil etmez.</p></div>
+        <button id="membershipEnable" class="membership-primary">Premium Akışı Etkinleştir · Demo</button>
+        <button id="membershipContinueFree" class="membership-secondary">Ücretsiz Devam Et</button>
+        <button id="membershipDisable" class="membership-text hidden">Premium demoyu kapat</button>
+      </section>
+
+      <section id="preferencePage" class="page preference-page" data-page="preference">
+        <div class="preference-top">
+          <button id="preferenceBack" class="back-btn" aria-label="Geri dön">‹</button>
+          <div><span>TERCİH REHBERİ</span><h1>Lise Tercih Robotu</h1></div>
+          <b class="preference-data-badge">3.098 program</b>
+        </div>
+        <p class="preference-intro">2026 yerleştirme tabanlarıyla yaklaşık eşleşme üretir. Gelecek yılın kontenjan ve tabanları değişebilir; son karar için e-Okul’u kontrol et.</p>
+        <div class="preference-tabs" role="tablist" aria-label="Tercih hesaplama türü">
+          <button class="preference-tab selected" data-preference-tab="exam" role="tab">LGS Puanı</button>
+          <button class="preference-tab" data-preference-tab="obp" role="tab">OBP / Yerel</button>
+        </div>
+
+        <div id="examPreferencePanel" class="preference-panel">
+          <section class="preference-form-card">
+            <h2>Puanla okul eşleştir</h2>
+            <div class="preference-form-grid">
+              <label class="preference-field"><span>LGS puanı</span><input id="prefScore" type="number" inputmode="decimal" min="100" max="500" step="0.1" placeholder="Örn. 425,6"></label>
+              <label class="preference-field"><span>Yüzdelik (varsa)</span><input id="prefPercentile" type="number" inputmode="decimal" min="0.01" max="100" step="0.01" placeholder="Örn. 5,20"></label>
+              <label class="preference-field"><span>İl</span><select id="prefProvince" aria-label="Tercih ili"></select></label>
+              <label class="preference-field"><span>İlçe</span><select id="prefDistrict" aria-label="Tercih ilçesi"></select></label>
+              <button id="findSchools" class="preference-primary wide" type="button">Yakın Liseleri Göster</button>
+            </div>
+          </section>
+          <div id="preferenceMatchSummary" class="preference-match-summary"><b>2026 verisi</b><span>Yüzdelik girildiğinde eşleşmede öncelikle yüzdelik kullanılır.</span></div>
+          <div id="schoolRecommendations" class="preference-results"><div class="preference-empty"><b>Puan veya yüzdelik gir</b><p>Deneme sonucundaki tahmini puan otomatik olarak buraya taşınır.</p></div></div>
+        </div>
+
+        <div id="obpPreferencePanel" class="preference-panel hidden">
+          <div class="obp-explainer"><b>OBP nasıl hesaplanır?</b><p>6, 7 ve 8. sınıf yıl sonu başarı puanlarının aritmetik ortalaması alınır ve dört ondalık basamakla gösterilir.</p></div>
+          <section class="preference-form-card">
+            <h2>OBP’ni hesapla</h2>
+            <div class="preference-form-grid">
+              <label class="preference-field"><span>6. sınıf YBP</span><input id="obpY6" type="number" inputmode="decimal" min="0" max="100" step="0.0001" placeholder="0–100"></label>
+              <label class="preference-field"><span>7. sınıf YBP</span><input id="obpY7" type="number" inputmode="decimal" min="0" max="100" step="0.0001" placeholder="0–100"></label>
+              <label class="preference-field wide"><span>8. sınıf YBP</span><input id="obpY8" type="number" inputmode="decimal" min="0" max="100" step="0.0001" placeholder="0–100"></label>
+              <label class="preference-field"><span>İl</span><select id="obpProvince" aria-label="Yerel tercih ili"></select></label>
+              <label class="preference-field"><span>İlçe</span><select id="obpDistrict" aria-label="Yerel tercih ilçesi"></select></label>
+              <button id="calculateObp" class="preference-primary wide" type="button">OBP Hesapla ve Rehberi Aç</button>
+            </div>
+          </section>
+          <div id="obpResult" class="obp-result"><b>—</b><span>Yıl sonu puanlarını gir</span></div>
+          <section class="local-placement-card"><h2>Yerel tercih rehberi</h2><div id="localPlacementGuide"></div></section>
+          <a class="official-link preference-source-link" data-source="eokul" target="_blank" rel="noopener">Resmî e-Okul Tercih Bilgilerini Aç</a>
+        </div>
+
+        <section class="preference-sources">
+          <b>Kaynak ve sınırlar</b>
+          <a class="preference-source-link" data-source="meb" target="_blank" rel="noopener">MEB 2026 yerleştirme raporu</a> ·
+          <a class="preference-source-link" data-source="data" target="_blank" rel="noopener">2026 okul veri seti</a>
+          <p>Arena sonucu resmî MEB puanı değildir. “Daha güvenli / yakın / iddialı” etiketleri yalnız 2026 kapanış değerlerine göre üretilir ve kazanma garantisi vermez.</p>
+        </section>
       </section>
 
       <section id="resultPage" class="page result-page" data-page="result">
@@ -163,6 +240,7 @@
         <div class="result-score"><b id="resultCorrect">0</b><span>/ <i id="resultTotal">10</i></span></div>
         <div class="result-stats"><div><span>Doğru</span><b id="rCorrect">0</b></div><div><span>Yanlış</span><b id="rWrong">0</b></div><div><span>Boş</span><b id="rBlank">0</b></div><div><span>Destekli</span><b id="rAssisted">0</b></div></div>
         <div class="earned-xp"><span>Kazanılan XP</span><b id="rXp">+0</b></div>
+        <button id="resultPreferenceBtn" class="result-preference-btn hidden">Bu Puanla Liseleri Gör</button>
         <div class="result-actions"><button id="reviewWrong" class="outline-btn">Yanlışları Tek Tek İncele</button><button id="resultHome" class="primary-btn">Arena'ya Dön</button></div>
       </section>
 
@@ -183,17 +261,35 @@
     </nav>
   </section>
 
+  <div id="resultUpsell" class="result-upsell hidden" role="dialog" aria-modal="true" aria-labelledby="resultUpsellTitle">
+    <div class="result-upsell-card">
+      <span class="result-upsell-kicker">ARENA PREMIUM</span>
+      <h2 id="resultUpsellTitle">Kazanabileceğin okulları da görmek ister misin?</h2>
+      <p>Deneme puanına göre il ve ilçendeki yakın liseleri görmek, OBP hesaplamak ve Veli Takip Panelini açmak Premium üyelikte.</p>
+      <div><button id="resultUpsellYes">Evet, Premium’u Gör</button><button id="resultUpsellNo">Hayır, Sadece Puanımı Göster</button></div>
+    </div>
+  </div>
   <div id="toast" class="toast hidden"></div>
   <div id="modal" class="modal hidden"><div class="modal-card"><h3 id="modalTitle"></h3><p id="modalText"></p><div><button id="modalCancel" class="outline-btn">Vazgeç</button><button id="modalOk" class="primary-btn">Tamam</button></div></div></div>
   <div id="adOverlay" class="ad-overlay hidden"><div class="ad-demo"><span>REKLAM · DEMO</span><b id="adCount">3</b><p>Gerçek sürümde bu alan HMGS Arena ile aynı reklam mantığına bağlanacak.</p></div></div>
 </div>
-<script src="data/matematik.js?v=5.2.7"></script>
-<script src="data/fen.js?v=5.2.7"></script>
-<script src="data/turkce.js?v=5.2.7"></script>
-<script src="data/inkilap.js?v=5.2.7"></script>
-<script src="data/din.js?v=5.2.7"></script>
-<script src="data/notes.js?v=5.2.7"></script>
-<script src="app.js?v=5.2.7"></script>
-<script src="pwa.js?v=5.2.7"></script>
+<script src="data/matematik.js?v=6.1.0"></script>
+<script src="data/fen.js?v=6.1.0"></script>
+<script src="data/turkce.js?v=6.1.0"></script>
+<script src="data/inkilap.js?v=6.1.0"></script>
+<script src="data/din.js?v=6.1.0"></script>
+<script src="data/notes.js?v=6.1.0"></script>
+<script src="data/schools-2026-p1.js?v=6.1.0"></script>
+<script src="data/schools-2026-p2.js?v=6.1.0"></script>
+<script src="data/schools-2026-p3.js?v=6.1.0"></script>
+<script src="data/schools-2026-p4.js?v=6.1.0"></script>
+<script src="data/schools-2026-p5.js?v=6.1.0"></script>
+<script src="data/schools-2026-p6.js?v=6.1.0"></script>
+<script src="app.js?v=6.1.0"></script>
+<script src="preference-v60.js?v=6.1.0"></script>
+<script src="pwa.js?v=6.1.0"></script>
 </body>
 </html>
+
+
+

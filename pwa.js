@@ -1,8 +1,8 @@
 (() => {
   'use strict';
 
-  const RELEASE = '5.2.7';
-  const BUILD_ID = '20260823-05';
+  const RELEASE = '6.1.0';
+  const BUILD_ID = '20260823-07';
   const CORE_TIMEOUT_MS = 12000;
   let deferredPrompt = null;
   let coreReady = false;
@@ -10,7 +10,7 @@
 
   const params = new URLSearchParams(location.search);
   const bypassServiceWorker = params.get('bypassSW') === '1' || params.get('direct') === '1';
-  const allowedHashes = new Set(['arena','zeus','subjects','solve','mock','progress']);
+  const allowedHashes = new Set(['arena','zeus','subjects','solve','mock','progress','preference','membership']);
   const pendingHash = allowedHashes.has(location.hash.replace('#','')) ? location.hash.replace('#','') : 'arena';
   const isIos = () => /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
   const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
@@ -33,14 +33,14 @@
       link.dataset.arenaStyle = marker;
       document.head.appendChild(link);
     };
-    ensureLink('./mobile-v04.css?v=5.2.7', 'mobile');
-    ensureLink('./parent-v41.css?v=5.2.7', 'parent');
+    ensureLink('./mobile-v04.css?v=6.1.0', 'mobile');
+    ensureLink('./parent-v41.css?v=6.1.0', 'parent');
   }
 
   function ensureParentModule() {
     if (window.LgsArenaParent || document.querySelector('script[data-arena-parent]')) return;
     const script = document.createElement('script');
-    script.src = './profile-parent-v41.js?v=5.2.7';
+    script.src = './profile-parent-v41.js?v=6.1.0';
     script.dataset.arenaParent = '1';
     script.onload = () => window.dispatchEvent(new CustomEvent('lgsarena:parent-ready'));
     script.onerror = () => appToast('Veli modülü yüklenemedi. Öğrenci Arena bölümü kullanılabilir.');
@@ -71,7 +71,7 @@
       const img = document.createElement('img');
       img.id = 'globalZeusWatermark';
       img.className = 'global-zeus-watermark';
-      img.src = './assets/zeus-hero-20260823-02.webp?v=5.2.7';
+      img.src = './assets/zeus-hero-20260823-02.webp?v=6.1.0';
       img.alt = '';
       img.setAttribute('aria-hidden','true');
       shell.prepend(img);
@@ -88,7 +88,7 @@
   function coreLooksReady() {
     const launchers = document.querySelectorAll('#solveSubjects [data-launch]').length;
     const subjects = document.querySelectorAll('#arenaSubjects .mini-sub').length;
-    return launchers >= 6 && subjects >= 6 && !!window.LgsArenaAdaptive;
+    return launchers >= 6 && subjects >= 6 && !!window.LgsArenaAdaptive && window.LgsArenaPreference?.dataCount === 3098;
   }
 
   function setEntryState(state) {
@@ -150,7 +150,9 @@
     if (shell) shell.classList.remove('hidden');
     const targetName = pendingHash || 'arena';
     const targetButton = document.querySelector(`#bottomNav [data-nav="${targetName}"]`);
-    if (targetButton && targetName !== 'arena') targetButton.click();
+    if (targetName === 'membership' && window.LgsArenaPreference) window.LgsArenaPreference.openMembership('direct');
+    else if (targetName === 'preference' && window.LgsArenaPreference) window.LgsArenaPreference.open('exam');
+    else if (targetButton && targetName !== 'arena') targetButton.click();
     else {
       const arena = document.querySelector('.page[data-page="arena"]');
       document.querySelectorAll('.page').forEach(page => page.classList.toggle('active', page === arena));
@@ -235,3 +237,6 @@
 
   window.LgsArenaPwa = { installApp, enterArena, version: RELEASE, buildId: BUILD_ID, isReady: () => coreReady };
 })();
+
+
+
