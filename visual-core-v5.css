@@ -2,7 +2,7 @@
 
 /* V5.1: deterministic visual layer. Real <img> elements are authoritative. */
 .cover{background:#020710!important;overflow:hidden!important}
-.cover>img{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center 24%!important;z-index:0!important}
+.cover>img{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center 38%!important;z-index:0!important}
 .cover-overlay{position:absolute!important;inset:0!important;z-index:1!important;background:linear-gradient(180deg,rgba(2,7,16,.03),rgba(2,7,16,.05) 52%,rgba(2,7,16,.58) 80%,rgba(2,7,16,.9))!important;pointer-events:none!important}
 .cover-branding{display:none!important}
 .cover-skip{position:absolute!important;z-index:4!important;left:8%!important;right:8%!important;width:auto!important;transform:none!important;bottom:calc(18px + env(safe-area-inset-bottom))!important;min-height:58px!important;margin:0!important;padding:12px 20px!important;font-size:15px!important;border:1px solid rgba(231,184,91,.78)!important;background:rgba(4,16,34,.96)!important;color:#f5d88e!important;box-shadow:0 10px 34px rgba(0,0,0,.5)!important}
@@ -10,13 +10,16 @@
 
 .global-zeus-watermark{display:none!important}
 .page{position:relative!important;isolation:isolate!important}
-.page::before{content:"";position:absolute;inset:8% 6% 7%;z-index:-2;background:url('./assets/zeus.webp?v=5.1.0') center 30%/contain no-repeat;opacity:.045;pointer-events:none}
+.page::before{content:"";position:absolute;inset:8% 6% 7%;z-index:-2;background:url('./assets/zeus-hero-20260823-02.webp?v=5.2.4') center 38%/contain no-repeat;opacity:.045;pointer-events:none}
 .page::after{content:"";position:absolute;inset:0;z-index:-3;background:radial-gradient(circle at 50% 28%,rgba(20,63,110,.12),rgba(3,9,18,.84) 58%,rgba(3,9,18,.98));pointer-events:none}
 
 .arena-hero-card,.zeus-hero{position:relative!important;overflow:hidden!important;background:#061426!important;border:1px solid rgba(231,184,91,.34)!important}
-.arena-hero-card>img,.zeus-hero>img{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center 24%!important;z-index:0!important}
+.arena-hero-card>img,.zeus-hero>img{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center 38%!important;z-index:0!important}
 .arena-hero-card::before,.zeus-hero::before{content:none!important}
-.arena-hero-card::after,.zeus-hero::after{content:""!important;position:absolute!important;inset:0!important;z-index:1!important;background:linear-gradient(180deg,rgba(1,8,18,.02),rgba(1,8,18,.10) 40%,rgba(1,8,18,.76) 78%,rgba(1,8,18,.94))!important;pointer-events:none!important}
+.arena-hero-card::after,.zeus-hero::after{content:""!important;position:absolute!important;inset:0!important;z-index:1!important;background:linear-gradient(180deg,rgba(1,8,18,.01),rgba(1,8,18,.04) 46%,rgba(1,8,18,.38) 78%,rgba(1,8,18,.68))!important;pointer-events:none!important}
+
+/* Keep the face visible while preserving contrast behind the hero copy. */
+.arena-hero-overlay{z-index:1!important;background:linear-gradient(90deg,rgba(2,9,20,.50) 0%,rgba(2,9,20,.18) 43%,rgba(2,9,20,.02) 72%),linear-gradient(0deg,rgba(2,9,20,.62) 0%,rgba(2,9,20,.08) 58%,transparent 78%)!important}
 
 /* Arena hero layout: text and counter never participate in normal flow. */
 .arena-hero-card{height:205px!important;min-height:205px!important}
@@ -30,7 +33,7 @@
 
 /* Zeus hero: image fills card, copy is anchored to bottom. */
 .zeus-hero{height:34%!important;min-height:220px!important}
-.zeus-hero>img{object-position:center 26%!important}
+.zeus-hero>img{object-position:center 38%!important}
 .zeus-hero>div{position:absolute!important;left:18px!important;right:18px!important;bottom:16px!important;z-index:2!important;text-align:center!important}
 .zeus-hero h2{margin:4px 0!important;line-height:1.18!important}
 .zeus-hero p{margin:0!important}

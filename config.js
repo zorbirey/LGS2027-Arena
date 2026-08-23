@@ -2,13 +2,13 @@
   'use strict';
   window.LGS_ARENA_CONFIG = Object.freeze({
     schemaVersion: 10,
-    appVersion: '5.2.3-visible-build-id',
-    buildId: '20260823-01',
+    appVersion: '5.2.4-visible-zeus-layout',
+    buildId: '20260823-02',
     season: 2027,
     appName: 'LGS 2027 Arena',
     coverLocked: true,
-    coverStandard: 'LGS2027-ZEUS-ARENA-COVER-2026-08-23-V521',
-    coverAsset: 'assets/zeus-cover.svg?v=5.2.3',
+    coverStandard: 'LGS2027-ZEUS-ARENA-COVER-2026-08-23-V524-20260823-02',
+    coverAsset: 'assets/zeus-hero-20260823-02.webp?v=5.2.4',
     coverRule: 'Kapak, Arena hero ve Zeus hero gerçek img elemanlarıyla çalışır; yerel raster arka plan yalnız yükleme fallbackidir.',
     examDate: '2027-06-13T09:30:00+03:00',
     nextSeason: Object.freeze({ season: 2028, appName: 'LGS 2028 Arena', examDate: null }),
@@ -21,12 +21,12 @@
   });
   const core=document.createElement('link');
   core.rel='stylesheet';
-  core.href='./visual-core-v5.css?v=5.2.3';
-  core.dataset.arenaVisualCore='5.2.3';
+  core.href='./visual-core-v5.css?v=5.2.4';
+  core.dataset.arenaVisualCore='5.2.4';
   document.head.appendChild(core);
   const layout=document.createElement('link');
   layout.rel='stylesheet';
-  layout.href='./layout-v52.css?v=5.2.3';
-  layout.dataset.arenaLayout='5.2.3';
+  layout.href='./layout-v52.css?v=5.2.4';
+  layout.dataset.arenaLayout='5.2.4';
   document.head.appendChild(layout);
 })();
