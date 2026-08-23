@@ -1,0 +1,55 @@
+/* LGS 2027 Arena access/content model · PWA-ID 20260824-09 */
+.app-header{grid-template-columns:44px minmax(0,1fr) auto!important}
+.header-actions{display:flex;align-items:center;justify-content:flex-end;gap:3px;min-width:86px}
+.header-actions .icon-btn{width:42px;height:42px;display:grid;place-items:center;padding:8px}
+.header-actions .icon-btn svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.8}
+.header-profile-chip.student-chip{position:static!important;inset:auto!important;z-index:auto!important;width:38px;height:38px;min-width:38px;margin:0;padding:0;border:1px solid #e7b85b88;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#14365c,#071629);color:#f5d88e;box-shadow:0 5px 14px #0006;font:900 11px/1 Arial,sans-serif}
+.profile-chip-label{display:block;max-width:28px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-transform:uppercase;letter-spacing:.3px}
+.model-notice{text-align:center!important}
+.zeus-notes-action{grid-column:1/-1!important;display:grid!important;grid-template-columns:34px 1fr!important;grid-template-rows:auto auto!important;align-items:center!important;text-align:left!important}
+.zeus-notes-action b{grid-row:1/3;display:grid!important;place-items:center}
+.zeus-notes-action span,.zeus-notes-action small{grid-column:2}
+.subject-card{grid-template-columns:42px 1fr auto!important}
+.subject-actions button{min-width:92px}
+.subject-actions button:only-child{border-color:#e7b85b66;color:#f5d88e;background:#171509}
+.smartnotes-head>div>span{display:block}
+.smartnote-card.summary-mode{border-color:#397dff66}
+.smartnote-card.smart-mode{border-color:#e7b85b77}
+.content-gate{position:fixed;inset:0;z-index:98;display:grid;place-items:center;padding:18px;background:#020710ed;backdrop-filter:blur(9px)}
+.content-gate-card{width:min(100%,390px);padding:22px 17px;border:1px solid #e7b85b77;border-radius:18px;background:radial-gradient(circle at 85% 0,#6c4d1f55,transparent 45%),#07182b;text-align:center;box-shadow:0 24px 80px #000}
+.content-gate-card>span{color:#f5d88e;font-size:9px;font-weight:900;letter-spacing:1.5px}
+.content-gate-card h2{margin:8px 0 7px;font:800 21px/1.2 Georgia,serif}
+.content-gate-card p{margin:0 0 15px;color:#a9bfd5;font-size:10px;line-height:1.45}
+.content-gate-card button{width:100%;min-height:44px;margin-top:8px;border-radius:12px;font-size:9px;font-weight:900;letter-spacing:.35px}
+#contentReward{border:0;background:linear-gradient(90deg,#e4b34e,#fff0a8);color:#07111f}
+#contentPremium{border:1px solid #397dff88;background:#0d2c51;color:#fff}
+#adQuota{margin-top:8px!important;color:#f5d88e!important;font-weight:900!important}
+.preference-formal-warning{margin-top:10px;padding:12px 13px;border:1px solid #f0b24b77;border-left:4px solid #f0b24b;border-radius:12px;background:#251a08;color:#f7e5bb}
+.preference-formal-warning b{display:block;margin-bottom:4px;font-size:10px;letter-spacing:.5px;text-transform:uppercase}
+.preference-formal-warning p{margin:0;color:#d9c9a4;font-size:9px;line-height:1.5}
+.pp-referral{margin:12px 0;padding:12px;border:1px solid #397dff55;border-radius:14px;background:linear-gradient(145deg,#0c2542,#061426)}
+.pp-referral h3{margin:0 0 4px;color:#f5d88e;font:800 14px Georgia,serif}
+.pp-referral>p{margin:0 0 9px;color:#a9bfd5;font-size:9px;line-height:1.4}
+.pp-referral-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.pp-referral-step{padding:8px 4px;border:1px solid #ffffff14;border-radius:10px;background:#03101e;text-align:center;opacity:.72}
+.pp-referral-step b,.pp-referral-step span{display:block}
+.pp-referral-step b{color:#f5d88e;font-size:13px}.pp-referral-step span{margin-top:2px;color:#8297ad;font-size:8px}
+.pp-referral-step.unlocked{border-color:#3bc89388;background:#07271f;opacity:1}
+.pp-referral-step.unlocked:after{content:'AÇILDI';display:block;margin-top:4px;color:#75e6b6;font-size:7px;font-weight:900}
+.pp-share{width:100%;margin-top:9px;min-height:40px;border:0;border-radius:11px;background:linear-gradient(90deg,#1675ed,#6c4eff);color:#fff;font-size:9px;font-weight:900;letter-spacing:.4px}
+.pp-referral-note{margin:8px 0 0!important;color:#8297ad!important;font-size:8px!important}
+.pp-profile-code{margin:9px 0 12px}
+.pp-profile-name{margin-bottom:9px}
+.mock-card>div>h2{margin-top:0}
+@media(max-width:390px){
+  .app-header{padding-left:8px!important;padding-right:8px!important}
+  .header-actions{gap:0;min-width:78px}
+  .header-actions .icon-btn{width:39px}
+  .header-profile-chip.student-chip{width:36px;height:36px;min-width:36px}
+  .brand strong{font-size:23px!important}
+}
+@media(max-height:660px){
+  .header-profile-chip.student-chip{width:34px;height:34px;min-width:34px}
+  .header-actions .icon-btn{width:37px;height:37px}
+  .zeus-notes-action{padding:5px!important}
+}

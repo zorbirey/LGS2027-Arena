@@ -2,82 +2,26 @@
   "id": "./",
   "name": "LGS 2027 Arena",
   "short_name": "LGS Arena",
-  "description": "LGS 2027 için Zeus temalı soru çözme, akıllı notlar, Arena denemesi, yazılı senaryoları, ilerleme ve sıralama uygulaması.",
+  "description": "LGS 2027 için Durum, Arena soru çözme, ünite özetleri ve Premium Zeus, deneme, Veli Takip ile lise tercih araçları.",
   "lang": "tr",
   "dir": "ltr",
-  "start_url": "./index.html?id=20260824-08",
+  "start_url": "./index.html?id=20260824-09",
   "scope": "./",
   "display": "standalone",
-  "display_override": [
-    "standalone",
-    "minimal-ui"
-  ],
+  "display_override": ["standalone", "minimal-ui"],
   "orientation": "portrait-primary",
   "background_color": "#050b18",
   "theme_color": "#050b18",
-  "categories": [
-    "education"
-  ],
+  "categories": ["education"],
   "prefer_related_applications": false,
   "icons": [
-    {
-      "src": "assets/app-icon-20260823-03-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "assets/app-icon-20260823-03-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "assets/app-icon-maskable-20260823-03-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "assets/app-icon-maskable-20260823-03-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
+    {"src":"assets/app-icon-20260823-03-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"assets/app-icon-20260823-03-512.png","sizes":"512x512","type":"image/png","purpose":"any"},
+    {"src":"assets/app-icon-maskable-20260823-03-192.png","sizes":"192x192","type":"image/png","purpose":"maskable"},
+    {"src":"assets/app-icon-maskable-20260823-03-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}
   ],
   "shortcuts": [
-    {
-      "name": "Soru Çöz",
-      "short_name": "Soru Çöz",
-      "description": "Hızlı soru çözme ekranını aç",
-      "url": "./index.html#solve",
-      "icons": [
-        {
-          "src": "assets/app-icon-20260823-03-192.png",
-          "sizes": "192x192",
-          "type": "image/png",
-          "purpose": "any"
-        }
-      ]
-    },
-    {
-      "name": "Zeus",
-      "short_name": "Zeus",
-      "description": "Zeus çalışma rehberini aç",
-      "url": "./index.html#zeus",
-      "icons": [
-        {
-          "src": "assets/app-icon-20260823-03-192.png",
-          "sizes": "192x192",
-          "type": "image/png",
-          "purpose": "any"
-        }
-      ]
-    }
+    {"name":"Arena","short_name":"Arena","description":"Soru çözme alanını aç","url":"./index.html?id=20260824-09#solve","icons":[{"src":"assets/app-icon-20260823-03-192.png","sizes":"192x192","type":"image/png","purpose":"any"}]},
+    {"name":"Ders Özetleri","short_name":"Dersler","description":"Ünite özetlerini aç","url":"./index.html?id=20260824-09#subjects","icons":[{"src":"assets/app-icon-20260823-03-192.png","sizes":"192x192","type":"image/png","purpose":"any"}]}
   ]
 }
-
-
-
-
-
