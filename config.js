@@ -1,13 +1,13 @@
 (() => {
   'use strict';
   window.LGS_ARENA_CONFIG = Object.freeze({
-    schemaVersion: 4,
-    appVersion: '4.4.0-full-90',
+    schemaVersion: 5,
+    appVersion: '4.5.0-zeus-visual-fix',
     season: 2027,
     appName: 'LGS 2027 Arena',
     coverLocked: true,
     coverStandard: 'LGS2027-ZEUS-ARENA-COVER-2026-08-23-V1',
-    coverAsset: 'assets/lgs2027-cover-fixed.webp',
+    coverAsset: 'assets/zeus-cover.svg?v=4.5.0',
     coverRule: 'Bu kapak görseli LGS 2027 Arena için sabittir; kullanıcı açıkça değiştirmedikçe başka kapak kullanılmaz.',
     examDate: '2027-06-13T09:30:00+03:00',
     nextSeason: Object.freeze({
@@ -43,4 +43,8 @@
     }),
     legalNotice: 'Türkiye Yüzyılı Maarif Modeli esasları dikkate alınarak hazırlanmıştır. Bu uygulama Millî Eğitim Bakanlığının resmî uygulaması değildir ve MEB onayı iddiası taşımaz.'
   });
+  const visualFix=document.createElement('script');
+  visualFix.src='./visual-fix-v45.js?v=4.5.0';
+  visualFix.dataset.arenaVisualFix='4.5.0';
+  document.head.appendChild(visualFix);
 })();
