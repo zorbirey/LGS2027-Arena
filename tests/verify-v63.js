@@ -3,7 +3,7 @@ const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('ass
 const root=path.resolve(__dirname,'..');
 const read=name=>fs.readFileSync(path.join(root,name),'utf8');
 const index=read('index.html'),profile=read('profile-parent-v41.js'),preference=read('preference-v60.js'),pwa=read('pwa.js'),config=read('config.js'),sw=read('service-worker.js'),css=read('access-v63.css'),manifest=JSON.parse(read('manifest.webmanifest'));
-let source=read('app.js');
+let source=read('app.js').replace(/\r\n/g,'\n');
 const closeMarker='init();\n})();';
 assert(source.includes(closeMarker),'app test hook marker missing');
 source=source.replace(closeMarker,`globalThis.__arenaTest={today:()=>today(),setState:value=>{state={...defaults,...value}},getState:()=>state,freeQuestionTake,showRewardedAd,nextIstanbulEight,hasPremiumAccess,isFreeLocked};\n})();`);
