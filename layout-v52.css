@@ -1,0 +1,55 @@
+/* V5.2 interaction/layout layer: scrollable content and touch-sized quiz controls */
+html,body,#app{height:100%;min-height:100%;overflow:hidden}
+.shell{height:100dvh;min-height:100dvh;overflow:hidden}
+.page-host{min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior-y:contain!important;scrollbar-gutter:stable}
+.page{height:auto!important;min-height:100%!important;overflow:visible!important;padding-bottom:22px!important}
+.page.active{display:flex!important;flex-direction:column!important}
+
+/* Long screens should grow naturally instead of squeezing all content into one viewport. */
+.subject-cards,.subject-picker,.progress-bars,.zeus-panel,.review-card{min-height:unset!important}
+.subject-cards{grid-template-rows:none!important;grid-auto-rows:minmax(118px,auto)!important;flex:none!important}
+.subject-picker{min-height:760px!important;flex:none!important;grid-auto-rows:minmax(220px,1fr)!important}
+.zeus-panel{flex:none!important;min-height:220px!important}
+
+/* Quiz view: no vertical compression. */
+.quiz-view{height:auto!important;min-height:100%!important;overflow:visible!important;display:flex!important;flex-direction:column!important;gap:12px!important;padding-bottom:18px!important}
+.quiz-view.hidden{display:none!important}
+.option-list{display:flex!important;flex-direction:column!important;gap:10px!important;flex:none!important;min-height:0!important}
+.option-btn{min-height:84px!important;padding:14px 16px!important;border-radius:16px!important;grid-template-columns:42px 1fr!important;gap:12px!important}
+.option-btn>span{width:38px!important;height:38px!important;font-size:15px!important}
+.option-btn b{font-size:16px!important;line-height:1.35!important}
+.quiz-view h2{font-size:clamp(22px,5vw,30px)!important;line-height:1.25!important;margin:8px 4px!important}
+.question-meta{font-size:13px!important}
+.quiz-top b{font-size:14px!important}.quiz-top span{font-size:13px!important}.quiz-top time{font-size:17px!important;padding:9px 12px!important}
+.quiz-progress{height:7px!important}
+
+/* Primary help controls: minimum 52-58 px touch target. */
+.support-bar{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:9px!important;flex:none!important}
+.support-bar button{min-height:56px!important;padding:11px 8px!important;border-radius:13px!important;font-size:13px!important;font-weight:800!important;line-height:1.2!important;white-space:normal!important}
+#hintBtn{background:linear-gradient(135deg,#0b72ff,#285cff)!important;color:#fff!important;border-color:#3987ff!important}
+#solutionBtn{background:#0b213b!important;color:#e7eff8!important}
+#askZeusBtn{background:#17180f!important;color:#f5d88e!important;border-color:rgba(231,184,91,.55)!important}
+#nextBtn{flex:none!important;display:block!important;width:100%!important;min-height:60px!important;margin:0!important;padding:14px 16px!important;border-radius:14px!important;font-size:15px!important;font-weight:900!important;letter-spacing:.2px!important;background:linear-gradient(90deg,#1478ff,#6b32ed)!important}
+.help-box{flex:none!important;font-size:13px!important;line-height:1.5!important;padding:12px!important}
+
+/* Keep navigation available while the middle area scrolls. */
+.bottom-nav{position:relative!important;z-index:20!important;flex-shrink:0!important}
+
+/* Image fallback: if the real img fails, the container still has a local raster background. */
+.cover{background:#020710 url('./assets/lgs2027-cover-fixed.webp?v=5.2.0') center 24%/cover no-repeat!important}
+.arena-hero-card,.zeus-hero{background-color:#061426!important;background-image:url('./assets/lgs2027-cover-fixed.webp?v=5.2.0')!important;background-size:cover!important;background-repeat:no-repeat!important;background-position:center 24%!important}
+.arena-hero-card>img,.zeus-hero>img,.cover>img{visibility:visible!important;opacity:1!important}
+
+@media(max-width:390px){
+ .support-bar{grid-template-columns:1fr!important}
+ .support-bar button{min-height:54px!important;font-size:14px!important}
+ .option-btn{min-height:78px!important}
+}
+@media(min-width:700px){
+ .page{padding-bottom:30px!important}
+ .quiz-view{max-width:920px!important;margin:0 auto!important;width:100%!important}
+ .option-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .support-bar button{min-height:62px!important;font-size:15px!important}
+ #nextBtn{min-height:64px!important;font-size:17px!important}
+ .subject-picker{min-height:560px!important}
+}
