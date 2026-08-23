@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const RELEASE = '4.3.0';
+  const RELEASE = '5.2.1';
   const CORE_TIMEOUT_MS = 12000;
   let deferredPrompt = null;
   let coreReady = false;
@@ -32,8 +32,8 @@
       link.dataset.arenaStyle = marker;
       document.head.appendChild(link);
     };
-    ensureLink('./mobile-v04.css', 'mobile');
-    ensureLink('./parent-v41.css', 'parent');
+    ensureLink('./mobile-v04.css?v=5.2.1', 'mobile');
+    ensureLink('./parent-v41.css?v=5.2.1', 'parent');
   }
 
   function ensureParentModule() {
@@ -70,7 +70,7 @@
       const img = document.createElement('img');
       img.id = 'globalZeusWatermark';
       img.className = 'global-zeus-watermark';
-      img.src = './assets/zeus.webp';
+      img.src = './assets/zeus-cover.svg';
       img.alt = '';
       img.setAttribute('aria-hidden','true');
       shell.prepend(img);
