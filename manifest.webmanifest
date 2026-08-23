@@ -8,18 +8,71 @@
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "display_override": ["standalone", "minimal-ui"],
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
   "orientation": "portrait-primary",
   "background_color": "#050b18",
   "theme_color": "#050b18",
-  "categories": ["education"],
+  "categories": [
+    "education"
+  ],
   "prefer_related_applications": false,
   "icons": [
-    {"src":"assets/app-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"},
-    {"src":"assets/app-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"maskable"}
+    {
+      "src": "assets/app-icon-20260823-03-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/app-icon-20260823-03-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/app-icon-maskable-20260823-03-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/app-icon-maskable-20260823-03-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ],
   "shortcuts": [
-    {"name":"Soru Çöz","short_name":"Soru Çöz","description":"Hızlı soru çözme ekranını aç","url":"./index.html#solve","icons":[{"src":"assets/app-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}]},
-    {"name":"Zeus","short_name":"Zeus","description":"Zeus çalışma rehberini aç","url":"./index.html#zeus","icons":[{"src":"assets/app-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}]}
+    {
+      "name": "Soru Çöz",
+      "short_name": "Soru Çöz",
+      "description": "Hızlı soru çözme ekranını aç",
+      "url": "./index.html#solve",
+      "icons": [
+        {
+          "src": "assets/app-icon-20260823-03-192.png",
+          "sizes": "192x192",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
+    },
+    {
+      "name": "Zeus",
+      "short_name": "Zeus",
+      "description": "Zeus çalışma rehberini aç",
+      "url": "./index.html#zeus",
+      "icons": [
+        {
+          "src": "assets/app-icon-20260823-03-192.png",
+          "sizes": "192x192",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
+    }
   ]
 }
