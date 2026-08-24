@@ -1,11 +1,10 @@
 (() => {
   'use strict';
   const ARENA_KEY='lgsArenaPwaV02',PREFERENCE_KEY='lgsArenaPreferenceV1',PROFILE_KEY='lgsArenaProfileV41';
-  const LEVELS=Object.freeze({free:0,premium:1,pro:2,pro_plus:3});
-  const LABELS=Object.freeze({free:'Ücretsiz',premium:'Arena Premium',pro:'Arena Pro',pro_plus:'Arena Pro+'});
+  const LEVELS=window.ArenaCoreV1?.PLAN_LEVEL||Object.freeze({free:0,premium:1,pro:2,pro_plus:3});
+  const LABELS=window.ArenaCoreV1?.PLAN_LABEL||Object.freeze({free:'Ücretsiz',premium:'Arena Premium',pro:'Arena Pro',pro_plus:'Arena Pro+'});
   const FEATURES=Object.freeze({
-    unlimitedPractice:'premium',adFree:'premium',zeusCoaching:'premium',wrongbook:'premium',parentTracking:'premium',preferenceRobot:'premium',deviceTransfer:'premium',
-    zeusAi:'pro',photoSolve:'pro',aiTests:'pro',advancedAnalytics:'pro',humanCoach:'pro_plus'
+    ...(window.ArenaCoreV1?.FEATURE_PLAN||{}),deviceTransfer:'premium',zeusAi:'pro',aiTests:'pro'
   });
   function read(key=ARENA_KEY){try{return JSON.parse(localStorage.getItem(key)||'{}')}catch{return {}}}
   function validPlan(value){return Object.prototype.hasOwnProperty.call(LEVELS,value)?value:null}
@@ -17,7 +16,7 @@
   }
   function persist(state){localStorage.setItem(ARENA_KEY,JSON.stringify(normalize(state)))}
   function current(){return normalize().plan}
-  function giftActive(){const until=Date.parse(read().freePremiumUntil||'');return Number.isFinite(until)&&until>Date.now()}
+  function giftActive(){const state=read(),until=Date.parse(state.freePremiumUntil||''),clock=window.LgsArenaAccess;return state.freePremiumVerifiedByServer===true&&clock?.clockVerified?.()===true&&Number.isFinite(until)&&until>clock.trustedNow()}
   function atLeast(plan){const active=giftActive()&&LEVELS[current()]<1?'premium':current();return LEVELS[active]>=LEVELS[plan]}
   function can(feature){const required=FEATURES[feature];return !!required&&atLeast(required)}
   function setPlan(plan){if(!validPlan(plan)||plan==='pro_plus')return false;const state=normalize();state.plan=plan;state.isPremium=LEVELS[plan]>=1;persist(state);window.dispatchEvent(new CustomEvent('lgsarena:plan-changed',{detail:{plan,label:LABELS[plan]}}));return true}
@@ -27,7 +26,7 @@
   async function exportBackup(){
     if(!can('deviceTransfer'))return openUpgrade('device-transfer');
     const data={};[ARENA_KEY,PREFERENCE_KEY,PROFILE_KEY].forEach(key=>{const value=localStorage.getItem(key);if(value!==null)data[key]=value});
-    const payload=JSON.stringify(data),file={format:'LGS_ARENA_DEVICE_TRANSFER',schema:1,createdAt:new Date().toISOString(),buildId:'20260824-23',automaticSync:false,data,checksum:await checksum(payload)};
+    const payload=JSON.stringify(data),file={format:'LGS_ARENA_DEVICE_TRANSFER',schema:1,createdAt:new Date().toISOString(),buildId:'20260824-24',automaticSync:false,data,checksum:await checksum(payload)};
     const blob=new Blob([JSON.stringify(file,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`lgs-arena-yedek-${new Date().toISOString().slice(0,10)}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
     toast('Cihaz aktarım dosyası indirildi.');
   }
