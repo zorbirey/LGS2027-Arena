@@ -102,7 +102,7 @@ function wire(){
   $$('[data-nav]').forEach(b=>b.onclick=()=>{const target=b.dataset.nav;if(isFreeLocked()&&target!=='progress'){openMembership('daily-ad-lock');return}if(target==='zeus'&&!hasPremiumAccess()){openMembership('zeus');return}showPage(target)});
   byId('quickStart').onclick=()=>{if(isFreeLocked())openMembership('daily-ad-lock');else showPage('solve')};
   const miniButton=byId('startDailyMini');if(miniButton)miniButton.onclick=startDailyMini;const miniCard=byId('dailyMiniCard');miniCard?.addEventListener('click',()=>startDailyMini());miniCard?.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();startDailyMini()}});
-  $('[data-written-scenario]').forEach(b=>b.onclick=()=>openWrittenScenario(b.dataset.writtenScenario));
+  $$('[data-written-scenario]').forEach(b=>b.onclick=()=>openWrittenScenario(b.dataset.writtenScenario));
   byId('quotaPremium').onclick=()=>{const gate=byId('quotaOverlay');gate.classList.add('hidden');gate.setAttribute('aria-hidden','true');openMembership(isFreeLocked()?'daily-ad-lock':'daily-limit')};
   byId('contentReward').onclick=()=>{const gate=byId('contentGate');gate.classList.add('hidden');gate.setAttribute('aria-hidden','true');showRewardedAd('Ders özetine devam',()=>{const next=pendingContentAdvance;pendingContentAdvance=null;if(next)next()})};
   byId('contentPremium').onclick=()=>{const gate=byId('contentGate');gate.classList.add('hidden');gate.setAttribute('aria-hidden','true');openMembership('lesson-summary')};

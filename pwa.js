@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const RELEASE='6.4.0',BUILD_ID='20260824-10',CORE_TIMEOUT_MS=12000;
+  const RELEASE='6.4.1',BUILD_ID='20260824-11',CORE_TIMEOUT_MS=12000;
   let deferredPrompt=null,coreReady=false,coreFailed=false;
   const params=new URLSearchParams(location.search),bypassServiceWorker=params.get('bypassSW')==='1'||params.get('direct')==='1';
   const allowedHashes=new Set(['arena','zeus','wrongbook','subjects','solve','mock','progress','preference','membership']),pendingHash=allowedHashes.has(location.hash.replace('#',''))?location.hash.replace('#',''):'arena';
@@ -16,7 +16,7 @@
     @media(max-height:690px){.model-notice{font-size:8px;bottom:calc(78px + env(safe-area-inset-bottom));padding:5px 7px}.cover-skip{min-height:48px}.subject-card{padding-top:5px!important;padding-bottom:5px!important}}
   `;document.head.appendChild(style)}
   function ensureBrandLayers(){const shell=document.getElementById('shell');if(shell&&!document.getElementById('globalZeusWatermark')){const img=document.createElement('img');img.id='globalZeusWatermark';img.className='global-zeus-watermark';img.src='./assets/zeus-hero-20260823-02.webp?v='+BUILD_ID;img.alt='';img.setAttribute('aria-hidden','true');shell.prepend(img)}const cover=document.getElementById('cover');if(cover&&!cover.querySelector('.model-notice')){const note=document.createElement('p');note.className='model-notice';note.textContent='Türkiye Yüzyılı Maarif Modeli dikkate alınmıştır.';cover.appendChild(note)}}
-  function coreLooksReady(){return document.querySelectorAll('#solveSubjects [data-launch]').length>=6&&document.querySelectorAll('#arenaSubjects .mini-sub').length>=6&&!!window.LgsArenaAdaptive&&window.LgsArenaPreference?.dataCount===3098&&!!window.LgsArenaAccess}
+  function coreLooksReady(){return document.querySelectorAll('#solveSubjects [data-launch]').length>=6&&document.querySelectorAll('#arenaSubjects .mini-sub').length>=6&&!!window.LgsArenaAdaptive&&!!window.LgsArenaAccess}
   function setEntryState(state){const button=document.getElementById('skipCover');if(!button)return;if(state==='loading'){button.disabled=true;button.dataset.mode='loading';button.textContent='ARENA HAZIRLANIYOR';button.setAttribute('aria-busy','true')}else if(state==='ready'){button.disabled=false;button.dataset.mode='ready';button.textContent='ARENAYA GİR';button.removeAttribute('aria-busy')}else{button.disabled=false;button.dataset.mode='retry';button.textContent='YENİDEN YÜKLE';button.removeAttribute('aria-busy')}}
   function waitForCore(){const started=Date.now();setEntryState('loading');const check=()=>{if(coreLooksReady()){coreReady=true;coreFailed=false;setEntryState('ready');window.dispatchEvent(new CustomEvent('lgsarena:ready',{detail:{version:RELEASE,buildId:BUILD_ID}}));return}if(Date.now()-started>=CORE_TIMEOUT_MS){coreReady=false;coreFailed=true;setEntryState('retry');appToast('Arena çekirdeği tam yüklenemedi. İnternet bağlantısını kontrol edip yeniden yükle.');return}setTimeout(check,90)};check()}
   function revealShell(){const cover=document.getElementById('cover'),shell=document.getElementById('shell');cover?.classList.remove('active');cover?.classList.add('hidden');shell?.classList.remove('hidden')}
