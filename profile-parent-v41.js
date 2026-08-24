@@ -24,14 +24,14 @@
   function notify(message){const toast=byId('toast');if(!toast)return;toast.textContent=message;toast.classList.remove('hidden');clearTimeout(notify.timer);notify.timer=setTimeout(()=>toast.classList.add('hidden'),4200)}
 
   function referralCount(state=readState()){return Math.min(3,Array.isArray(state.referralFriendIds)?state.referralFriendIds.length:0)}
-  function applyReferralReward(friendId){
+  function applyReferralReward(friendId,verification={}){if(verification.verifiedByServer!==true)return {ok:false,reason:'server-verification-required'};
     const id=String(friendId||'').trim();if(!id)return {ok:false,reason:'missing-friend'};
     const state=readState(),ids=Array.isArray(state.referralFriendIds)?state.referralFriendIds.slice(0,3):[];
     if(ids.includes(id))return {ok:false,reason:'duplicate',count:ids.length};
     if(ids.length>=3)return {ok:false,reason:'complete',count:3};
     const rewardDays=[1,2,3][ids.length];ids.push(id);state.referralFriendIds=ids;
     const current=Date.parse(state.freePremiumUntil||''),base=Number.isFinite(current)&&current>Date.now()?current:Date.now();
-    state.freePremiumUntil=new Date(base+rewardDays*86400000).toISOString();writeState(state);
+    state.freePremiumUntil=new Date(base+rewardDays*86400000).toISOString();state.freePremiumVerifiedByServer=true;writeState(state);
     window.dispatchEvent(new CustomEvent('lgsarena:access-updated',{detail:{source:'referral',rewardDays,count:ids.length}}));
     window.dispatchEvent(new CustomEvent('lgsarena:premium-changed',{detail:{premium:true,source:'referral'}}));
     configureParentEntry();return {ok:true,rewardDays,count:ids.length,until:state.freePremiumUntil};
