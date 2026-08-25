@@ -40,6 +40,7 @@
       const [appSdk,authSdk]=await Promise.all([import(`${base}/firebase-app.js`),import(`${base}/firebase-auth.js`)]);
       const app=appSdk.getApps().length?appSdk.getApp():appSdk.initializeApp(config.firebase);
       auth=authSdk.getAuth(app);
+      auth.languageCode='tr';
       await authSdk.setPersistence(auth,authSdk.browserSessionPersistence);
       modules=authSdk;
       authSdk.onAuthStateChanged(auth,user=>{current=user;for(const listener of listeners)listener(publicUser(user))});

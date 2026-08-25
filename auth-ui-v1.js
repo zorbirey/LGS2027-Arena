@@ -5,7 +5,7 @@
   if(!config?.enabled||!bridgeApi)return;
 
   const auth=bridgeApi.createBridge(config);
-  let message='Hesabınız varsa giriş yapın; ilk kullanımda e-posta doğrulaması gerekir.';
+  let message='Hesabınız varsa giriş yapın. Yeni hesaplarda doğrulama e-postası Spam veya Gereksiz klasörüne düşebilir.';
   let tone='info';
   let busy=false;
 
@@ -58,7 +58,7 @@
     const signOut=byId('arenaAuthSignOut');
     if(signOut){signOut.onclick=()=>run(async()=>{await auth.signOut();message='Hesaptan çıkış yapıldı.';tone='success';refreshPanel(true)});return}
     byId('arenaAuthSignIn').onclick=()=>run(async()=>{const data=credentials();await auth.signIn(data);message='Giriş başarılı.';tone='success';refreshPanel(true)});
-    byId('arenaAuthSignUp').onclick=()=>run(async()=>{const data=credentials(),displayName=(byId('studentNameInput')?.value||'').trim();await auth.signUp({...data,displayName});await auth.signOut();setMessage('Doğrulama e-postası gönderildi. Gelen kutunuzdaki bağlantıya dokunup ardından giriş yapın.','success')});
+    byId('arenaAuthSignUp').onclick=()=>run(async()=>{const data=credentials(),displayName=(byId('studentNameInput')?.value||'').trim();await auth.signUp({...data,displayName});await auth.signOut();setMessage('Doğrulama e-postası gönderildi. Gelen kutusunda görünmüyorsa Spam veya Gereksiz klasörünü kontrol edin; bağlantıya dokunduktan sonra giriş yapın.','success')});
     byId('arenaAuthReset').onclick=()=>run(async()=>{const email=(byId('arenaAuthEmail')?.value||'').trim();if(!email)throw new Error('E-posta adresinizi yazın.');await auth.sendPasswordReset(email);setMessage('Parola yenileme bağlantısı e-posta adresinize gönderildi.','success')});
   }
 
