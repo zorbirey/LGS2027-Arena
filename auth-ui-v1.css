@@ -8,6 +8,8 @@
 .arena-auth-panel label span{display:block;margin-bottom:4px;color:#9eb4ca;font-size:8px}
 .arena-auth-panel input{width:100%;min-height:40px;padding:9px 10px;border:1px solid #ffffff22;border-radius:10px;background:#020d1b;color:#fff;font-size:11px;outline:none}
 .arena-auth-panel input:focus{border-color:#5c9cff;box-shadow:0 0 0 2px #397dff28}
+.arena-auth-password-rules{margin:4px 0 9px;padding:8px 10px 8px 24px;border:1px solid #397dff33;border-radius:9px;background:#051426;color:#a9bdd1;font-size:7.5px;line-height:1.5}
+.arena-auth-password-rules li::marker{color:#72b7ff}
 .arena-auth-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}
 .arena-auth-actions button,.arena-auth-secondary{min-height:39px;border:0;border-radius:10px;background:linear-gradient(90deg,#1478ff,#6948ff);color:#fff;font-size:8px;font-weight:900}
 .arena-auth-actions button+button{border:1px solid #e7b85b55;background:#171205;color:#f5d88e}
