@@ -2,7 +2,7 @@ window.ARENA_CORE_CONFIG=Object.freeze({
   coreVersion:'ARENA-CORE-V1',
   appId:'lgs2027-arena',
   appName:'LGS 2027 Arena',
-  buildId:'20260825-03',
+  buildId:'20260825-04',
   storageNamespace:'lgs2027-arena:core:v1',
   identity:Object.freeze({
     enabled:true,

@@ -12,7 +12,8 @@
 .arena-auth-password-rules li::marker{color:#72b7ff}
 .arena-auth-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}
 .arena-auth-actions button,.arena-auth-secondary{min-height:39px;border:0;border-radius:10px;background:linear-gradient(90deg,#1478ff,#6948ff);color:#fff;font-size:8px;font-weight:900}
-.arena-auth-actions button+button{border:1px solid #e7b85b55;background:#171205;color:#f5d88e}
+#arenaAuthSignIn{border:1px solid #ffffff18;background:#071526;color:#8296aa;box-shadow:none;opacity:.72}
+#arenaAuthSignUp{border:1px solid #8a7dff66;background:linear-gradient(90deg,#1478ff,#6948ff);color:#fff;box-shadow:0 7px 16px #3228b633}
 .arena-auth-link{display:block;margin:9px auto 2px;border:0;background:transparent;color:#78afff;font-size:8px;text-decoration:underline}
 .arena-auth-panel button:disabled{opacity:.55;cursor:wait}
 .arena-auth-panel>small{display:block;margin-top:8px;color:#7890a8;font-size:7px;line-height:1.35}
