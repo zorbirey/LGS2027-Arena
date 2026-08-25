@@ -2,7 +2,25 @@ window.ARENA_CORE_CONFIG=Object.freeze({
   coreVersion:'ARENA-CORE-V1',
   appId:'lgs2027-arena',
   appName:'LGS 2027 Arena',
-  buildId:'20260824-24',
+  buildId:'20260825-01',
   storageNamespace:'lgs2027-arena:core:v1',
+  identity:Object.freeze({
+    enabled:true,
+    standard:'ARENA-IDENTITY-CORE-V1',
+    bridgeStandard:'ARENA-AUTH-BRIDGE-V1',
+    provider:'firebase',
+    appId:'lgs2027-arena',
+    sdkVersion:'12.18.0',
+    requireVerifiedEmail:true,
+    localStorageSessionAllowed:false,
+    firebase:Object.freeze({
+      apiKey:'AIzaSyDHe8fi82A-ELOwT1ygY9gIIXlJ8G-_fz8',
+      authDomain:'arena-edu-production.firebaseapp.com',
+      projectId:'arena-edu-production',
+      storageBucket:'arena-edu-production.firebasestorage.app',
+      messagingSenderId:'628565077184',
+      appId:'1:628565077184:web:7001e83df91945aad49125'
+    })
+  }),
   exam:{id:'lgs-2027',questionCount:90,durationMinutes:155,optionCount:4,wrongPenalty:1/3,challengeQuestionCount:90,challengeDurationMinutes:90}
 });

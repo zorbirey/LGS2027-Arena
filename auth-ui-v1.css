@@ -1,0 +1,22 @@
+.arena-auth-panel{margin:12px 0;padding:12px;border:1px solid #397dff66;border-radius:14px;background:linear-gradient(145deg,#0b2542,#061527);box-shadow:0 10px 24px #0004}
+.arena-auth-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.arena-auth-head span{display:block;color:#72b7ff;font-size:8px;font-weight:900;letter-spacing:1.4px}
+.arena-auth-head h3{margin:3px 0 0;color:#fff;font:700 15px Georgia,serif}
+.arena-auth-head>b{padding:5px 7px;border:1px solid #e7b85b66;border-radius:999px;color:#f5d88e;font-size:7px;letter-spacing:.8px}
+.arena-auth-panel>p{margin:9px 0;color:#b7c9dc;font-size:9px;line-height:1.4}
+.arena-auth-panel label{display:block;margin:8px 0}
+.arena-auth-panel label span{display:block;margin-bottom:4px;color:#9eb4ca;font-size:8px}
+.arena-auth-panel input{width:100%;min-height:40px;padding:9px 10px;border:1px solid #ffffff22;border-radius:10px;background:#020d1b;color:#fff;font-size:11px;outline:none}
+.arena-auth-panel input:focus{border-color:#5c9cff;box-shadow:0 0 0 2px #397dff28}
+.arena-auth-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}
+.arena-auth-actions button,.arena-auth-secondary{min-height:39px;border:0;border-radius:10px;background:linear-gradient(90deg,#1478ff,#6948ff);color:#fff;font-size:8px;font-weight:900}
+.arena-auth-actions button+button{border:1px solid #e7b85b55;background:#171205;color:#f5d88e}
+.arena-auth-link{display:block;margin:9px auto 2px;border:0;background:transparent;color:#78afff;font-size:8px;text-decoration:underline}
+.arena-auth-panel button:disabled{opacity:.55;cursor:wait}
+.arena-auth-panel>small{display:block;margin-top:8px;color:#7890a8;font-size:7px;line-height:1.35}
+.arena-auth-message{padding:7px 8px;border-radius:8px;background:#071a30}
+.arena-auth-message.success{border-left:3px solid #3bc893;color:#baf0dc}
+.arena-auth-message.error{border-left:3px solid #ff6464;color:#ffd0d0}
+.arena-auth-panel.is-signed-in{border-color:#3bc89366}
+.arena-auth-panel.is-signed-in .arena-auth-head>b{border-color:#3bc89366;color:#8ce6bf}
+@media(max-height:700px){.arena-auth-panel{padding:10px}.arena-auth-panel input{min-height:36px}.arena-auth-actions button,.arena-auth-secondary{min-height:35px}}
